@@ -35,11 +35,11 @@ const MomentsScreen = () => {
   }}>
       <Image source={{
       uri: item.image
-    }} style={_styles.mqUOBuRH} />
+    }} style={_styles.xTQFHaaE} />
       <Text>{item.name}</Text>
     </TouchableOpacity>;
 
-  return <SafeAreaView style={_styles.RdFRHHZu}>
+  return <SafeAreaView style={_styles.hjitctWl}>
       <FlatList data={momentsData} renderItem={renderItem} keyExtractor={item => item.id} numColumns={2} />
       <Button title="Customize and Print" onPress={() => console.log('Customize and Print')} />
     </SafeAreaView>;
@@ -48,11 +48,11 @@ const MomentsScreen = () => {
 export default MomentsScreen;
 
 const _styles = StyleSheet.create({
-  mqUOBuRH: {
+  xTQFHaaE: {
     width: 100,
     height: 100
   },
-  RdFRHHZu: {
+  hjitctWl: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
