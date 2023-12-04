@@ -28,35 +28,35 @@ const CRMSection = () => {
 
   const renderContact = ({
     item
-  }) => <View style={_styles.duHpmdmt}>
+  }) => <View style={_styles.JflICOCf}>
       <Image source={{
       uri: item.image
-    }} style={_styles.HrPeVsrd} />
-      <Text style={_styles.QBqwyfrR}>{item.name}</Text>
+    }} style={_styles.jYxuhvqB} />
+      <Text style={_styles.SVqAcjwA}>{item.name}</Text>
     </View>;
 
   const renderEvent = ({
     item
-  }) => <View style={_styles.rmDcVbve}>
-      <Text style={_styles.TLlkoidU}>{item.title}</Text>
-      <Text style={_styles.RlYXRQSr}>{item.date}</Text>
-      <View style={_styles.fJUCGTnO}>
+  }) => <View style={_styles.SFyWdUCK}>
+      <Text style={_styles.mugRsORP}>{item.title}</Text>
+      <Text style={_styles.vjPAWqTf}>{item.date}</Text>
+      <View style={_styles.WsqQSiyj}>
         {item.contacts.map(contactId => {
         const contact = contacts.find(c => c.id === contactId);
         return <Image key={contactId} source={{
           uri: contact.image
-        }} style={_styles.CiiiQMbj} />;
+        }} style={_styles.EWcZXvgZ} />;
       })}
       </View>
     </View>;
 
-  return <SafeAreaView style={_styles.tudYnBkI}>
-      <View style={_styles.rnmNKeRE}>
-        <Text style={_styles.DIblQwjq}>CRM Section</Text>
-        <TextInput placeholder="Search contacts..." style={_styles.QlLCUPGC} />
-        <FlatList data={contacts} renderItem={renderContact} keyExtractor={item => item.id} horizontal style={_styles.iUZTXJey} />
-        <Text style={_styles.yOxagUEx}>Events</Text>
-        <FlatList data={events} renderItem={renderEvent} keyExtractor={item => item.id} style={_styles.xRTqPWAq} />
+  return <SafeAreaView style={_styles.sfazzxdY}>
+      <View style={_styles.xfNRedhG}>
+        <Text style={_styles.BEOCdsxo}>CRM Section</Text>
+        <TextInput placeholder="Search contacts..." style={_styles.ntDMHzEH} />
+        <FlatList data={contacts} renderItem={renderContact} keyExtractor={item => item.id} horizontal style={_styles.uxvYhGRU} />
+        <Text style={_styles.KbbCktNj}>Events</Text>
+        <FlatList data={events} renderItem={renderEvent} keyExtractor={item => item.id} style={_styles.cphvNtKe} />
       </View>
     </SafeAreaView>;
 };
@@ -64,65 +64,65 @@ const CRMSection = () => {
 export default CRMSection;
 
 const _styles = StyleSheet.create({
-  duHpmdmt: {
+  JflICOCf: {
     flexDirection: "row",
     alignItems: "center",
     margin: 10
   },
-  HrPeVsrd: {
+  jYxuhvqB: {
     width: 50,
     height: 50,
     borderRadius: 25
   },
-  QBqwyfrR: {
+  SVqAcjwA: {
     marginLeft: 10
   },
-  rmDcVbve: {
+  SFyWdUCK: {
     padding: 10,
     borderBottomColor: "#ccc",
     borderBottomWidth: 1
   },
-  TLlkoidU: {
+  mugRsORP: {
     fontSize: 18,
     fontWeight: "bold"
   },
-  RlYXRQSr: {
+  vjPAWqTf: {
     color: "#888"
   },
-  fJUCGTnO: {
+  WsqQSiyj: {
     flexDirection: "row",
     marginTop: 10
   },
-  CiiiQMbj: {
+  EWcZXvgZ: {
     width: 30,
     height: 30,
     borderRadius: 15
   },
-  tudYnBkI: {
+  sfazzxdY: {
     flex: 1
   },
-  rnmNKeRE: {
+  xfNRedhG: {
     padding: 20
   },
-  DIblQwjq: {
+  BEOCdsxo: {
     fontSize: 24,
     fontWeight: "bold"
   },
-  QlLCUPGC: {
+  ntDMHzEH: {
     marginTop: 20,
     padding: 10,
     backgroundColor: "#f0f0f0",
     borderRadius: 5
   },
-  iUZTXJey: {
+  uxvYhGRU: {
     marginTop: 20
   },
-  yOxagUEx: {
+  KbbCktNj: {
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 20
   },
-  xRTqPWAq: {
+  cphvNtKe: {
     marginTop: 20
   }
 });
