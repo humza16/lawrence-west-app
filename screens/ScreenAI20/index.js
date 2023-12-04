@@ -9,18 +9,18 @@ const ViewMoments = () => {
     audio: ['https://tinyurl.com/42evm3m3'],
     qrCode: 'https://tinyurl.com/42evm3m3'
   };
-  return <SafeAreaView style={_styles.TgMFTsRB}>
-      <ScrollView style={_styles.WRzoCvpN}>
-        <Text style={_styles.TBUXjnbm}>Your Greeting Card</Text>
+  return <SafeAreaView style={_styles.ZwGOaYbz}>
+      <ScrollView style={_styles.CXNKWFps}>
+        <Text style={_styles.YHDDxigf}>Your Greeting Card</Text>
         {greetingCard.images.map((image, index) => <Image key={index} source={{
         uri: image
-      }} style={_styles.SKbucjTA} />)}
-        {greetingCard.videos.map((video, index) => <View key={index} style={_styles.XlDKDtXw} />)}
-        {greetingCard.audio.map((audio, index) => <View key={index} style={_styles.KZFyYTSo} />)}
-        <Text style={_styles.HDgUxFvS}>Your QR Code:</Text>
+      }} style={_styles.nOTevpiG} />)}
+        {greetingCard.videos.map((video, index) => <View key={index} style={_styles.KpsiCVRG} />)}
+        {greetingCard.audio.map((audio, index) => <View key={index} style={_styles.tteuMLqA} />)}
+        <Text style={_styles.MAEMgwsU}>Your QR Code:</Text>
         <Image source={{
         uri: greetingCard.qrCode
-      }} style={_styles.ZBilSovf} />
+      }} style={_styles.iMmxqWyK} />
       </ScrollView>
     </SafeAreaView>;
 };
@@ -28,41 +28,41 @@ const ViewMoments = () => {
 export default ViewMoments;
 
 const _styles = StyleSheet.create({
-  TgMFTsRB: {
+  ZwGOaYbz: {
     flex: 1,
     backgroundColor: "#fff"
   },
-  WRzoCvpN: {
+  CXNKWFps: {
     padding: 20
   },
-  TBUXjnbm: {
+  YHDDxigf: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20
   },
-  SKbucjTA: {
+  nOTevpiG: {
     width: "100%",
     height: 200,
     marginBottom: 20
   },
-  XlDKDtXw: {
+  KpsiCVRG: {
     width: "100%",
     height: 200,
     backgroundColor: "#000",
     marginBottom: 20
   },
-  KZFyYTSo: {
+  tteuMLqA: {
     width: "100%",
     height: 50,
     backgroundColor: "#000",
     marginBottom: 20
   },
-  HDgUxFvS: {
+  MAEMgwsU: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10
   },
-  ZBilSovf: {
+  iMmxqWyK: {
     width: 200,
     height: 200
   }
