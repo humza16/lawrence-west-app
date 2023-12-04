@@ -1454,7 +1454,12 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@modules/privacy-policy-webview@file:./modules/privacy-policy-webview/":
+"@modules/camera@file:./modules/camera/":
+  version "1.0.1"
+  dependencies:
+    react-native-actionsheet "^2.4.2"
+
+"@modules/privacy-policy-webview@file:./modules/privacy-policy-webview":
   version "1.0.0"
 
 "@modules/terms-and-conditions@file:./modules/terms-and-conditions":
@@ -7230,6 +7235,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-actionsheet@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/react-native-actionsheet/-/react-native-actionsheet-2.4.2.tgz#6a00dd51a75ef2c8974312130e405af73191500f"
+  integrity sha512-DBoWIvVwuWXuptF4t46pBqkFxaUxS+rsIdHiA05t0n4BdTIDV2R4s9bLEUVOGzb94D7VxIamsXZPA/3mmw+SXg==
+
 react-native-codegen@^0.71.5:
   version "0.71.5"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.71.5.tgz#454a42a891cd4ca5fc436440d301044dc1349c14"
@@ -7292,6 +7302,11 @@ react-native-gradle-plugin@^0.71.17:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.17.tgz#cf780a27270f0a32dca8184eff91555d7627dd00"
   integrity sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA==
 
+react-native-image-crop-picker@0.36.2:
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.2.tgz#fcb35c1a12d805bedbb6d94a87078e86a6c9b49f"
+  integrity sha512-cTauoEHHzx14ZHA7Pt65e7RVnbn1WRYQz2ufTZp9/05EtNDrdsXwNhgtXdWVFbOhYB8qgUFQjy2NelkBOHIH3g==
+
 react-native-paper@^5.9.1:
   version "5.10.6"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-5.10.6.tgz#922f25bd258140f3b7600c9b67674593e90ea19e"
@@ -7300,6 +7315,11 @@ react-native-paper@^5.9.1:
     "@callstack/react-theme-provider" "^3.0.9"
     color "^3.1.2"
     use-latest-callback "^0.1.5"
+
+react-native-permissions@3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.4.tgz#7771d28899d7d2b75fd2a70cd3f86d44c90397ec"
+  integrity sha512-GMd0l0TA/qupidGFfKAVNaboewQkJSW+l3ndwv1cu+tBGI+TRfJdMjg8Q714wn9roZlXsZ3z407qT2xPdQmGdg==
 
 react-native-radio-buttons-group@^2.3.2:
   version "2.3.2"

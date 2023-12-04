@@ -5,17 +5,14 @@ import ImagePicker from "react-native-image-crop-picker";
 async function askPermission(permission) {
   try {
     const status = await Permissions.check(permission);
-
     if (status !== Permissions.RESULTS.GRANTED) {
       // if not already granted then ask
       const status = await Permissions.request(permission);
-
       if (status !== Permissions.RESULTS.GRANTED) {
         // user denied on ask
         return false;
       }
     }
-
     return true;
   } catch (err) {
     console.log("askPermission err", err, " for permission", permission);
@@ -25,13 +22,12 @@ async function askPermission(permission) {
 
 export async function getCameraGalleryPermissions() {
   // need both permisisons for camera, so ask both on galery and camera
-  const {
-    PERMISSIONS
-  } = Permissions;
+  const { PERMISSIONS } = Permissions;
   let permission = Platform.select({
     android: PERMISSIONS.ANDROID.CAMERA,
     ios: PERMISSIONS.IOS.CAMERA
   });
+
   const cameraPermissions = await askPermission(permission);
   permission = Platform.select({
     android: PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
@@ -42,23 +38,31 @@ export async function getCameraGalleryPermissions() {
 }
 
 function permissionsAlert() {
-  Alert.alert("Permissions Required", "App requires Camera & Photos access to function properly. Please go to settings to enable manually.", [{
-    text: "Cancel",
-    onPress: () => {
-      console.log("Cancel Pressed");
-    },
-    style: "cancel"
-  }, {
-    text: "Settings",
-    onPress: () => {
-      Permissions.openSettings().catch(() => console.log("cannot open settings"));
-    }
-  }]);
+  Alert.alert(
+    "Permissions Required",
+    "App requires Camera & Photos access to function properly. Please go to settings to enable manually.",
+    [
+      {
+        text: "Cancel",
+        onPress: () => {
+          console.log("Cancel Pressed");
+        },
+        style: "cancel"
+      },
+      {
+        text: "Settings",
+        onPress: () => {
+          Permissions.openSettings().catch(() =>
+            console.log("cannot open settings")
+          );
+        }
+      }
+    ]
+  );
 }
 
 export const pickFromGallery = async () => {
   const havePermission = await getCameraGalleryPermissions();
-
   if (!havePermission) {
     permissionsAlert();
     return false;
@@ -78,9 +82,9 @@ export const pickFromGallery = async () => {
     }
   }
 };
+
 export const pickFromCamera = async () => {
   const havePermission = await getCameraGalleryPermissions();
-
   if (!havePermission) {
     permissionsAlert();
     return false;

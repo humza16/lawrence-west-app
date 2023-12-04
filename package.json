@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@babel/polyfill": "^7.12.1",
+    "@modules/camera": "file:./modules/camera/",
     "@modules/privacy-policy-webview": "file:./modules/privacy-policy-webview/",
     "@modules/terms-and-conditions": "file:./modules/terms-and-conditions",
     "@modules/user-profile": "file:./modules/user-profile/",
@@ -28,7 +29,9 @@
     "react-native-dotenv": "^3.4.8",
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "^2.10.0",
+    "react-native-image-crop-picker": "0.36.2",
     "react-native-paper": "^5.9.1",
+    "react-native-permissions": "3.0.4",
     "react-native-radio-buttons-group": "^2.3.2",
     "react-native-reanimated": "~2.14.0",
     "react-native-responsive-screen": "^1.4.2",
