@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ac48fb8755f02d8307027dab457d685a8322521dfb66be1b3391096b88fe0feb"
+            "sha256": "06c9d7ecb589aad3219c18655d4adce3dc7e7ad449144a3c86add75e8bb31301"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -63,6 +63,10 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==5.3.2"
+        },
+        "cb-django-contact-us": {
+            "editable": true,
+            "path": "./modules/django_contact_us"
         },
         "cb-terms-and-conditions": {
             "editable": true,
@@ -882,6 +886,14 @@
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.8.2"
         },
+        "python-http-client": {
+            "hashes": [
+                "sha256:ad371d2bbedc6ea15c26179c6222a78bc9308d272435ddf1d5c84f068f249a36",
+                "sha256:bf841ee45262747e00dec7ee9971dfb8c7d83083f5713596488d67739170cea0"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==3.3.7"
+        },
         "python3-openid": {
             "hashes": [
                 "sha256:33fbf6928f401e0b790151ed2b5290b02545e8775f982485205a066f874aaeaf",
@@ -1097,6 +1109,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==0.7.0"
         },
+        "sendgrid": {
+            "hashes": [
+                "sha256:43ecf5bb742ea5850c7cfe68f5e7d9948772352306d4e83e119899959538b884",
+                "sha256:71424b2a97f5a034121ea3b2666c653ba0ed315982f0d57b7851c0c9503dc5ab"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
+            "version": "==6.11.0"
+        },
         "setuptools": {
             "hashes": [
                 "sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2",
@@ -1128,6 +1148,12 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==0.4.4"
+        },
+        "starkbank-ecdsa": {
+            "hashes": [
+                "sha256:9399c3371b899d4a235b68a1ed7919d202fbf024bd2c863ae8ebdad343c2a63a"
+            ],
+            "version": "==2.2.0"
         },
         "tablib": {
             "extras": [

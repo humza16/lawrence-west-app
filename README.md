@@ -62,6 +62,7 @@ This section will show any installed modules you add from the Storyboard Modules
 - [terms-and-conditions]()
 - [react-native-privacy-policy-webview](modules/privacy-policy-webview)
 - [react-native-camera](modules/camera)
+- [django-contact-us](backend/modules)
 
 # Getting started: Frontend
 
