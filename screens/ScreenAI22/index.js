@@ -27,9 +27,9 @@ const ShareGreetingCardScreen = () => {
     }
   };
 
-  return <SafeAreaView style={_styles.UVzmHbVF}>
-      <Text style={_styles.NXUvBxIy}>Share Greeting Card QR Code</Text>
-      <Image style={_styles.RibEaUbg} source={{
+  return <SafeAreaView style={_styles.aYzMRlqe}>
+      <Text style={_styles.pgaJGcjG}>Share Greeting Card QR Code</Text>
+      <Image style={_styles.ikUCeGrX} source={{
       uri: qrCodeUrl
     }} />
       <Button title="Share QR Code" onPress={onShare} />
@@ -39,17 +39,17 @@ const ShareGreetingCardScreen = () => {
 export default ShareGreetingCardScreen;
 
 const _styles = StyleSheet.create({
-  UVzmHbVF: {
+  aYzMRlqe: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
   },
-  NXUvBxIy: {
+  pgaJGcjG: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20
   },
-  RibEaUbg: {
+  ikUCeGrX: {
     width: 200,
     height: 200,
     marginBottom: 20
