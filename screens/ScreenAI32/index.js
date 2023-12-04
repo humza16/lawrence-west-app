@@ -21,17 +21,17 @@ const SelectPrintingVendorScreen = () => {
     Linking.openURL(url);
   };
 
-  return <SafeAreaView style={_styles.LvofekiO}>
-      <View style={_styles.lPclbUJm}>
-        <Text style={_styles.uLdLQcoB}>Select Printing Vendor</Text>
+  return <SafeAreaView style={_styles.tWkOYPRi}>
+      <View style={_styles.uMkQCwuo}>
+        <Text style={_styles.KYoXEUaQ}>Select Printing Vendor</Text>
       </View>
       <FlatList data={vendors} keyExtractor={item => item.id} renderItem={({
       item
-    }) => <TouchableOpacity style={_styles.oRwPKUVZ} onPress={() => handleVendorSelection(item.url)}>
+    }) => <TouchableOpacity style={_styles.VBXRFbqE} onPress={() => handleVendorSelection(item.url)}>
             <Image source={{
         uri: 'https://tinyurl.com/42evm3m3'
-      }} style={_styles.hLdJvYno} />
-            <Text style={_styles.SpAOhDQB}>{item.name}</Text>
+      }} style={_styles.CaarcsLa} />
+            <Text style={_styles.GellZjas}>{item.name}</Text>
           </TouchableOpacity>} />
     </SafeAreaView>;
 };
@@ -39,19 +39,19 @@ const SelectPrintingVendorScreen = () => {
 export default SelectPrintingVendorScreen;
 
 const _styles = StyleSheet.create({
-  LvofekiO: {
+  tWkOYPRi: {
     flex: 1,
     backgroundColor: "#F5F5F5"
   },
-  lPclbUJm: {
+  uMkQCwuo: {
     padding: 20
   },
-  uLdLQcoB: {
+  KYoXEUaQ: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#333"
   },
-  oRwPKUVZ: {
+  VBXRFbqE: {
     flexDirection: "row",
     alignItems: "center",
     padding: 20,
@@ -67,13 +67,13 @@ const _styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  hLdJvYno: {
+  CaarcsLa: {
     width: 50,
     height: 50,
     borderRadius: 25,
     marginRight: 20
   },
-  SpAOhDQB: {
+  GellZjas: {
     fontSize: 18,
     color: "#333"
   }
