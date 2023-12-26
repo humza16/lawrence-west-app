@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/static/css/main.64ba7b4e.css",
+    "main.js": "/static/js/main.b7f813eb.js",
+    "static/css/502.2d25a711.chunk.css": "/static/css/502.2d25a711.chunk.css",
+    "static/js/502.21b7f1aa.chunk.js": "/static/js/502.21b7f1aa.chunk.js",
+    "static/js/994.48e5e0a2.chunk.js": "/static/js/994.48e5e0a2.chunk.js",
+    "static/js/54.b43f9980.chunk.js": "/static/js/54.b43f9980.chunk.js",
+    "static/js/723.0910a514.chunk.js": "/static/js/723.0910a514.chunk.js",
+    "static/js/42.3c95dc78.chunk.js": "/static/js/42.3c95dc78.chunk.js",
+    "static/css/292.5080a7b3.chunk.css": "/static/css/292.5080a7b3.chunk.css",
+    "static/js/292.feff1510.chunk.js": "/static/js/292.feff1510.chunk.js",
+    "static/js/787.6bef374e.chunk.js": "/static/js/787.6bef374e.chunk.js",
+    "static/js/238.ec94f0f6.chunk.js": "/static/js/238.ec94f0f6.chunk.js",
+    "static/media/Carousel2.png": "/static/media/Carousel2.7b6cec437526d77c2b30.png",
+    "static/media/Carousel.png": "/static/media/Carousel.e3a43220a9b25d70ffb1.png",
+    "static/media/Carousel3.png": "/static/media/Carousel3.4b2328ba154487350acc.png",
+    "index.html": "/index.html",
+    "main.64ba7b4e.css.map": "/static/css/main.64ba7b4e.css.map",
+    "main.b7f813eb.js.map": "/static/js/main.b7f813eb.js.map",
+    "502.2d25a711.chunk.css.map": "/static/css/502.2d25a711.chunk.css.map",
+    "502.21b7f1aa.chunk.js.map": "/static/js/502.21b7f1aa.chunk.js.map",
+    "994.48e5e0a2.chunk.js.map": "/static/js/994.48e5e0a2.chunk.js.map",
+    "54.b43f9980.chunk.js.map": "/static/js/54.b43f9980.chunk.js.map",
+    "723.0910a514.chunk.js.map": "/static/js/723.0910a514.chunk.js.map",
+    "42.3c95dc78.chunk.js.map": "/static/js/42.3c95dc78.chunk.js.map",
+    "292.5080a7b3.chunk.css.map": "/static/css/292.5080a7b3.chunk.css.map",
+    "292.feff1510.chunk.js.map": "/static/js/292.feff1510.chunk.js.map",
+    "787.6bef374e.chunk.js.map": "/static/js/787.6bef374e.chunk.js.map",
+    "238.ec94f0f6.chunk.js.map": "/static/js/238.ec94f0f6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64ba7b4e.css",
+    "static/js/main.b7f813eb.js"
+  ]
+}
