@@ -14,7 +14,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Logo from "assets/logos/Logo";
 import Google from "assets/logos/Google";
 import Apple from "assets/logos/Apple";
-import InputField from "./InputField";
+import InputField from "../InputField";
 
 const schema = yup.object().shape({
   email: yup
