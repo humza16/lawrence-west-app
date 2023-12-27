@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { appBlackcolor, appPrimaryColor, appSecondaryColor } from "./colors";
+import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor } from "./colors";
 import { red } from "@mui/material/colors";
 let theme = createTheme({
   palette: {
@@ -14,6 +14,7 @@ let theme = createTheme({
     },
     secondary: {
       main: appSecondaryColor,
+      light: appGreyColor
     },
     error: {
       main: red.A400,
@@ -42,6 +43,13 @@ let theme = createTheme({
           props: { color: "secondary" },
           style: {
             background: `${appSecondaryColor}!important`,
+            color: `${appBlackcolor}!important`,
+          },
+        },
+        {
+          props: { variant: "noBackground" },
+          style: {
+            background: `inherit!important`,
             color: `${appBlackcolor}!important`,
           },
         },

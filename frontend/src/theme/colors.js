@@ -5,6 +5,7 @@ export const appPrimaryColor = "#0070C0";
 // export const disabledColor = "#dddddd";
 export const appSecondaryColor = "#F5F9FF";
 export const appBlackcolor = "#000000";
+export const appGreyColor = "#EAEFF9";
 // export const appborderColor = "#cbcaca";
 // export const appGreyColor = "#eaf0f3";
 // export const applightRed = "#EF6065";

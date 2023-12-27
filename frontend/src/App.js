@@ -10,6 +10,7 @@ const About = lazy(() => import("containers/About"));
 const Contact = lazy(() => import("containers/Contact"));
 const Login = lazy(() => import("containers/Auth/Login"));
 const Signup = lazy(() => import("containers/Auth/Signup"));
+const Onboarding = lazy(() => import("containers/Onboarding"));
 
 function App(props) {
   return (
@@ -37,6 +38,14 @@ function App(props) {
             element={
               <Suspense fallback={<div>Loading ...</div>}>
                 <Contact {...props} />
+              </Suspense>
+            }
+          />
+           <Route
+            path="/onboarding"
+            element={
+              <Suspense fallback={<div>Loading ...</div>}>
+                <Onboarding {...props} />
               </Suspense>
             }
           />
