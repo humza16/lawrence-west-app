@@ -57,9 +57,7 @@ const RegistrationForm = () => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = async (values) => {
-    debugger;
-  };
+  const onSubmit = async (values) => { };
 
   return (
     <Box

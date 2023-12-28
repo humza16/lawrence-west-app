@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import CounterReducer from "slices/counterSlice";
 import { testApi } from "apis/test.api";
+import { userProfileApi } from "apis/userProfile";
 //   import { toast } from 'react-toastify';
 
 export const ErrorLoggerMiddleware = () => (next) => (action) => {
@@ -25,6 +26,7 @@ export const ErrorLoggerMiddleware = () => (next) => (action) => {
 const combinedReducer = combineReducers({
   counter: CounterReducer,
   testApi: testApi.reducer,
+  userProfileApi: userProfileApi.reducer,
 });
 
 // const reducer = (state, action) => {
@@ -36,6 +38,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat([
       testApi.middleware,
+      userProfileApi.middleware,
       ErrorLoggerMiddleware,
     ]),
 });

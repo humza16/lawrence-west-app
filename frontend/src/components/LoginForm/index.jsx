@@ -109,7 +109,7 @@ const Login = () => {
                     </InputAdornment>
                   }
                 />
-
+                </FormControl>
                 <Typography
                   variant="caption"
                   mt={2}
@@ -153,7 +153,6 @@ const Login = () => {
                   </Button>
                 </Stack>
                 <Typography textAlign="center" onClick={goToSignup}>Create a New Account</Typography>
-              </FormControl>
             </Box>
           </FormProvider>
         </Box>
