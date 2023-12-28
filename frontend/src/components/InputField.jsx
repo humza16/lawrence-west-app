@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { Controller, useFormContext } from "react-hook-form";
 
-const InputField = ({ name, placeholder, autoFocus, type }) => {
+const InputField = ({ name, placeholder, autoFocus, type, ...props }) => {
   const {
     control,
     formState: { errors },
@@ -20,6 +20,7 @@ const InputField = ({ name, placeholder, autoFocus, type }) => {
               type={type}
               placeholder={placeholder}
               autoFocus={autoFocus}
+              {...props}
             />
           );
         }}

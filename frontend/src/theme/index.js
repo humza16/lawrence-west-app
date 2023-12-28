@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { appBlackcolor, appPrimaryColor, appSecondaryColor } from "./colors";
+import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor } from "./colors";
 import { red } from "@mui/material/colors";
 let theme = createTheme({
   palette: {
@@ -14,6 +14,7 @@ let theme = createTheme({
     },
     secondary: {
       main: appSecondaryColor,
+      light: appGreyColor
     },
     error: {
       main: red.A400,
@@ -45,6 +46,13 @@ let theme = createTheme({
             color: `${appBlackcolor}!important`,
           },
         },
+        {
+          props: { variant: "noBackground" },
+          style: {
+            background: `inherit!important`,
+            color: `${appBlackcolor}!important`,
+          },
+        },
       ],
     },
     MuiCheckbox: {
@@ -63,6 +71,15 @@ let theme = createTheme({
         },
       },
     },
+    MuiChip:{
+      styleOverrides:{
+        root:{
+          backgroundColor: appGreyColor,
+          fontSize: '0.75rem',
+          borderRadius: '27px'
+        }
+      }
+    }
   },
 });
 theme = responsiveFontSizes(theme);
