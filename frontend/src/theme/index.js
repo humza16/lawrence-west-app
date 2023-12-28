@@ -35,6 +35,7 @@ let theme = createTheme({
           borderRadius: "8px!important",
           fontSize: "1rem !important",
           textTransform: "none!important",
+          height: "48px!important"
         },
       },
       variants: [
