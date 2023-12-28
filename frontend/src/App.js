@@ -13,6 +13,9 @@ const Signup = lazy(() => import("containers/Auth/Signup"));
 const ForgetPassword = lazy(() => import("components/ForgetPassword/ForgetPassword"))
 const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword"))
 const Onboarding = lazy(() => import("containers/Onboarding"));
+const PrivacyPolicy = lazy(() => import("components/PrivacyScreens/PrivacyPolicy"));
+const TermAndConditions = lazy(() => import("components/PrivacyScreens/TermAndConditions"));
+
 
 function App(props) {
   return (
@@ -81,6 +84,22 @@ function App(props) {
           element={
             <Suspense fallback={<div>Loading ...</div>}>
               <ResetPassword {...props} />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/privacy-policy"
+          element={
+            <Suspense fallback={<div>Loading ...</div>}>
+              <PrivacyPolicy {...props} />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/terms-and-conditions"
+          element={
+            <Suspense fallback={<div>Loading ...</div>}>
+              <TermAndConditions {...props} />
             </Suspense>
           }
         />
