@@ -7,10 +7,14 @@ let theme = createTheme({
       default: "#ffffff",
     },
     text: {
-      primary: "#000",
+      primary: appBlackcolor,
     },
     primary: {
       main: appPrimaryColor,
+    },
+    info: {
+      main: appPrimaryColor,
+      light: appBlackcolor
     },
     secondary: {
       main: appSecondaryColor,
@@ -22,12 +26,6 @@ let theme = createTheme({
   },
   typography: {
     fontFamily: ["Inter", "sans-serif"].join(","),
-
-    // fontSize: 14,
-    // fontWeightBold: 600,
-    // fontWeightLight: 300,
-    // fontWeightRegular: 400,
-    // fontWeightMedium: 500,
   },
   components: {
     MuiButton: {
@@ -72,15 +70,20 @@ let theme = createTheme({
         },
       },
     },
-    MuiChip:{
-      styleOverrides:{
-        root:{
+    MuiChip: {
+      styleOverrides: {
+        root: {
           backgroundColor: appGreyColor,
           fontSize: '0.75rem',
           borderRadius: '27px'
         }
       }
-    }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        color: `${appBlackcolor}!imporant`
+      }
+    },
   },
 });
 theme = responsiveFontSizes(theme);
