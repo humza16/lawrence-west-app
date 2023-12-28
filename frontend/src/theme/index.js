@@ -71,6 +71,15 @@ let theme = createTheme({
         },
       },
     },
+    MuiChip:{
+      styleOverrides:{
+        root:{
+          backgroundColor: appGreyColor,
+          fontSize: '0.75rem',
+          borderRadius: '27px'
+        }
+      }
+    }
   },
 });
 theme = responsiveFontSizes(theme);
