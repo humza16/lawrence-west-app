@@ -7,6 +7,7 @@ export const appSecondaryColor = "#F5F9FF";
 export const appBlackcolor = "#000000";
 export const appGreyColor = "#EAEFF9";
 export const appToggleButtonBorder = '#E1E6EF';
+export const appTabColor = '#B1B1B1';
 // export const appborderColor = "#cbcaca";
 // export const appGreyColor = "#eaf0f3";
 // export const applightRed = "#EF6065";

@@ -15,6 +15,7 @@ import Logo from "assets/logos/Logo";
 import Google from "assets/logos/Google";
 import Apple from "assets/logos/Apple";
 import InputField from "../InputField";
+import Link from "components/Link";
 
 const schema = yup.object().shape({
   email: yup
@@ -54,7 +55,7 @@ const RegistrationForm = () => {
     resolver: yupResolver(schema),
   });
   const {
-    formState: { errors },
+    formState: { errors, isValid },
   } = methods;
 
   const onSubmit = async (values) => { };
@@ -147,7 +148,9 @@ const RegistrationForm = () => {
               />
               <Typography variant="caption">Remember me</Typography>
             </Box>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}>
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}
+            // disabled={!isValid}
+            >
               Sign Up
             </Button>
           </Box>
@@ -160,7 +163,7 @@ const RegistrationForm = () => {
             Sign in with Apple
           </Button>
         </Stack>
-        <Typography textAlign="center">Already have an account?</Typography>
+        <Link to="/login" textAlign="center">Already have an account?</Link>
       </Box>
     </Box>
   );

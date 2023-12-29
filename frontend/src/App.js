@@ -13,6 +13,8 @@ const Signup = lazy(() => import("containers/Auth/Signup"));
 const ForgetPassword = lazy(() => import("components/ForgetPassword/ForgetPassword"))
 const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword"))
 const Onboarding = lazy(() => import("containers/Onboarding"));
+const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
+
 
 function App(props) {
   return (
@@ -48,6 +50,14 @@ function App(props) {
             element={
               <Suspense fallback={<div>Loading ...</div>}>
                 <Onboarding {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/legal-agreement"
+            element={
+              <Suspense fallback={<div>Loading ...</div>}>
+                <LegalAgreement {...props} />
               </Suspense>
             }
           />

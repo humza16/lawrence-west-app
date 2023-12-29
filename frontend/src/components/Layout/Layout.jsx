@@ -8,8 +8,8 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { styled } from '@mui/material/styles'
 import Logo from "assets/logos/Logo";
-import Carousel from "assets/images/Carousel.png";
 import { appBlackcolor } from "theme/colors";
+import UserDropDown from "components/UserDropDown";
 
 const SearchInput = styled(TextField)(() => ({
   "& .MuiInput-root": {
@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
       {pathname !== '/onboarding' ? <Stack p={2} height='60px' border='1px solid #E6F0FF'>
         <Stack direction='row' justifyContent='space-between' alignItems='center'>
           <Stack direction='row' alignItems="center" spacing={3}>
-            <Logo width="199" height="41" />
+            <Link to='/'><Logo width="199" height="41" /></Link>
             <StyledLink to="/">Moment Library</StyledLink>
             <StyledLink to="/">QR Library</StyledLink>
             <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} />
@@ -53,13 +53,13 @@ const Layout = ({ children }) => {
               <NotificationsNoneOutlinedIcon />
             </Badge>
             <IconButton sx={{ color: appBlackcolor }}> <HelpOutlineOutlinedIcon /> </IconButton>
-            <Avatar src={Carousel} alt="avatar" />
+            <UserDropDown />
           </Stack>
         </Stack>
       </Stack> : null}
-      <Box>
+      <>
         {children}
-      </Box>
+      </>
     </>
   );
 };
