@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from cities_light.models import Country, City
 
 
 class User(AbstractUser):
@@ -20,7 +21,20 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
-    name = models.CharField(_("Name of User"), blank=True, null=True, max_length=255)
+    name = models.CharField(_("Name of User"), null=True, max_length=255)
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True)
+    date_of_birth = models.DateField(null=True)
+    profile_picture = models.ImageField(null=True, upload_to='profile_pictures/')
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ]
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, null=True)
+    address = models.TextField(null=True)
+    country = models.ForeignKey(Country, null=True, on_delete=models.SET_NULL)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
