@@ -21,6 +21,11 @@ const schema = yup.object().shape({
             /[!@#$%^&*(),.?":{}|<>]/,
             "Password must contain at least one special character"
         ),
+    confirmPassword: yup
+        .string()
+        .label("confirm password")
+        .required()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 const ResetPassword = () => {
     const methods = useForm({
@@ -29,43 +34,48 @@ const ResetPassword = () => {
     const {
         formState: { errors },
     } = methods;
+
+    const onSubmit = async (values) => {
+        console.log(values);
+    };
     return (
         <CenteredBox>
             <StyledCard>
                 <ForgetPasswordHeader title="Reset Password" description="Enter new password to your account so that you can login" />
                 <FormProvider {...methods} >
+                    <Box component='form' onSubmit={methods.handleSubmit(onSubmit)}>
+                        <FormControl fullWidth margin="normal">
+                            <Typography variant="body2" fontWeight={400} fontSize="14px" color="#171717" gutterBottom>
+                                New Password
+                            </Typography>
+                            <InputField
+                                id="password"
+                                name="password"
+                                type='password'
+                                placeholder="Enter Password"
+                                autoFocus
 
-                    <FormControl fullWidth margin="normal">
-                        <Typography variant="body2" fontWeight={400} fontSize="14px" color="#171717" gutterBottom>
-                            New Password
-                        </Typography>
-                        <InputField
-                            id="password"
-                            name="password"
-                            placeholder="Enter Password"
-                            autoFocus
-
-                        />
-                    </FormControl>
-                    <FormControl fullWidth margin='normal' >
-                        <Typography variant="body2" fontWeight={400} fontSize="14px" color="#171717" gutterBottom>
-                            Confirm Password
-                        </Typography>
-                        <InputField
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            placeholder="Enter email address or phone number"
+                            />
+                        </FormControl>
+                        <FormControl fullWidth margin='normal' >
+                            <Typography variant="body2" fontWeight={400} fontSize="14px" color="#171717" gutterBottom>
+                                Confirm Password
+                            </Typography>
+                            <InputField
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type='password'
+                                placeholder="Enter email address or phone number"
 
 
-                        />
-                    </FormControl>
+                            />
+                        </FormControl>
+                        <Stack spacing={2} mt={2} mb={2} >
+                            <Button variant='contained' type='submit'>Continue</Button>
+                            <Button color="secondary" >Back</Button>
+                        </Stack>
+                    </Box>
                 </FormProvider>
-                <Stack spacing={2} mt={2} mb={2} >
-
-                    <Button variant='contained'  >Continue</Button>
-                    <Button color="secondary" >Back</Button>
-
-                </Stack>
             </StyledCard>
         </CenteredBox>
     )

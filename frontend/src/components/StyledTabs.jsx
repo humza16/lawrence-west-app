@@ -1,35 +1,42 @@
 import React from 'react'
-import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
+import { styled } from '@mui/material/styles';
 import TabPanel from '@mui/lab/TabPanel';
 
 
 
-import { useState } from 'react';
 
-const StyledTabs = () => {
-    const [value, setValue] = useState('1');
+import { appTabColor } from 'theme/colors';
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+
+const MuiTabs = styled(TabList)(() => ({
+    '.MuiTabs-indicator': {
+        display: 'none',
+    },
+}));
+
+const MuiTab = styled(Tab)(({ theme }) => ({
+    textTransform: 'none',
+    fontSize: '16px',
+    color: appTabColor,
+    '&.Mui-selected': {
+        color: `${theme.palette.text.primary}!important`,
+        fontWeight: 600,
+    }
+}));
+
+export const MuiTabPanel = styled(TabPanel)(() => ({
+    padding: '0px!important',
+}));
+
+
+const StyledTabs = ({ options = [], handleChange }) => {
     return (
-        <Box sx={{ typography: 'body1' }}>
-            <TabContext value={value}>
-                <Box>
-                    <TabList onChange={handleChange}>
-                        <Tab label="Item One" value="1" />
-                        <Tab label="Item Two" value="2" />
-                        <Tab label="Item Three" value="3" />
-                    </TabList>
-                </Box>
-                <TabPanel value="1">Item One</TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
-            </TabContext>
-        </Box>
+
+        <MuiTabs onChange={handleChange}>
+            {options?.map(({ label, value }) => <MuiTab disableRipple label={label} value={value} />)}
+        </MuiTabs>
     )
 }
 

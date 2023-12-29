@@ -20,6 +20,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import Google from "assets/logos/Google";
 import Apple from "assets/logos/Apple";
+import Link from "components/Link";
 
 const schema = yup.object().shape({
   email: yup
@@ -47,7 +48,7 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
   const {
-    formState: { errors },
+    formState: { isValid },
   } = methods;
 
   const onSubmit = async (values) => {
@@ -97,6 +98,7 @@ const Login = () => {
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
+                  placeholder="Enter password"
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
@@ -109,50 +111,53 @@ const Login = () => {
                     </InputAdornment>
                   }
                 />
-                </FormControl>
-                <Typography
-                  variant="caption"
-                  mt={2}
-                  display="flex"
-                  justifyContent="right"
+              </FormControl>
+              <Typography
+                variant="caption"
+                mt={2}
+                display="flex"
+                justifyContent="right"
+              >
+                Forgot Password?
+              </Typography>
+              <Box display="flex" alignItems="center" mt={2} mb={2}>
+                <Controller
+                  name="rememberMe"
+                  control={methods.control}
+                  render={({ field }) => {
+                    return <Checkbox {...field} />;
+                  }}
+                />
+                <Typography variant="caption">Remember me</Typography>
+              </Box>
+              <Stack spacing={1} mb={2}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 2 }}
+                // disabled={!isValid}
                 >
-                  Forgot Password?
-                </Typography>
-                <Box display="flex" alignItems="center" mt={2} mb={2}>
-                  <Controller
-                    name="rememberMe"
-                    control={methods.control}
-                    render={({ field }) => {
-                      return <Checkbox {...field} />;
-                    }}
-                  />
-                  <Typography variant="caption">Remember me</Typography>
-                </Box>
-                <Stack spacing={1} mb={2}>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 2 }}
-                  >
-                    Sign In
-                  </Button>
+                  Sign In
+                </Button>
 
-                  <Button
-                    startIcon={<Google />}
-                    color="secondary"
-                    onClick={loginWithGoogle}
-                  >
-                    Sign in with Google
-                  </Button>
-                  <Button
-                    startIcon={<Apple />}
-                    color="secondary"
-                  >
-                    Sign in with Apple
-                  </Button>
-                </Stack>
-                <Typography textAlign="center" onClick={goToSignup}>Create a New Account</Typography>
+                <Button
+                  startIcon={<Google />}
+                  color="secondary"
+                  onClick={loginWithGoogle}
+                >
+                  Sign in with Google
+                </Button>
+                <Button
+                  startIcon={<Apple />}
+                  color="secondary"
+                >
+                  Sign in with Apple
+                </Button>
+              </Stack>
+              <Link to='/signup' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
+                Create a New Account
+              </Link>
             </Box>
           </FormProvider>
         </Box>
