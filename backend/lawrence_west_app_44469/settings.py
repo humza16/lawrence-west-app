@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    'django.contrib.sites'
 ]
 LOCAL_APPS = [
     'home',
@@ -88,8 +88,6 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'storages',
     'import_export',
-    'cities_light',
-    'social_django'
 ]
 MODULES_APPS = get_modules()
 
@@ -180,8 +178,7 @@ MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-    'social_core.backends.google.GoogleOAuth2'
+    'allauth.account.auth_backends.AuthenticationBackend'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -212,19 +209,8 @@ REST_AUTH = {
     "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
 }
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-# }
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication'
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
 }
 
 # Custom user model
@@ -301,19 +287,6 @@ if GS_BUCKET_NAME:
     GS_DEFAULT_ACL = "publicRead"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-FAQ_PREFIX_QUESTION = env.str("FAQ_PREFIX_QUESTION", "Question")
-FAQ_PREFIX_ANSWER = env.str("FAQ_PREFIX_ANSWER", "Answer")
-FAQ_VISUAL_EXPANDED = env.str("FAQ_VISUAL_EXPANDED", "Explanation")
-
-GOOGLE_OAUTH2_CLIENT_ID = env.str('GOOGLE_OAUTH2_CLIENT_ID', "210605343891-1krcn2138uumh8cogr6fl52cttafavlu.apps.googleusercontent.com")
-GOOGLE_OAUTH2_CLIENT_SECRET = env.str('GOOGLE_OAUTH2_CLIENT_SECRET', "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")
-
-SOCIAL_AUTH_PIPELINE = (
-    'social_core.pipeline.social_auth.social_details',
-    'social_core.pipeline.social_auth.social_uid',
-    'social_core.pipeline.social_auth.auth_allowed',
-    'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.social_auth.associate_user',
-    'social_core.pipeline.social_auth.load_extra_data',
-    'social_core.pipeline.user.user_details',
-)
+FAQ_PREFIX_QUESTION = 'test'
+FAQ_PREFIX_ANSWER ='test'
+FAQ_VISUAL_EXPANDED = 'test'
