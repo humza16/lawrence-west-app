@@ -21,6 +21,7 @@ import { useNavigate } from "react-router";
 import Google from "assets/logos/Google";
 import Apple from "assets/logos/Apple";
 import Link from "components/Link";
+import StyledMemoryCard from "components/StyledMemoryCard";
 
 const schema = yup.object().shape({
   email: yup
