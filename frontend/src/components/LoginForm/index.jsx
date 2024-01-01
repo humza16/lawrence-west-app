@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -18,9 +18,18 @@ import * as yup from "yup";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import LoadingButton from '@mui/lab/LoadingButton';
 import Google from "assets/logos/Google";
-import Apple from "assets/logos/Apple";
+import Apple from "assets/logos/Apple"
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import Link from "components/Link";
+import FacebookButton from "components/FacebookButton";
+import { useSigninMutation, useSignupMutation } from "apis/auth.api";
+import { loginSuccess } from "slices/userSlice";
+import { localstorageService } from "utils/localStorageService";
+// import { useLazyGetGoogleUserProfileQuery } from 'apis/auth.api';
 
 const schema = yup.object().shape({
   email: yup
@@ -31,14 +40,28 @@ const schema = yup.object().shape({
   rememberMe: yup.boolean(),
 });
 
-const onGoogleLoginSuccess = (response) => {
-  console.log(response);
-};
-
 const Login = () => {
+  // const [getProfile, { data }] = useLazyGetGoogleUserProfileQuery();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const [onSignIn, { isLoading: isSignInLoading }] = useSigninMutation();
+
+  const onGoogleLoginSuccess = async (response) => {
+    axios
+      .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
+        headers: {
+          Authorization: `Bearer ${response.access_token}`,
+          Accept: 'application/json'
+        }
+      })
+      .then((res) => {
+        handleLogin({ ...res.data, access_token: response.access_token });
+      })
+      .catch((err) => console.log(err));
+    console.log(response);
+  };
 
   const loginWithGoogle = useGoogleLogin({
     onSuccess: onGoogleLoginSuccess,
@@ -52,12 +75,31 @@ const Login = () => {
   } = methods;
 
   const onSubmit = async (values) => {
-    console.log(values);
+    handleLogin(values)
   };
-
   const goToSignup = () => {
     navigate("/signup");
   };
+
+  const handleLogin = (values) => {
+    onSignIn(values)
+      .unwrap()
+      .then(result => {
+        localstorageService.setToken(result?.data?.token);
+        const userDetail = {
+          username: result?.data?.username,
+          email: result?.data?.email,
+          name: result?.data?.name
+        }
+        dispatch(loginSuccess(userDetail));
+        navigate("/");
+      })
+      .catch(error => console.log(error));
+  }
+
+  const facebookResponse = (response) => {
+    console.log(response, "fb response");
+  }
 
   return (
     <>
@@ -112,14 +154,14 @@ const Login = () => {
                   }
                 />
               </FormControl>
-              <Typography
+              <Link
+                to="/forget-password"
                 variant="caption"
                 mt={2}
                 display="flex"
-                justifyContent="right"
-              >
+                justifyContent="right">
                 Forgot Password?
-              </Typography>
+              </Link>
               <Box display="flex" alignItems="center" mt={2} mb={2}>
                 <Controller
                   name="rememberMe"
@@ -131,16 +173,15 @@ const Login = () => {
                 <Typography variant="caption">Remember me</Typography>
               </Box>
               <Stack spacing={1} mb={2}>
-                <Button
+                <LoadingButton
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 2 }}
-                // disabled={!isValid}
+                  loading={isSignInLoading}
                 >
                   Sign In
-                </Button>
-
+                </LoadingButton>
                 <Button
                   startIcon={<Google />}
                   color="secondary"
@@ -148,6 +189,16 @@ const Login = () => {
                 >
                   Sign in with Google
                 </Button>
+                <FacebookLogin
+                  appId="205989385836842"
+                  fields="name,email,picture"
+                  callback={facebookResponse}
+                  render={renderProps => (
+                    <FacebookButton
+                      onClick={renderProps.onClick}
+                    />
+                  )}
+                />
                 <Button
                   startIcon={<Apple />}
                   color="secondary"

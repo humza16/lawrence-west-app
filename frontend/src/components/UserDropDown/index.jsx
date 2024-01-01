@@ -1,13 +1,14 @@
 import React from 'react'
-import { Box, Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import Carousel from 'assets/images/Carousel.png'
+import { Box, Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles'
 import { appBlackcolor } from 'theme/colors';
+import { localstorageService } from 'utils/localStorageService';
 
 
 
@@ -19,6 +20,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 const UserDropDown = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const user = useSelector((state) => state?.user?.userInfo)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -26,13 +28,20 @@ const UserDropDown = () => {
         setAnchorEl(null);
     };
 
-    const handleSignout = () => { }
+    const handleLogout = () => {
+        localstorageService.logout("/login")
+    }
 
     const iconColor = { color: appBlackcolor, minWidth: '40px' }
 
     return (
         <>
-            <Avatar src={Carousel} alt="avatar" onClick={handleClick} sx={{ cursor: 'pointer' }} />
+            <Stack direction='column' alignItems='center' spacing={1}>
+                <Avatar alt="avatar" onClick={handleClick} sx={{ cursor: 'pointer' }}>
+                    {user.username && user?.username?.charAt(0)}
+                </Avatar>
+                <Typography>{user?.username}</Typography>
+            </Stack>
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
@@ -72,16 +81,16 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                <StyledLink to='/login'>
-                    <ListItem disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon sx={iconColor}>
-                                <LogoutOutlinedIcon sx={{ rotate: '180deg' }} />
-                            </ListItemIcon>
-                            <ListItemText primary="Sign Out" />
-                        </ListItemButton>
-                    </ListItem>
-                </StyledLink>
+                {/* <StyledLink to='/login'> */}
+                <ListItem disablePadding>
+                    <ListItemButton onClick={handleLogout}>
+                        <ListItemIcon sx={iconColor}>
+                            <LogoutOutlinedIcon sx={{ rotate: '180deg' }} />
+                        </ListItemIcon>
+                        <ListItemText primary="Sign Out" />
+                    </ListItemButton>
+                </ListItem>
+                {/* </StyledLink> */}
             </Menu>
         </>
     )

@@ -16,7 +16,7 @@ const CarouselLayout = () => {
   return (
     <Box>
       <Carousel
-        autoPlay
+        // autoPlay
         showStatus={false}
         showArrows={false}
         renderThumbs={() => null}

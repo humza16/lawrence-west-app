@@ -4,13 +4,16 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import Stepper from 'components/Stepper';
 import FormHeader from './FormHeader';
 import { useCreateUserProfileMutation } from 'apis/userProfile';
 import { onboardingForms } from './formSchema';
+import { loginSuccess } from 'slices/userSlice';
 
 
 const OnboardingForm = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const formRef = useRef(null);
     const [activeTab, setActiveTab] = useState(1);
@@ -34,9 +37,10 @@ const OnboardingForm = () => {
     const onSubmit = async (values, e) => {
         console.log(values, "values");
         if (activeTab === 1) {
+            dispatch(loginSuccess({ username: values?.username }));
             if (e?.nativeEvent?.submitter?.name === 'save') {
                 onCreatUserProfile(getFormData({ username: values.username, bio: values.bio }));
-                navigate("/");
+                // need to write is success feature
                 return;
             }
         }
@@ -47,7 +51,7 @@ const OnboardingForm = () => {
         }
         if (activeTab === 5) {
             onCreatUserProfile(getFormData(values));
-            navigate("/");
+            //need to write is success feature
             return;
         }
         setActiveTab(v => v + 1);
@@ -62,6 +66,7 @@ const OnboardingForm = () => {
     const handleSkip = () => {
         const values = methods.getValues();
         onCreatUserProfile(getFormData(values));
+        //need to write is success feature
     }
 
     return (
