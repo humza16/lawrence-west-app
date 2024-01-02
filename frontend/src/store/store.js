@@ -8,7 +8,8 @@ import { testApi } from "apis/test.api";
 import { userProfileApi } from "apis/userProfile";
 import { authApi } from "apis/auth.api";
 import UserReducer from 'slices/userSlice';
-//   import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+import { localstorageService } from "utils/localStorageService";
 
 export const ErrorLoggerMiddleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
@@ -17,10 +18,9 @@ export const ErrorLoggerMiddleware = () => (next) => (action) => {
       status: 200,
     };
     if (status === 401) {
-      // localstorageService.logout();
-      // localstorageService.logoutGuest();
+      localstorageService.logout();
     }
-    //   toast.error(data?.message);
+    toast.error(data?.message || action?.payload?.error);
   }
   return next(action);
 };

@@ -4,6 +4,9 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import theme from "theme";
 import { ThemeProvider } from "@emotion/react";
+import { Toaster } from "react-hot-toast";
+import Loader from "components/Loader";
+// import { ToastContainer } from 'react-toastify';
 const ProtectedRoute = lazy(() => import("shared/Auth/ProtectedRoute"));
 const Home = lazy(() => import("containers/Home"));
 const About = lazy(() => import("containers/About"));
@@ -14,6 +17,7 @@ const ForgetPassword = lazy(() => import("components/ForgetPassword/ForgetPasswo
 const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword"))
 const Onboarding = lazy(() => import("containers/Onboarding"));
 const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
+const AuthLayout = lazy(() => import("components/Layout/AuthLayout"));
 
 
 function App(props) {
@@ -24,7 +28,7 @@ function App(props) {
           <Route
             path="/"
             element={
-              <Suspense fallback={<div>Loading ...</div>}>
+              <Suspense fallback={<Loader />}>
                 <Home {...props} />
               </Suspense>
             }
@@ -32,7 +36,7 @@ function App(props) {
           <Route
             path="/about"
             element={
-              <Suspense fallback={<div>Loading ...</div>}>
+              <Suspense fallback={<Loader />}>
                 <About {...props} />
               </Suspense>
             }
@@ -40,7 +44,7 @@ function App(props) {
           <Route
             path="/contact"
             element={
-              <Suspense fallback={<div>Loading ...</div>}>
+              <Suspense fallback={<Loader />}>
                 <Contact {...props} />
               </Suspense>
             }
@@ -48,7 +52,7 @@ function App(props) {
           <Route
             path="/onboarding"
             element={
-              <Suspense fallback={<div>Loading ...</div>}>
+              <Suspense fallback={<Loader />}>
                 <Onboarding {...props} />
               </Suspense>
             }
@@ -56,45 +60,71 @@ function App(props) {
           <Route
             path="/legal-agreement"
             element={
-              <Suspense fallback={<div>Loading ...</div>}>
+              <Suspense fallback={<Loader />}>
                 <LegalAgreement {...props} />
               </Suspense>
             }
           />
         </Route>
-        <Route
-          path="/login"
-          element={
-            <Suspense fallback={<div>Loading ...</div>}>
-              <Login {...props} />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <Suspense fallback={<div>Loading ...</div>}>
-              <Signup {...props} />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/forget-password"
-          element={
-            <Suspense fallback={<div>Loading ...</div>}>
-              <ForgetPassword {...props} />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/reset-password"
-          element={
-            <Suspense fallback={<div>Loading ...</div>}>
-              <ResetPassword {...props} />
-            </Suspense>
-          }
-        />
+        <Route element={<AuthLayout {...props} />}>
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Login {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Signup {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/forget-password"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ForgetPassword {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <Suspense fallback={<Loader />}>
+                <ResetPassword {...props} />
+              </Suspense>
+            }
+          />
+        </Route>
       </Routes>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          // Define default options
+          // className: '',
+          duration: 3000,
+          // style: {
+          //   background: '#363636',
+          //   color: '#fff',
+          // },
+
+          // Default options for specific types
+          success: {
+            duration: 3000,
+            theme: {
+              // primary: 'green',
+              // secondary: 'black',
+            },
+          },
+          error: {
+
+          }
+        }}
+      />
     </ThemeProvider>
   );
 }

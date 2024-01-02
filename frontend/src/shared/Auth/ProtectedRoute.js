@@ -1,16 +1,19 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Layout from "components/Layout/Layout";
-import { localstorageService } from "utils/localStorageService";
+import Loader from "components/Loader";
+import useAuth from "./useAuth";
 
-const ProtectedRoute = (props) => {
-  if (localstorageService.getToken()) {
-    localstorageService.logout();
-    return <Navigate to="/login" />;
-  }
-  return (
+const ProtectedRoute = () => {
+  const { isLoading, authenticated } = useAuth();
+
+  return isLoading ? (
+    <Loader />
+  ) : authenticated ? (
     <Layout>
-      <Outlet {...props} />
+      <Outlet />
     </Layout>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 

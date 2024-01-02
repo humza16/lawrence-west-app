@@ -15,21 +15,14 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputField from "components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useGoogleLogin } from "@react-oauth/google";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import LoadingButton from '@mui/lab/LoadingButton';
-import Google from "assets/logos/Google";
 import Apple from "assets/logos/Apple"
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import Link from "components/Link";
-import FacebookButton from "components/FacebookButton";
-import { useSigninMutation, useSignupMutation } from "apis/auth.api";
-import { loginSuccess } from "slices/userSlice";
-import { localstorageService } from "utils/localStorageService";
-// import { useLazyGetGoogleUserProfileQuery } from 'apis/auth.api';
+import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
+import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
+import useSignIn from "shared/hooks/useSignIn";
 
 const schema = yup.object().shape({
   email: yup
@@ -41,32 +34,11 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
-  // const [getProfile, { data }] = useLazyGetGoogleUserProfileQuery();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const [onSignIn, { isLoading: isSignInLoading }] = useSigninMutation();
+  const { onSignIn, isSignInLoading } = useSignIn();
 
-  const onGoogleLoginSuccess = async (response) => {
-    axios
-      .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {
-        headers: {
-          Authorization: `Bearer ${response.access_token}`,
-          Accept: 'application/json'
-        }
-      })
-      .then((res) => {
-        handleLogin({ ...res.data, access_token: response.access_token });
-      })
-      .catch((err) => console.log(err));
-    console.log(response);
-  };
-
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: onGoogleLoginSuccess,
-    onError: (error) => console.log(error),
-  });
   const methods = useForm({
     resolver: yupResolver(schema),
   });
@@ -82,23 +54,7 @@ const Login = () => {
   };
 
   const handleLogin = (values) => {
-    onSignIn(values)
-      .unwrap()
-      .then(result => {
-        localstorageService.setToken(result?.data?.token);
-        const userDetail = {
-          username: result?.data?.username,
-          email: result?.data?.email,
-          name: result?.data?.name
-        }
-        dispatch(loginSuccess(userDetail));
-        navigate("/");
-      })
-      .catch(error => console.log(error));
-  }
-
-  const facebookResponse = (response) => {
-    console.log(response, "fb response");
+    onSignIn(values);
   }
 
   return (
@@ -141,8 +97,8 @@ const Login = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter password"
-                  endAdornment={
-                    <InputAdornment position="end">
+                  InputProps={{
+                    endAdornment: (
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
@@ -150,8 +106,8 @@ const Login = () => {
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
-                    </InputAdornment>
-                  }
+                    )
+                  }}
                 />
               </FormControl>
               <Link
@@ -182,23 +138,8 @@ const Login = () => {
                 >
                   Sign In
                 </LoadingButton>
-                <Button
-                  startIcon={<Google />}
-                  color="secondary"
-                  onClick={loginWithGoogle}
-                >
-                  Sign in with Google
-                </Button>
-                <FacebookLogin
-                  appId="205989385836842"
-                  fields="name,email,picture"
-                  callback={facebookResponse}
-                  render={renderProps => (
-                    <FacebookButton
-                      onClick={renderProps.onClick}
-                    />
-                  )}
-                />
+                <SingInWithGoogle />
+                <SignInWithFacebook />
                 <Button
                   startIcon={<Apple />}
                   color="secondary"
@@ -206,7 +147,7 @@ const Login = () => {
                   Sign in with Apple
                 </Button>
               </Stack>
-              <Link to='/signup' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
+              <Link to='/register' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
                 Create a New Account
               </Link>
             </Box>

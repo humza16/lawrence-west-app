@@ -6,7 +6,7 @@ import Login from "components/LoginForm";
 const Signup = () => {
   return (
     <Grid container>
-      <Grid md={6} display={{ xs: "none", md: "block" }}>
+      <Grid item md={6} display={{ xs: "none", md: "block" }}>
         <CarouselLayout />
       </Grid>
       <Grid item xs={12} md={6}>
