@@ -4,8 +4,9 @@ import { useFormContext } from 'react-hook-form';
 import InputField from 'components/InputField'
 import SelectInput from 'components/SelectInput'
 import { useGetCountriesQuery, useGetCitiesQuery, useGetStatesQuery } from 'apis/userProfile'
+import AnimatedBox from './AnimatedBox';
 
-const AddressForm = () => {
+const AddressForm = ({ genericHeight }) => {
     const { getValues } = useFormContext();
     const { data: countries, isLoading: countriesLoading } = useGetCountriesQuery();
     const { data: states, isLoading: statesLoading } = useGetStatesQuery(getValues("country"), {
@@ -15,7 +16,7 @@ const AddressForm = () => {
         skip: !getValues("state")
     });
     return (
-        <Stack direction='column' spacing={3} mb={2}>
+        <AnimatedBox genericHeight={genericHeight} direction='column' spacing={3} mb={2} height={genericHeight}>
             <FormControl fullWidth margin="normal">
                 <Typography variant="body2" gutterBottom>
                     Address
@@ -54,7 +55,7 @@ const AddressForm = () => {
                     <InputField name='postalcode' placeholder="Postal Code" />
                 </FormControl>
             </Stack>
-        </Stack>
+        </AnimatedBox>
     )
 }
 

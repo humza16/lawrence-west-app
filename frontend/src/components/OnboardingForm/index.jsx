@@ -3,12 +3,37 @@ import { Box, Button } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { styled, keyframes } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom'
 import Stepper from 'components/Stepper';
 import FormHeader from './FormHeader';
 import { useCreateUserProfileMutation } from 'apis/userProfile';
 import { onboardingForms } from './formSchema';
+import AnimatedBox from './AnimatedBox';
 
+
+const animateHeight = keyframes`
+  0% {
+    height: 0px;
+  }
+  100% {
+    height: ${(props) => props.genericHeight || '0px'};
+  }
+`;
+
+// const opacityBreak = keyframes`
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// `;
+
+// const FormBox = styled(Box)(() => ({
+//     animation: `${animateHeight} 0.9s ease, ${opacityBreak} 0.8s ease`,
+//     transition: 'all 0.8s ease',
+// }));
 
 const OnboardingForm = () => {
     const navigate = useNavigate();
@@ -73,19 +98,31 @@ const OnboardingForm = () => {
             alignItems="center"
             position='relative'
         >
-            <Box maxWidth="330px" display="flex" flexDirection="column">
+            <Box maxWidth="330px" sx={{
+                transition: 'all 0.8s ease'
+            }}
+                display="flex"
+                flexDirection="column"
+            >
                 <Stepper activeTab={activeTab} mb={3} />
                 <FormHeader activeTab={activeTab} />
-                <FormProvider {...methods}>
+                <FormProvider  {...methods}>
                     <Box
                         component="form"
+                        // className='Animate_Opacity'
                         mb={2}
                         onSubmit={methods.handleSubmit(onSubmit)}
                         ref={formRef}
+                    // genericHeight={form.height}
+                    // height={form.height}
+
+                    // sx={{height: form.height}}
                     >
-                        <ActiveForm />
-                        <Button sx={{ marginBottom: '16px' }} type="submit" fullWidth variant="contained">Next</Button>
-                        <Button name={activeTab === 1 ? 'save' : ''} color='secondary' type={activeTab === 1 ? 'submit' : 'button'} fullWidth onClick={handleBack}>{activeTab > 1 ? "Back" : "Save and Finish"}</Button>
+                        <ActiveForm genericHeight={form.height} />
+                        <Box sx={{ backgroundColor: '#FFFFFF' }}>
+                            <Button sx={{ marginBottom: '16px' }} type="submit" fullWidth variant="contained">Next</Button>
+                            <Button name={activeTab === 1 ? 'save' : ''} color='secondary' type={activeTab === 1 ? 'submit' : 'button'} fullWidth onClick={handleBack}>{activeTab > 1 ? "Back" : "Save and Finish"}</Button>
+                        </Box>
                     </Box>
                 </FormProvider>
             </Box>

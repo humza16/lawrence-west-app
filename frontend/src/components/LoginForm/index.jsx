@@ -67,6 +67,7 @@ const Login = () => {
         display="flex"
         justifyContent="center"
         alignItems="center"
+        className="Animate_Opacity"
       >
         <Box maxWidth="330px" display="flex" flexDirection="column">
           <Logo />
@@ -75,11 +76,12 @@ const Login = () => {
           </Typography>
           <FormProvider {...methods}>
             <Box
+              className="Animate_Opacity"
               component="form"
               mb={2}
               onSubmit={methods.handleSubmit(onSubmit)}
             >
-              <FormControl fullWidth margin="normal">
+              <FormControl fullWidth margin="normal" className="Animate_Opacity">
                 <Typography variant="body2" gutterBottom>
                   Email address
                 </Typography>
@@ -90,7 +92,7 @@ const Login = () => {
                   autoFocus
                 />
               </FormControl>
-              <FormControl fullWidth margin="normal">
+              <FormControl fullWidth margin="normal" className="Animate_Opacity">
                 <Typography variant="body2" gutterBottom>
                   Password
                 </Typography>

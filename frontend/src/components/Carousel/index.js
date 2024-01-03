@@ -22,8 +22,8 @@ const CarouselLayout = () => {
         renderThumbs={() => null}
       >
         {images.map(({ id, src }) => (
-          <Box key={id} maxHeight="100vh">
-            <img src={src} alt="carousel" />
+          <Box key={id} maxHeight="100vh" >
+            <img style={{minHeight:"100vh"}} src={src} alt="carousel" />
           </Box>
         ))}
       </Carousel>

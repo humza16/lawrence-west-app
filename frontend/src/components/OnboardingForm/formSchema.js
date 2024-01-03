@@ -10,9 +10,10 @@ export const onboardingForms = {
     active_1: {
         render: (props) => <OnboardingBioForm {...props} />,
         schema: yup.object().shape({
-            username: yup.string().required("Email is required"),
+            username: yup.string().required("Username is required"),
             bio: yup.string()
-        })
+        }),
+        height: '350px',
     },
     active_2: {
         render: (props) => <AddProfileForm {...props} />,
@@ -26,28 +27,33 @@ export const onboardingForms = {
                     }
                     return isValidFileType(value, "image");
                 }),
-        })
+        }),
+        height: '120px',
+
     },
     active_3: {
         render: (props) => <OnboardingGenderForm {...props} />,
         schema: yup.object().shape({
             gender: yup.string()
-        })
+        }),
+        height: '170px',
     },
     active_4: {
         render: (props) => <AgeForm {...props} />,
         schema: yup.object().shape({
             dob: yup.date().nullable()
-        })
+        }),
+        height: '70px',
     },
     active_5: {
         render: (props) => <AddressForm {...props} />,
         schema: yup.object().shape({
-            addressb: yup.string(),
+            address: yup.string(),
             country: yup.string(),
             state: yup.string(),
             city: yup.string(),
             postalCode: yup.string(),
-        })
+        }),
+        height: '280px',
     }
 }
