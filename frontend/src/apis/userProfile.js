@@ -23,7 +23,7 @@ export const userProfileApi = createApi({
       },
     }),
     getStates: build.query({
-      query(country) {
+      query(data) {
         return {
           url: `/states`,
           method: "GET",
@@ -56,4 +56,7 @@ export const {
   useGetStatesQuery,
   useGetCitiesQuery,
   useGetUserQuery,
+  useLazyGetCountriesQuery,
+  useLazyGetStatesQuery,
+  useLazyGetCitiesQuery
 } = userProfileApi;
