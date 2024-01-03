@@ -13,7 +13,7 @@ export const onboardingForms = {
             username: yup.string().required("Username is required"),
             bio: yup.string()
         }),
-        height: '350px',
+        height: '360px',
     },
     active_2: {
         render: (props) => <AddProfileForm {...props} />,
@@ -28,7 +28,7 @@ export const onboardingForms = {
                     return isValidFileType(value, "image");
                 }),
         }),
-        height: '120px',
+        height: '160px',
 
     },
     active_3: {
@@ -36,7 +36,7 @@ export const onboardingForms = {
         schema: yup.object().shape({
             gender: yup.string()
         }),
-        height: '170px',
+        height: '180px',
     },
     active_4: {
         render: (props) => <AgeForm {...props} />,
@@ -54,6 +54,6 @@ export const onboardingForms = {
             city: yup.string(),
             postalCode: yup.string(),
         }),
-        height: '280px',
+        height: '300px',
     }
 }

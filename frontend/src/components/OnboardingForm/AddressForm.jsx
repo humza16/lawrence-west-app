@@ -16,7 +16,7 @@ const AddressForm = ({ genericHeight }) => {
         skip: !getValues("state")
     });
     return (
-        <AnimatedBox genericHeight={genericHeight} direction='column' spacing={3} mb={2} height={genericHeight}>
+        <Stack direction='column' spacing={3} mb={2}>
             <FormControl fullWidth margin="normal">
                 <Typography variant="body2" gutterBottom>
                     Address
@@ -55,7 +55,7 @@ const AddressForm = ({ genericHeight }) => {
                     <InputField name='postalcode' placeholder="Postal Code" />
                 </FormControl>
             </Stack>
-        </AnimatedBox>
+        </Stack>
     )
 }
 

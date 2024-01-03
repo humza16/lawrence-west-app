@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 import { Button, Typography, Box } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 import UploadIcon from 'assets/logos/UploadIcon';
-import AnimatedBox from './AnimatedBox';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -54,12 +53,12 @@ const InputFileUpload = ({ onChange, ...props }) => {
     );
 };
 
-const AddProfileForm = ({ genericHeight }) => {
+const AddProfileForm = () => {
     const { formState: { errors }, control, watch } = useFormContext();
     const profileImageFileName = watch('profileImage')?.split('\\')?.pop() || '';
 
     return (
-        <AnimatedBox mb={2} genericHeight={genericHeight} height={genericHeight}>
+        <Box mb={2}>
             <Controller
                 name="profileImage"
                 control={control}
@@ -74,7 +73,7 @@ const AddProfileForm = ({ genericHeight }) => {
             <Typography {...typographyStyle} color="error" display="contents">
                 {errors?.profileImage?.message}
             </Typography>
-        </AnimatedBox>
+        </Box>
     );
 };
 

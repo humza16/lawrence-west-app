@@ -14,14 +14,10 @@ const animateHeight = keyframes`
 `;
 
 const AnimatedBox = styled(Stack)(({ genericHeight, theme }) => ({
-    animation: `${animateHeight} 2s ease!important`,
-    transition: 'all 1.9s ease!important',
-    height: genericHeight,
-    // transition: theme.transitions.create(['height'], {
-    //     easing: theme.transitions.easing.easeInOut,
-    //     duration: theme.transitions.duration.standard,
-    //     delay: 2
-    // }),
+  animation: `${animateHeight} 0.9s ease!important`,
+  // transition: 'all 1.9s ease!important',
+  height: genericHeight,
+  transition: theme.transitions.create('height', { duration: 800, easing: 'ease-in-out' })
 
 }));
 

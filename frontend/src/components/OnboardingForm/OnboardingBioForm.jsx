@@ -6,11 +6,10 @@ import {
     Stack
 } from "@mui/material";
 import InputField from 'components/InputField';
-import AnimatedBox from './AnimatedBox';
 
-const OnboardingBioForm = ({ genericHeight }) => {
+const OnboardingBioForm = () => {
     return (
-        <AnimatedBox genericHeight={genericHeight} height={genericHeight}>
+        <>
             <FormControl fullWidth margin="normal">
                 <Typography variant="body2" gutterBottom>
                     Username
@@ -41,7 +40,7 @@ const OnboardingBioForm = ({ genericHeight }) => {
                     maxRows={4}
                 />
             </FormControl>
-        </AnimatedBox>
+        </>
     )
 }
 
