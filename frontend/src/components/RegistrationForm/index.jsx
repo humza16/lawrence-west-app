@@ -10,12 +10,18 @@ import {
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useGoogleLogin } from "@react-oauth/google";
-import Logo from "assets/logos/Logo";
-import Google from "assets/logos/Google";
-import Apple from "assets/logos/Apple";
-import InputField from "../InputField";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Link from "components/Link";
+import Logo from "assets/logos/Logo";
+import Apple from "assets/logos/Apple"
+import InputField from "../InputField";
+import { useSignupMutation } from "apis/auth.api";
+import { localstorageService } from "utils/localStorageService";
+import { loginSuccess } from "slices/userSlice";
+import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
+import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 
 const schema = yup.object().shape({
   email: yup
@@ -42,23 +48,33 @@ const schema = yup.object().shape({
   rememberMe: yup.boolean(),
 });
 
-const onGoogleLoginSuccess = (response) => {
-  console.log(response);
-};
 
 const RegistrationForm = () => {
-  const login = useGoogleLogin({
-    onSuccess: onGoogleLoginSuccess,
-    onError: (error) => console.log(error),
-  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const methods = useForm({
     resolver: yupResolver(schema),
   });
   const {
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = methods;
+  const [onSignUp, { data: signUnResponse, isLoading: isSignUnLoading }] = useSignupMutation();
 
-  const onSubmit = async (values) => { };
+  const onSubmit = async (values) => {
+    onSignUp(values).unwrap()
+      .then(result => {
+        localstorageService.setToken(result?.data?.token);
+        const userDetail = {
+          username: result?.data?.username,
+          email: result?.data?.email,
+          name: result?.data?.name
+        }
+        dispatch(loginSuccess(userDetail));
+        navigate("/onboarding");
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <Box
@@ -148,18 +164,18 @@ const RegistrationForm = () => {
               />
               <Typography variant="caption">Remember me</Typography>
             </Box>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 2 }}
-            // disabled={!isValid}
-            >
+            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 2 }} loading={isSignUnLoading}>
               Sign Up
-            </Button>
+            </LoadingButton>
           </Box>
         </FormProvider>
         <Stack spacing={1} mb={2}>
-          <Button startIcon={<Google />} color="secondary" onClick={login}>
-            Sign in with Google
-          </Button>
-          <Button startIcon={<Apple />} color="secondary">
+          <SingInWithGoogle />
+          <SignInWithFacebook />
+          <Button
+            startIcon={<Apple />}
+            color="secondary"
+          >
             Sign in with Apple
           </Button>
         </Stack>

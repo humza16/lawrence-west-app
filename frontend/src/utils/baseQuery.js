@@ -1,18 +1,14 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { env } from "../../config";
-// import { localstorageService } from "./localStorageService";
-// const API_BASE_URL = env("API_URL");
+import { localstorageService } from "./localStorageService";
 
 export const baseQuery = fetchBaseQuery({
-  //   baseUrl: API_BASE_URL ?? process.env.NEXT_PUBLIC_API_URL,
-  baseUrl: "https://jsonplaceholder.typicode.com",
+  baseUrl: process.env.REACT_APP_BASE_URL,
   prepareHeaders: async (headers) => {
-    // if (localstorageService?.getToken()) {
-    //   headers.set("Authorization", `Bearer ${localstorageService.getToken()}`);
-    // }
-    // if (localstorageService?.getStoreId()) {
-    //   headers.set('Store-id', localstorageService.getStoreId());
-    // }
+    if (localstorageService?.getToken()) {
+      headers.set("Authorization", `Bearer ${localstorageService.getToken()}`);
+      headers.set("Content-Type", "application/json");
+      headers.set('Access-Control-Allow-Origin', '*')
+    }
     return headers;
   },
 });

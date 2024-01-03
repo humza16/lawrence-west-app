@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -15,12 +15,14 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputField from "components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useGoogleLogin } from "@react-oauth/google";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import Google from "assets/logos/Google";
-import Apple from "assets/logos/Apple";
+import LoadingButton from '@mui/lab/LoadingButton';
+import Apple from "assets/logos/Apple"
 import Link from "components/Link";
+import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
+import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
+import useSignIn from "shared/hooks/useSignIn";
 
 const schema = yup.object().shape({
   email: yup
@@ -31,19 +33,12 @@ const schema = yup.object().shape({
   rememberMe: yup.boolean(),
 });
 
-const onGoogleLoginSuccess = (response) => {
-  console.log(response);
-};
-
 const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const navigate = useNavigate();
+  const { onSignIn, isSignInLoading } = useSignIn();
 
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: onGoogleLoginSuccess,
-    onError: (error) => console.log(error),
-  });
   const methods = useForm({
     resolver: yupResolver(schema),
   });
@@ -52,12 +47,15 @@ const Login = () => {
   } = methods;
 
   const onSubmit = async (values) => {
-    console.log(values);
+    handleLogin(values)
   };
-
   const goToSignup = () => {
     navigate("/signup");
   };
+
+  const handleLogin = (values) => {
+    onSignIn(values);
+  }
 
   return (
     <>
@@ -99,8 +97,8 @@ const Login = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter password"
-                  endAdornment={
-                    <InputAdornment position="end">
+                  InputProps={{
+                    endAdornment: (
                       <IconButton
                         aria-label="toggle password visibility"
                         edge="end"
@@ -108,18 +106,18 @@ const Login = () => {
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
-                    </InputAdornment>
-                  }
+                    )
+                  }}
                 />
               </FormControl>
-              <Typography
+              <Link
+                to="/forget-password"
                 variant="caption"
                 mt={2}
                 display="flex"
-                justifyContent="right"
-              >
+                justifyContent="right">
                 Forgot Password?
-              </Typography>
+              </Link>
               <Box display="flex" alignItems="center" mt={2} mb={2}>
                 <Controller
                   name="rememberMe"
@@ -131,23 +129,17 @@ const Login = () => {
                 <Typography variant="caption">Remember me</Typography>
               </Box>
               <Stack spacing={1} mb={2}>
-                <Button
+                <LoadingButton
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 2 }}
-                // disabled={!isValid}
+                  loading={isSignInLoading}
                 >
                   Sign In
-                </Button>
-
-                <Button
-                  startIcon={<Google />}
-                  color="secondary"
-                  onClick={loginWithGoogle}
-                >
-                  Sign in with Google
-                </Button>
+                </LoadingButton>
+                <SingInWithGoogle />
+                <SignInWithFacebook />
                 <Button
                   startIcon={<Apple />}
                   color="secondary"
@@ -155,7 +147,7 @@ const Login = () => {
                   Sign in with Apple
                 </Button>
               </Stack>
-              <Link to='/signup' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
+              <Link to='/register' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
                 Create a New Account
               </Link>
             </Box>

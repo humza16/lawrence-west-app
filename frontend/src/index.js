@@ -38,7 +38,7 @@ root.render(
   <Provider store={store}>
     <BrowserRouter basename="/">
       <ErrorBoundary fallbackRender={fallbackRender}>
-        <GoogleOAuthProvider clientId="210605343891-1krcn2138uumh8cogr6fl52cttafavlu.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
           <React.StrictMode>
             <NavigateSetter />
             <App />

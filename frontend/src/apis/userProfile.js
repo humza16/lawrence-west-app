@@ -27,16 +27,23 @@ export const userProfileApi = createApi({
         return {
           url: `/states`,
           method: "GET",
-          body: { country }
         };
       },
     }),
     getCities: build.query({
-      query(body) {
+      query(data) {
         return {
           url: `/cities`,
           method: "GET",
-          body: body
+        };
+      },
+    }),
+    getUser: build.query({
+      query(token) {
+        return {
+          url: `/users`,
+          method: "GET",
+          params: { token: token }
         };
       },
     }),
@@ -47,5 +54,6 @@ export const {
   useCreateUserProfileMutation,
   useGetCountriesQuery,
   useGetStatesQuery,
-  useGetCitiesQuery
+  useGetCitiesQuery,
+  useGetUserQuery,
 } = userProfileApi;
