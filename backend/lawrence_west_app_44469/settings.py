@@ -17,6 +17,7 @@ import logging
 import json
 import base64
 import binascii
+import datetime
 import google.auth
 from google.oauth2 import service_account
 from google.cloud import secretmanager
@@ -88,6 +89,9 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'storages',
     'import_export',
+    'rest_framework_simplejwt',
+    'cities_light',
+    'corsheaders',
 ]
 MODULES_APPS = get_modules()
 
@@ -101,6 +105,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'lawrence_west_app_44469.urls'
@@ -177,8 +187,9 @@ STATIC_URL = '/static/'
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    # 'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'users.backends.EmailOrUsernameModelBackend'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -202,15 +213,18 @@ SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ACCOUNT_ALLOW_REGISTRATION", True)
 SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool("SOCIALACCOUNT_ALLOW_REGISTRATION", True)
 
-REST_AUTH = {
-    # Replace password reset serializer to fix 500 error
-    "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
-    # Use custom serializer that has no username and matches web signup
-    "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
-}
+# REST_AUTH = {
+#     # Replace password reset serializer to fix 500 error
+#     "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
+#     # Use custom serializer that has no username and matches web signup
+#     "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 # Custom user model
@@ -265,7 +279,7 @@ if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
     if not DEBUG:
         logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # GCP config 
 def google_service_account_config():
@@ -287,3 +301,22 @@ if GS_BUCKET_NAME:
     GS_DEFAULT_ACL = "publicRead"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+FAQ_PREFIX_QUESTION = env.str("FAQ_PREFIX_QUESTION", "Question")
+FAQ_PREFIX_ANSWER = env.str("FAQ_PREFIX_ANSWER", "Answer")
+FAQ_VISUAL_EXPANDED = env.str("FAQ_VISUAL_EXPANDED", "Explanation")
+CITIES_LIGHT_INCLUDE_COUNTRIES = env.list("CITIES_LIGHT_INCLUDE_COUNTRIES", default=["US", "CA", "GB"])
+CITIES_LIGHT_INCLUDE_CITY_TYPES = env.list("CITIES_LIGHT_INCLUDE_CITY_TYPES", default=["PPL","PPLA","PPLG","PPLL"])
+
+GOOGLE_OAUTH2_CLIENT_ID = env.str(
+    "GOOGLE_OAUTH2_CLIENT_ID",
+    "210605343891-1krcn2138uumh8cogr6fl52cttafavlu.apps.googleusercontent.com"
+)
+GOOGLE_OAUTH2_CLIENT_SECRET = env.str(
+    "GOOGLE_OAUTH2_CLIENT_SECRET",
+    "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"
+)
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+}
