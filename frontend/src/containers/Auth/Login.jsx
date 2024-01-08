@@ -2,6 +2,8 @@ import React from "react";
 import { Grid } from "@mui/material";
 import CarouselLayout from "components/Carousel";
 import Login from "components/LoginForm";
+import TestVideo from "components/TestVideo";
+// import { MyComposition, EmotionRoot } from "components/TestVideo";
 
 const Signup = () => {
   return (
@@ -10,7 +12,9 @@ const Signup = () => {
         <CarouselLayout />
       </Grid>
       <Grid item xs={12} md={6}>
-        <Login />
+        {/* <EmotionRoot /> */}
+        {/* <Login /> */}
+        <TestVideo />
       </Grid>
     </Grid>
   );
