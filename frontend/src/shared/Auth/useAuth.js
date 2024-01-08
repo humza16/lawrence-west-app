@@ -24,7 +24,7 @@ const useAuth = () => {
         dispatch(loginSuccess(data));
     }
 
-    return { loading: false, authenticated: isSuccess && Boolean(user?.id) };
+    return { loading: false, authenticated: isSuccess || (Boolean(user?.id) && localstorageService.getToken()) };
 };
 
 export default useAuth;
