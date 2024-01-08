@@ -27,4 +27,5 @@ COPY --chown=django:django . .
 
 # Collect static files and serve app
 RUN python3 manage.py collectstatic --no-input
+RUN python3 manage.py cities_light
 CMD waitress-serve --port=$PORT lawrence_west_app_44469.wsgi:application
