@@ -38,15 +38,6 @@ export const userProfileApi = createApi({
         };
       },
     }),
-    getUser: build.query({
-      query(token) {
-        return {
-          url: `/users`,
-          method: "GET",
-          params: { token: token }
-        };
-      },
-    }),
   }),
 });
 
@@ -55,5 +46,4 @@ export const {
   useGetCountriesQuery,
   useGetStatesQuery,
   useGetCitiesQuery,
-  useGetUserQuery,
 } = userProfileApi;

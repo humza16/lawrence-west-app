@@ -4,9 +4,11 @@ import axios from 'axios';
 import Google from "assets/logos/Google";
 import { SecondaryLoadingButton } from './SecondaryLoadingButton';
 import useSignIn from 'shared/hooks/useSignIn';
+// import { useLazySignInwithGoogleQuery } from 'apis/auth.api';
 
 const SingInWithGoogle = () => {
     const { onSignIn, isSignInLoading } = useSignIn();
+    // const [singInwithgoogle, { data }] = useLazySignInwithGoogleQuery();
     const onGoogleLoginSuccess = async (response) => {
         axios
             .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.access_token}`, {

@@ -1,14 +1,16 @@
 import React from 'react'
-import { Box, Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
+import { Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles'
+import { useDispatch } from 'react-redux';
 import { appBlackcolor } from 'theme/colors';
 import { localstorageService } from 'utils/localStorageService';
+import { resetUser } from 'slices/userSlice';
 
 
 
@@ -18,6 +20,8 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 const UserDropDown = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const user = useSelector((state) => state?.user?.userInfo)
@@ -29,7 +33,9 @@ const UserDropDown = () => {
     };
 
     const handleLogout = () => {
-        localstorageService.logout("/login")
+        dispatch(resetUser());
+        localstorageService.logout();
+        navigate('/login');
     }
 
     const iconColor = { color: appBlackcolor, minWidth: '40px' }

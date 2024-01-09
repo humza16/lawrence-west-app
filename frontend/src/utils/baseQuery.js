@@ -7,7 +7,7 @@ export const baseQuery = fetchBaseQuery({
     if (localstorageService?.getToken()) {
       headers.set("Authorization", `Bearer ${localstorageService.getToken()}`);
       headers.set("Content-Type", "application/json");
-      headers.set('Access-Control-Allow-Origin', '*')
+      // headers.set('Access-Control-Allow-Origin', '*')
     }
     return headers;
   },

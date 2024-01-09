@@ -1,26 +1,21 @@
 import { useCallback } from 'react'
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useSigninMutation } from 'apis/auth.api';
 import useEffectAfterSuccess from './useEffectAfterSuccess';
 import { localstorageService } from 'utils/localStorageService';
-import { loginSuccess } from 'slices/userSlice';
 
-const useSignIn = () => {
-  const dispatch = useDispatch();
+const useSignIn = (isSignup = false) => {
   const navigate = useNavigate();
   const [onSignIn, { data, isLoading, isSuccess }] = useSigninMutation();
 
   const handleLogin = useCallback(() => {
-    localstorageService.setToken(data?.token);
-    const userDetail = {
-      username: data?.username,
-      email: data?.email,
-      name: data?.name
+    localstorageService.setToken(data?.access);
+    if (isSignup) {
+      navigate("/onboarding");
+    } else {
+      navigate("/");
     }
-    dispatch(loginSuccess(userDetail));
-    navigate("/");
-  }, [data, dispatch, navigate]);
+  }, [data, navigate, isSignup]);
 
   useEffectAfterSuccess(handleLogin, isSuccess);
   return {

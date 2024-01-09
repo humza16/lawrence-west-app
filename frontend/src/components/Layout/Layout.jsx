@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { TextField, Stack, Button, IconButton, Badge } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add'
@@ -7,13 +7,9 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import { styled } from '@mui/material/styles'
-import { useSelector, useDispatch } from 'react-redux';
 import Logo from "assets/logos/Logo";
 import { appBlackcolor } from "theme/colors";
 import UserDropDown from "components/UserDropDown";
-import { useGetUserQuery } from "apis/userProfile";
-import { localstorageService } from "utils/localStorageService";
-import { loginSuccess } from "slices/userSlice";
 
 const SearchInput = styled(TextField)(() => ({
   "& .MuiInput-root": {
@@ -39,14 +35,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 const Layout = ({ children }) => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const user = useSelector(state => state?.user?.userInfo)
   const { pathname } = useLocation();
-  // const { data, isSuccess, isError, isLoading } = useGetUserQuery(localstorageService.getToken(), {
-  //   skip: Boolean(user?.id) || !localstorageService.getToken()
-  // })
-
   return (
     <>
       {pathname !== '/onboarding' ? <Stack p={2} height='60px' border='1px solid #E6F0FF'>

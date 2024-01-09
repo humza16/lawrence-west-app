@@ -5,16 +5,19 @@ import useAuth from "./useAuth";
 
 const ProtectedRoute = () => {
   const { isLoading, authenticated } = useAuth();
+  if (isLoading) {
+    return <Loader />;
+  }
 
-  return isLoading ? (
-    <Loader />
-  ) : authenticated ? (
-    <Layout>
-      <Outlet />
-    </Layout>
-  ) : (
-    <Navigate to="/login" />
-  );
+  if (authenticated) {
+    return (
+      <Layout>
+        <Outlet />
+      </Layout>
+    );
+  }
+
+  return <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

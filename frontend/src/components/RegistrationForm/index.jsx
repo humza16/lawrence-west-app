@@ -22,6 +22,7 @@ import { localstorageService } from "utils/localStorageService";
 import { loginSuccess } from "slices/userSlice";
 import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
+import useSignIn from "shared/hooks/useSignIn";
 
 const schema = yup.object().shape({
   email: yup
@@ -60,18 +61,12 @@ const RegistrationForm = () => {
     formState: { errors, isValid, isSubmitting },
   } = methods;
   const [onSignUp, { data: signUnResponse, isLoading: isSignUnLoading }] = useSignupMutation();
+  const { onSignIn, isSignInLoading } = useSignIn(true);
 
   const onSubmit = async (values) => {
-    onSignUp(values).unwrap()
-      .then(result => {
-        localstorageService.setToken(result?.data?.token);
-        const userDetail = {
-          username: result?.data?.username,
-          email: result?.data?.email,
-          name: result?.data?.name
-        }
-        dispatch(loginSuccess(userDetail));
-        navigate("/onboarding");
+    onSignUp({ ...values, password2: values.password }).unwrap()
+      .then(() => {
+        onSignIn({ ...values, username: values.email })
       })
       .catch(error => console.log(error));
   };
@@ -164,7 +159,7 @@ const RegistrationForm = () => {
               />
               <Typography variant="caption">Remember me</Typography>
             </Box>
-            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 2 }} loading={isSignUnLoading}>
+            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 2 }} loading={isSignUnLoading || isSignInLoading}>
               Sign Up
             </LoadingButton>
           </Box>

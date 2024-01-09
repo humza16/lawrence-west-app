@@ -47,7 +47,7 @@ const Login = () => {
   } = methods;
 
   const onSubmit = async (values) => {
-    handleLogin(values)
+    handleLogin({ ...values, username: values.email })
   };
   const goToSignup = () => {
     navigate("/signup");
