@@ -109,3 +109,6 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['profile_picture', 'bio']
+
+class GoogleAuthCodeSerializer(serializers.Serializer):
+    auth_code = serializers.CharField(required=True)

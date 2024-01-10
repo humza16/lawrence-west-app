@@ -3,11 +3,16 @@ from django.contrib.auth import get_user_model
 # from django.urls import reverse
 # from django.views.generic import DetailView, RedirectView, UpdateView
 from django.contrib.auth.tokens import default_token_generator
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.core.mail import send_mail
+from django.utils.decorators import method_decorator
+from django.http import HttpResponse
+from django.views import View
 from rest_framework import generics, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -19,6 +24,13 @@ from .serializers import (
     PasswordResetSerializer,
     PasswordResetConfirmSerializer,
     ProfileUpdateSerializer,
+    GoogleAuthCodeSerializer,
+)
+from users.utils import (
+    validate_google_token,
+    create_or_update_user,
+    exchange_auth_code_for_token,
+    get_id_token_from_response,
 )
 
 User = get_user_model()
@@ -114,3 +126,26 @@ class ProfileUpdateView(generics.UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ReceiveGoogleTokenView(APIView):
+
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = GoogleAuthCodeSerializer(data=request.data)
+        if serializer.is_valid():
+            auth_code = serializer.validated_data['auth_code']
+            google_response = exchange_auth_code_for_token(auth_code)
+            token = get_id_token_from_response(google_response)
+            if token:
+                id_info = validate_google_token(token)
+                if id_info:
+                    tokens = create_or_update_user(id_info)
+                    return Response(tokens)
+                return Response({"error": "Invalid token"}, status=400)
+            
+            return Response({"error": "Unable to retrieve token"}, status=400)
+        
+        return Response(serializer.errors, status=400)
