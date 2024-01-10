@@ -35,23 +35,16 @@ export const authApi = createApi({
         };
       },
     }),
-    signInwithGoogle: build.query({
+    signInwithGoogle: build.mutation({
       query(body) {
         return {
-          url: `/accounts/google/login/`,
-          method: "GET"
-        };
-      },
-    }),
-    signInwithGoogleApi: build.query({
-      query() {
-        return {
-          url: `/api/v1/login/google/`,
-          method: "GET"
+          url: `/login/google/`,
+          method: "POST",
+          body
         };
       },
     }),
   }),
 });
 
-export const { useSigninMutation, useSignupMutation, useGetUserQuery, useLazySignInwithGoogleQuery } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation } = authApi;
