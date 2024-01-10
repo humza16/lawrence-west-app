@@ -50,6 +50,7 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name}".strip()
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+    external_id = models.CharField(max_length=256, unique=True, blank=True, null=True)
     date_of_birth = models.DateField(null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     GENDER_CHOICES = [
