@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
     return <Loader />;
   }
 
-  if (!authenticated) {
+  if (authenticated) {
     return (
       <Layout>
         <Outlet />

@@ -4,13 +4,11 @@ import { styled } from '@mui/material/styles'
 import { Controller, useFormContext } from 'react-hook-form'
 import { appToggleButtonBorder } from 'theme/colors';
 
-// const fontWeight = 400;
 const MiuToggleButton = styled(ToggleButton)(({ theme }) => ({
     border: `1px solid ${appToggleButtonBorder}!important`,
     marginBottom: '12px',
     borderRadius: '8px !important',
     textTransform: 'none',
-    // fontWeight: `${fontWeight}!important`,
 }));
 
 const OnboardingGenderForm = () => {
@@ -31,7 +29,6 @@ const OnboardingGenderForm = () => {
                     orientation="vertical"
                     exclusive
                     {...field}
-
                 >
                     {genders.map((gender) => {
                         return (
