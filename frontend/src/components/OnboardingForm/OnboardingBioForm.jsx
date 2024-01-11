@@ -21,8 +21,8 @@ const OnboardingBioForm = () => {
                 />
             </FormControl>
             <Stack direction="row" spacing={1} alignItems='center' flexWrap='wrap' rowGap='8px'>
-                <Typography variant='caption'>Suggestions:</Typography>
-                <Chip label="Bad_karma" />
+                <Typography variant='caption' >Suggestions:</Typography>
+                <Chip label="Bad_karma"  />
                 <Chip label="coldplay" />
                 <Chip label="Jack_harlow" />
                 <Chip label="Cute_cat" />
