@@ -6,15 +6,15 @@ import { SecondaryLoadingButton } from './SecondaryLoadingButton';
 import { useSignInwithGoogleMutation } from 'apis/auth.api';
 import { localstorageService } from 'utils/localStorageService';
 
-const SingInWithGoogle = () => {
+const SignInWithGoogle = () => {
     const navigate = useNavigate();
     const [signInWithGoogle, { isLoading }] = useSignInwithGoogleMutation()
     const onGoogleLoginSuccess = async (res) => {
         try {
-            signInWithGoogle({ authCode: res?.code }).unwrap().then(result => {
-                const { isFirstLogin = false, access } = result || {}
+            signInWithGoogle({ auth_code: res?.code }).unwrap().then(result => {
+                const { is_first_login = false, access } = result || {}
                 localstorageService.setToken(access);
-                if (isFirstLogin) {
+                if (is_first_login) {
                     navigate("/onboarding")
                 } else {
                     navigate("/");
@@ -40,4 +40,4 @@ const SingInWithGoogle = () => {
     )
 }
 
-export default SingInWithGoogle
+export default SignInWithGoogle

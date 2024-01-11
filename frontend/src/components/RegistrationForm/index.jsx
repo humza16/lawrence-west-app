@@ -20,7 +20,7 @@ import InputField from "../InputField";
 import { useSignupMutation } from "apis/auth.api";
 import { localstorageService } from "utils/localStorageService";
 import { loginSuccess } from "slices/userSlice";
-import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
+import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
 

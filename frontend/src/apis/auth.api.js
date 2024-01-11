@@ -38,7 +38,25 @@ export const authApi = createApi({
     signInwithGoogle: build.mutation({
       query(body) {
         return {
-          url: `/login/google/`,
+          url: `api/v1/login/google/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
+    sendResetEmail: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/password-reset/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
+    resetPassword: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/password-reset-confirm/`,
           method: "POST",
           body
         };
@@ -47,4 +65,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation } = authApi;

@@ -20,7 +20,7 @@ import { useNavigate } from "react-router";
 import LoadingButton from '@mui/lab/LoadingButton';
 import Apple from "assets/logos/Apple"
 import Link from "components/Link";
-import SingInWithGoogle from "components/SocialButtons/SingInWithGoogle";
+import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
 
