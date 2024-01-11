@@ -46,7 +46,7 @@ const InputFileUpload = ({ onChange, ...props }) => {
                 Click to upload a photo
             </Typography>
             <Typography variant="body2" color={(theme) => theme.palette.text.primary}>
-                JPEG, PNG, or GIF
+                SVG, PNG, JPEG or GIF
             </Typography>
             <VisuallyHiddenInput {...props} onChange={handleChange} type="file" />
         </ImageButton>

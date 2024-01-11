@@ -49,7 +49,7 @@ const ForgetPassword = () => {
                             />
                         </FormControl>
                         <Stack spacing={2} mt={2} mb={2}>
-                            <Button variant='contained' type='submit' >Send Code</Button>
+                            <Button variant='contained' type='submit' >Send Email</Button>
                             <Button color="secondary" onClick={handleBack}>Back</Button>
                         </Stack>
                     </Box>
