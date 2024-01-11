@@ -87,7 +87,6 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                {/* <StyledLink to='/login'> */}
                 <ListItem disablePadding>
                     <ListItemButton onClick={handleLogout}>
                         <ListItemIcon sx={iconColor}>
@@ -96,7 +95,6 @@ const UserDropDown = () => {
                         <ListItemText primary="Sign Out" />
                     </ListItemButton>
                 </ListItem>
-                {/* </StyledLink> */}
             </Menu>
         </>
     )

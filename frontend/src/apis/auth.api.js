@@ -35,23 +35,34 @@ export const authApi = createApi({
         };
       },
     }),
-    signInwithGoogle: build.query({
+    signInwithGoogle: build.mutation({
       query(body) {
         return {
-          url: `/accounts/google/login/`,
-          method: "GET"
+          url: `api/v1/login/google/`,
+          method: "POST",
+          body
         };
       },
     }),
-    signInwithGoogleApi: build.query({
-      query() {
+    sendResetEmail: build.mutation({
+      query(body) {
         return {
-          url: `/api/v1/login/google/`,
-          method: "GET"
+          url: `api/v1/password-reset/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
+    resetPassword: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/password-reset-confirm/`,
+          method: "POST",
+          body
         };
       },
     }),
   }),
 });
 
-export const { useSigninMutation, useSignupMutation, useGetUserQuery, useLazySignInwithGoogleQuery } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation } = authApi;
