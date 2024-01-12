@@ -11,6 +11,7 @@ from users.views import (
     PasswordResetConfirmView,
     ProfileUpdateView,
     ReceiveGoogleTokenView,
+    FacebookSocialAuthView
 )
 
 app_name = "users"
@@ -26,4 +27,5 @@ urlpatterns = [
     path('password-reset-confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
     path('profile/update/', ProfileUpdateView.as_view(), name='profile-update'),
     path('login/google/', ReceiveGoogleTokenView.as_view(), name='google-auth'),
+    path('login/facebook/', FacebookSocialAuthView.as_view(), name='facebook-auth'),
 ]

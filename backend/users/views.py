@@ -12,8 +12,10 @@ from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.views import View
 from rest_framework import generics, status
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -25,12 +27,15 @@ from .serializers import (
     PasswordResetConfirmSerializer,
     ProfileUpdateSerializer,
     GoogleAuthCodeSerializer,
+    FacebookSocialAuthSerializer,
 )
 from users.utils import (
     validate_google_token,
     create_or_update_user,
     exchange_auth_code_for_token,
     get_id_token_from_response,
+    validate_facebook_auth_token,
+    facebook_create_or_authenticate_user,
 )
 
 User = get_user_model()
@@ -149,3 +154,29 @@ class ReceiveGoogleTokenView(APIView):
             return Response({"error": "Unable to retrieve token"}, status=400)
         
         return Response(serializer.errors, status=400)
+
+# @method_decorator(csrf_exempt, name='dispatch')
+# class FacebookAuthView(APIView):
+#     def post(self, request, *args, **kwargs):
+#         fb_code = request.data.get('code')
+#         token_info = exchange_facebook_code_for_token(fb_code)
+#         access_token = token_info.get('access_token')
+
+#         fb_user_info = get_facebook_user_info(access_token)
+#         jwt_tokens = facebook_create_or_authenticate_user(fb_user_info)
+
+#         return Response(jwt_tokens)
+    
+@permission_classes((AllowAny, ))
+class FacebookSocialAuthView(GenericAPIView):
+
+    serializer_class = FacebookSocialAuthSerializer
+
+    def post(self, request):
+
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        access_token = serializer.validated_data['access_token']
+        user_data = validate_facebook_auth_token(access_token)
+        data = facebook_create_or_authenticate_user(user_data)
+        return Response(data, status=status.HTTP_200_OK)
