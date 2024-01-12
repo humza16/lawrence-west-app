@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from google.oauth2 import id_token
+import facebook
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.exceptions import AuthenticationFailed
 from lawrence_west_app_44469.settings import GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET
 
 User = get_user_model()
@@ -51,10 +53,78 @@ def create_or_update_user(id_info):
     if not created and user.registration_method != 'google':
         user.registration_method = 'google'
         user.save()
-
-    tokens = {
-        'refresh': str(RefreshToken.for_user(user)),
-        'access': str(RefreshToken.for_user(user).access_token),
-        'is_first_login': created  # True if user was created now (first login)
+    
+    is_first_login = created
+    refresh = RefreshToken.for_user(user)
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+        'is_first_login': is_first_login
     }
-    return tokens
+
+# def get_facebook_user_info(access_token):
+#     import requests
+#     user_info_url = 'https://graph.facebook.com/me'
+#     params = {
+#         'fields': 'id,first_name,last_name,email,picture.type(large)',
+#         'access_token': access_token
+#     }
+#     response = requests.get(user_info_url, params=params)
+#     return response.json()
+
+def facebook_create_or_authenticate_user(fb_user_info):
+    email = fb_user_info['email']
+    first_name = fb_user_info['first_name']
+    last_name = fb_user_info['last_name']
+    faceboook_id = fb_user_info['id']
+
+    user, created = User.objects.get_or_create(
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        external_id=faceboook_id,
+        defaults={'registration_method': 'facebook'}
+    )
+    if not created and user.registration_method != 'facebook':
+        user.registration_method = 'facebook'
+        user.save()
+
+    is_first_login = created
+
+    refresh = RefreshToken.for_user(user)
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+        'is_first_login': is_first_login,
+    }
+
+# def exchange_facebook_code_for_token(code):
+#     import requests
+#     token_url = 'https://graph.facebook.com/v12.0/oauth/access_token'
+
+#     params = {
+#         'client_id': 'YOUR_FACEBOOK_APP_ID',
+#         # 'redirect_uri': 'http://127.0.0.1:8000/api/v1/facebook-auth/callback/',
+#         'redirect_uri': 'postmessage',
+#         'client_secret': 'YOUR_FACEBOOK_APP_SECRET',
+#         'code': code,
+#     }
+
+#     response = requests.get(token_url, params=params)
+#     return response.json()
+
+# def get_facebook_user_info(access_token):
+#     import requests
+#     graph = facebook.GraphAPI(access_token=access_token)
+#     profile = graph.request('/me?fields=name,email')
+#     user_info_url = 'https://graph.facebook.com/me'
+#     params = {'fields': 'id,first_name,last_name,email', 'access_token': access_token}
+#     return requests.get(user_info_url, params=params).json()
+
+def validate_facebook_auth_token(access_token):
+    try:
+        graph = facebook.GraphAPI(access_token=access_token)
+        profile = graph.request('/me?fields=first_name,last_name,email,id')
+        return profile
+    except:
+        return "The token is invalid or expired."
