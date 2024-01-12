@@ -5,6 +5,10 @@ from django.core.validators import validate_email
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import serializers, exceptions
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from users.utils import (
+    validate_facebook_auth_token,
+    facebook_create_or_authenticate_user,
+)
 
 User = get_user_model()
 
@@ -79,8 +83,12 @@ class PasswordResetSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
     def validate_email(self, value):
-        if not User.objects.filter(email=value).exists():
+        user = User.objects.get(email=value)
+        if not user:
             raise serializers.ValidationError("User with this email does not exist.")
+        registration_method = user.registration_method
+        if registration_method != "email":
+            raise serializers.ValidationError(f"User with this email is registered via {registration_method}.")
         return value
     
 class PasswordResetConfirmSerializer(serializers.Serializer):
@@ -112,3 +120,21 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
 class GoogleAuthCodeSerializer(serializers.Serializer):
     auth_code = serializers.CharField(required=True)
+
+class FacebookSocialAuthSerializer(serializers.Serializer):
+    """Handles serialization of facebook related data"""
+    access_token = serializers.CharField()
+
+    # def validate_auth_token(self, auth_token):
+    #     user_data = validate_facebook_auth_token(auth_token)
+
+    #     try:
+    #         user_id = user_data['id']
+    #         email = user_data['email']
+    #         first_name = user_data['first_name']
+    #         last_name = user_data['last_name']
+    #     except:
+    #         raise serializers.ValidationError(
+    #             'The token  is invalid or expired. Please login again.'
+    #         )
+    #     return facebook_create_or_authenticate_user(user_data)
