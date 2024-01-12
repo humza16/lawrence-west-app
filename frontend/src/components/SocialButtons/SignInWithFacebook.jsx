@@ -2,12 +2,21 @@ import React from 'react';
 import { FacebookOutlined } from '@mui/icons-material';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import { SecondaryLoadingButton } from './SecondaryLoadingButton';
-import useSignIn from 'shared/hooks/useSignIn';
-const SignInWithFacebook = (props) => {
-  const { onSignIn, isSignInLoading: isLoading } = useSignIn();
+import { useSignInwithFacbookMutation } from 'apis/auth.api';
+import { localstorageService } from 'utils/localStorageService';
+import { useNavigate } from 'react-router-dom'
 
+const SignInWithFacebook = (props) => {
+  const navigate = useNavigate();
+
+  const [facebookSignin, { isLoading }] = useSignInwithFacbookMutation();
   const facebookResponse = (response) => {
-    onSignIn(response);
+    facebookSignin({ access_token: response?.accessToken }).unwrap().then(res => {
+      localstorageService.setToken(res?.access)
+      navigate("/")
+    }).catch(e => {
+      console.log(e);
+    })
   }
 
   return (
