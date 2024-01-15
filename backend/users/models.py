@@ -47,7 +47,7 @@ class User(AbstractUser):
     objects = CustomUserManager()
     @property
     def name(self):
-        return f"{self.first_name} {self.last_name}".strip()
+        return f"{self.first_name or ''} {self.last_name or ''}".strip()
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
     external_id = models.CharField(max_length=256, unique=True, blank=True, null=True)
@@ -79,3 +79,6 @@ class User(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
+    
+    def __str__(self):
+        return self.email

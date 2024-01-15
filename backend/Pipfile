@@ -107,6 +107,4 @@ python-http-client = "==3.3.7"
 s3transfer = "==0.7.0"
 sendgrid = "==6.11.0"
 starkbank-ecdsa = "==2.2.0"
-cb-django-contact-us = {editable = true, ref = "745989a52f46dea86fb84d0b8496a540e20f52d4", git = "git+ssh://****@github.com/ibrahimcrowdbotics/lawrence-west-app-44469.git", subdirectory = "backend/modules/django_contact_us"}
-cb-terms-and-conditions = {editable = true, ref = "745989a52f46dea86fb84d0b8496a540e20f52d4", git = "git+ssh://****@github.com/ibrahimcrowdbotics/lawrence-west-app-44469.git", subdirectory = "backend/modules/terms_and_conditions"}
 facebook-sdk = "==3.1.0"
