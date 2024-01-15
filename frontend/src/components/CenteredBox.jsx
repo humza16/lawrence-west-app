@@ -1,7 +1,7 @@
 import React from 'react'
-import {  Box } from "@mui/material";
+import { Box } from "@mui/material";
 
-const CenteredBox = ({ children }) => {
+const CenteredBox = ({ children, maxWidth = "380px" }) => {
     return (
         <Box
             width="100%"
@@ -11,7 +11,7 @@ const CenteredBox = ({ children }) => {
             alignItems="center"
         >
             <Box
-                maxWidth="380px"
+                maxWidth={maxWidth}
                 display="flex"
                 flexDirection="column"
             >

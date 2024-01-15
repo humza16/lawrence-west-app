@@ -6,10 +6,11 @@ import TabContext from '@mui/lab/TabContext';
 import { MuiTabPanel } from 'components/StyledTabs';
 // import TabPanel from '@mui/lab/TabPanel';
 import TermAndConditions from 'components/LegalAgreement/TermAndConditions';
+import Faq from 'components/faq/faq';
 
 const LegalAgreement = () => {
     const [tabValue, setTabValue] = React.useState('terms');
-    const options = [{ label: 'Terms & Conditions', value: 'terms' }, { label: 'Privacy Policy', value: 'privacy' }]
+    const options = [{ label: 'Terms & Conditions', value: 'terms' }, { label: 'Privacy Policy', value: 'privacy' },{ label: 'FAQ', value: 'faq' }]
     const handleChange = (_, value) => {
         setTabValue(value);
     }
@@ -22,6 +23,7 @@ const LegalAgreement = () => {
                     </Box>
                     <MuiTabPanel value='terms'>{<TermAndConditions />}</MuiTabPanel>
                     <MuiTabPanel value="privacy"><PrivacyPolicy /></MuiTabPanel>
+                    <MuiTabPanel value='faq'><Faq /></MuiTabPanel>
                 </TabContext>
             </Grid>
         </Grid>

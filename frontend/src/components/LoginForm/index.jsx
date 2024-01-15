@@ -50,7 +50,7 @@ const Login = () => {
     handleLogin({ ...values, username: values.email })
   };
   const goToSignup = () => {
-    navigate("/signup");
+    navigate("/register");
   };
 
   const handleLogin = (values) => {

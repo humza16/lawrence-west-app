@@ -18,6 +18,7 @@ const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword
 const Onboarding = lazy(() => import("containers/Onboarding"));
 const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
 const AuthLayout = lazy(() => import("components/Layout/AuthLayout"));
+const Faq = lazy(() => import("components/faq/faq"))
 
 
 function App(props) {
@@ -97,6 +98,15 @@ function App(props) {
               <Suspense fallback={<Loader />}>
                 <ResetPassword {...props} />
               </Suspense>
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <Suspense
+                fallback={<Loader />}>
+                  <Faq/>
+                </Suspense>
             }
           />
         </Route>
