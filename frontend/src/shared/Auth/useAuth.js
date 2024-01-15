@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { localstorageService } from "utils/localStorageService";
 import { useGetUserQuery } from "apis/auth.api";
@@ -11,6 +12,12 @@ const useAuth = () => {
         { skip: Boolean(user?.id) || !localstorageService.getToken() }
     );
 
+    useEffect(() => {
+        if (isSuccess && !Boolean(user?.email)) {
+            dispatch(loginSuccess(data));
+        }
+    }, [isSuccess, data, dispatch, user.email])
+
     if (isLoading) {
         return { isLoading, authenticated: false };
     }
@@ -19,10 +26,6 @@ const useAuth = () => {
         console.log(error, "error")
         localstorageService.removeToken();
         return { isLoading, authenticated: false };
-    }
-
-    if (isSuccess) {
-        dispatch(loginSuccess(data));
     }
 
     return {

@@ -4,7 +4,7 @@ import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 const UserDropDown = () => {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -35,7 +34,6 @@ const UserDropDown = () => {
     const handleLogout = () => {
         dispatch(resetUser());
         localstorageService.logout();
-        navigate('/login');
     }
 
     const iconColor = { color: appBlackcolor, minWidth: '40px' }
