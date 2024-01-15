@@ -62,7 +62,16 @@ export const authApi = createApi({
         };
       },
     }),
+    signInwithFacbook: build.mutation({
+      query(body) {
+        return {
+          url: `/api/v1/login/facebook/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
   }),
 });
 
-export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation, useSignInwithFacbookMutation } = authApi;
