@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView
 from users.views import (
     # user_redirect_view,
     # user_update_view,
@@ -14,6 +15,7 @@ from users.views import (
     FacebookSocialAuthView,
     UserEditView,
     ChangePasswordView,
+    LogoutView,
 )
 
 app_name = "users"
@@ -24,6 +26,8 @@ urlpatterns = [
     path('user/info/', UserDetailView.as_view(), name='user-info'),
     path('signup/', UserRegistrationView.as_view(), name='signup'),
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('logout/', LogoutView.as_view(), name='auth_logout'),
+    path('refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('login/google/', GoogleTokenObtainView.as_view(), name='google-token-obtain'),
     path('change-password/', ChangePasswordView.as_view(), name='change-password'),
     path('password-reset/', PasswordResetView.as_view(), name='password-reset'),
