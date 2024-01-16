@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import CounterReducer from "slices/counterSlice";
 import { testApi } from "apis/test.api";
-import { userProfileApi } from "apis/userProfile";
+import { userProfileApi } from "apis/userProfile.api";
 import { authApi } from "apis/auth.api";
 import UserReducer from 'slices/userSlice';
 import toast from 'react-hot-toast';

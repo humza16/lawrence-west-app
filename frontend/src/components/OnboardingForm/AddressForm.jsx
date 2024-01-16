@@ -3,7 +3,7 @@ import { FormControl, Typography, Stack } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 import InputField from 'components/InputField'
 import SelectInput from 'components/SelectInput'
-import { useGetCountriesQuery, useGetCitiesQuery, useGetStatesQuery } from 'apis/userProfile'
+import { useGetCountriesQuery, useGetCitiesQuery, useGetStatesQuery } from 'apis/userProfile.api'
 
 const AddressForm = () => {
     const { getValues } = useFormContext();
