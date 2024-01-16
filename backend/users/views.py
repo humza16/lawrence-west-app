@@ -28,6 +28,8 @@ from .serializers import (
     ProfileUpdateSerializer,
     GoogleAuthCodeSerializer,
     FacebookSocialAuthSerializer,
+    UserEditSerializer,
+    ChangePasswordSerializer
 )
 from users.utils import (
     validate_google_token,
@@ -180,3 +182,49 @@ class FacebookSocialAuthView(GenericAPIView):
         user_data = validate_facebook_auth_token(access_token)
         data = facebook_create_or_authenticate_user(user_data)
         return Response(data, status=status.HTTP_200_OK)
+    
+class UserEditView(generics.UpdateAPIView):
+    serializer_class = UserEditSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+    
+    def get_serializer(self, *args, **kwargs):
+        kwargs['partial'] = True
+        return super().get_serializer(*args, **kwargs)
+
+class ChangePasswordView(generics.UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.validated_data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # Set new password
+            self.object.set_password(serializer.validated_data.get("new_password"))
+            self.object.save()
+            return Response({"status": "success"}, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@method_decorator(csrf_exempt, name='dispatch')
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

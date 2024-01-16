@@ -90,6 +90,7 @@ THIRD_PARTY_APPS = [
     'storages',
     'import_export',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'cities_light',
     'corsheaders',
 ]
@@ -319,4 +320,6 @@ GOOGLE_OAUTH2_CLIENT_SECRET = env.str(
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ROTATE_REFRESH_TOKENS': True,
 }
