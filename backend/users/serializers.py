@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model, authenticate, password_validation
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.password_validation import validate_password
 from django.core.validators import validate_email
@@ -28,7 +28,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'password', 'password2']
+        fields = ['email', 'password', 'password2', 'first_name', 'last_name']
         extra_kwargs = {'password': {'write_only': True}}
 
     # def validate_email(self, value):
@@ -38,10 +38,17 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         email = data.get("email", "")
-        if not email:
-            raise serializers.ValidationError("Email is required")
+        first_name = data.get("first_name", "")
+        last_name = data.get("last_name", "")
         password = data.get("password")
         password2 = data.get("password2")
+        if not email:
+            raise serializers.ValidationError("Email is required")
+        if not (first_name and last_name):
+            raise serializers.ValidationError("Both first name and last name are required.")
+        if not (password and password2):
+            raise serializers.ValidationError("Both password and password2 are required.")
+        
         if password != password2:
             raise serializers.ValidationError({"password2": "Password fields didn't match."})
         validate_email(data.get("email"))
@@ -51,8 +58,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password2', None)
         user = User.objects.create_user(
-            email=validated_data['email'],
-            password=validated_data['password']
+            **validated_data
         )
         return user
     
@@ -138,3 +144,30 @@ class FacebookSocialAuthSerializer(serializers.Serializer):
     #             'The token  is invalid or expired. Please login again.'
     #         )
     #     return facebook_create_or_authenticate_user(user_data)
+
+class UserEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name']
+
+    def validate_email(self, value):
+        if User.objects.exclude(pk=self.instance.pk).filter(email=value).exists():
+            raise serializers.ValidationError("This email is already in use.")
+        return value
+    
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Old password is incorrect.")
+        return value
+
+    def validate(self, data):
+        if data['new_password'] != data['new_password2']:
+            raise serializers.ValidationError({"new_password2": "Password fields didn't match."})
+        password_validation.validate_password(data['new_password'], self.context['request'].user)
+        return data
