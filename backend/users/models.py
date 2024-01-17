@@ -75,7 +75,7 @@ class User(AbstractUser):
     bio = models.TextField(blank=True, null=True)
 
     # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = ['username']
+    # REQUIRED_FIELDS = []
 
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})

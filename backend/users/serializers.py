@@ -13,15 +13,15 @@ from users.utils import (
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField(source='name')
+    # name = serializers.SerializerMethodField(source='name')
     profile_picture_url = serializers.ImageField(source='profile_picture')
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'name', 'profile_picture_url', 'bio')
+        fields = ('email', 'first_name',  'last_name', 'profile_picture_url', 'bio')
 
-    def get_name(self, obj):
-        return obj.get_full_name()
+    # def get_name(self, obj):
+    #     return obj.get_full_name()
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)
