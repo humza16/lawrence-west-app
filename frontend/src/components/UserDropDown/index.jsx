@@ -75,13 +75,13 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                <StyledLink to='/setpassword'>
+                <StyledLink to='/change-password'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
                                 <BorderColorOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="New password" />
+                            <ListItemText primary="Change password" />
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>

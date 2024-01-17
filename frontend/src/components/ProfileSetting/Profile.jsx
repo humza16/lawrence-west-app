@@ -3,36 +3,51 @@ import React from 'react'
 import InputField from "components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Controller, FormProvider, useForm } from "react-hook-form";
+import {  FormProvider, useForm } from "react-hook-form";
 import {
   Box,
-  Button,
   FormControl,
   Typography,
 } from "@mui/material";
+import { useSelector } from 'react-redux'
+import { useEditProfileMutation } from 'apis/userProfile.api';
+import { LoadingButton } from '@mui/lab';
+import toast from 'react-hot-toast';
+
 
 const schema = yup.object().shape({
   email: yup
     .string()
     .email("Email format is not valid"),
-  firstname: yup.string(),
-  lastname: yup.string(),
+  first_name: yup.string(),
+  last_name: yup.string(),
 });
 
 const Profile = () => {
+  const user = useSelector(state => state?.user?.userInfo)
+
+  const [onEditProfile, { isLoading, isSuccess }] = useEditProfileMutation()
   const methods = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: user?.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+    }
   });
   const {
     formState: { isValid },
   } = methods;
   const onSubmit = async (values) => {
-    handleLogin({ ...values, username: values.email })
-  };
-  const handleLogin = (values) => {
-    console.log("values profile", values)
-    // onSignIn(values);
-  }
+    onEditProfile(values).unwrap().then(() => {
+      toast.success("Profile updated Successfully")
+  }).catch(e => {
+      console.log(e);
+  })
+  console.log(values);
+};
+  
+
   return (
     <CenteredBox alignItems='start' mt={5}>
       <Typography variant="h5" fontWeight={600} mt={2}>Profile</Typography>
@@ -47,10 +62,9 @@ const Profile = () => {
               First Name
             </Typography>
             <InputField
-              id="firstname"
-              name="firstname"
+              id="first_name"
+              name="first_name"
               placeholder="Enter first name"
-              autoFocus
             />
           </FormControl>
           <FormControl fullWidth margin="normal">
@@ -58,10 +72,9 @@ const Profile = () => {
               Last Name
             </Typography>
             <InputField
-              id="lastname"
-              name="lastname"
+              id="last_name"
+              name="last_name"
               placeholder="Enter last name"
-              autoFocus
             />
           </FormControl>
           <FormControl fullWidth margin="normal">
@@ -72,20 +85,21 @@ const Profile = () => {
               id="email"
               name="email"
               placeholder="Enter email address or phone number"
-              autoFocus
             />
           </FormControl>
 
 
 
-          <Button
+          <LoadingButton
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 2 }}
+            loading={isLoading}
+
           >
             Save
-          </Button>
+          </LoadingButton>
 
 
         </Box>

@@ -10,10 +10,15 @@ import {
     FormControl,
     Typography,
 } from "@mui/material";
+import { useChangePasswordMutation } from 'apis/userProfile.api';
+import toast from 'react-hot-toast';
+import { LoadingButton } from '@mui/lab';
+
 
 const schema = yup.object().shape({
+    old_password: yup.string().required(),
 
-    newPassword: yup
+    new_password: yup
         .string()
         .required("Password is required")
         .min(8, "Password must be at least 8 characters long")
@@ -24,26 +29,39 @@ const schema = yup.object().shape({
             /[!@#$%^&*(),.?":{}|<>]/,
             "Password must contain at least one special character"
         ),
-    confirmPassword: yup
+    new_password2: yup
         .string()
         .label("confirm password")
         .required()
-        .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
+        .oneOf([yup.ref("new_password"), null], "Passwords must match"),
 });
 const Password = () => {
+    const [changePassword, { isLoading, isSuccess }] = useChangePasswordMutation();
+
     const methods = useForm({
         resolver: yupResolver(schema),
     });
     const {
         formState: { isValid },
+        reset,
+        resetField
     } = methods;
     const onSubmit = async (values) => {
         console.log("value password in onsub function:", values)
-        handleLogin({ ...values, username: values.email })
+        changePassword(values).unwrap().then(() => {
+            toast.success("Password changed successfully")
+            reset({
+                old_password: "",
+                new_password: "",
+                new_password2: ""
+            })
+        }).catch(e => {
+            console.log(e);
+        })
+        console.log(values);
     };
-    const handleLogin = (values) => {
-        console.log("value password:", values)
-    }
+
+
     return (
         <CenteredBox alignItems='start' mt={5}>
             <Typography variant="h5" fontWeight={600} mt={2}>Password</Typography>
@@ -58,9 +76,11 @@ const Password = () => {
                             Current Password
                         </Typography>
                         <InputField
-                            id="currentPassword"
-                            name="currentPassword"
+                            id="old_password"
+                            name="old_password"
                             placeholder="Enter current password"
+                            type="password"
+                            autoFocus
                         />
                     </FormControl>
                     <FormControl fullWidth margin="normal">
@@ -68,34 +88,35 @@ const Password = () => {
                             New Password
                         </Typography>
                         <InputField
-                            id="newPassword"
-                            name="newPassword"
+                            id="new_password"
+                            name="new_password"
                             placeholder="Enter new password"
+                            type="password"
+
 
                         />
                     </FormControl>
                     <FormControl fullWidth margin="normal">
                         <Typography variant="body2" gutterBottom>
-                            confirm password
+                            Confirm password
                         </Typography>
                         <InputField
-                            id="confirmPassword"
-                            name="confirmPassword"
+                            id="new_password2"
+                            name="new_password2"
                             placeholder="Enter confirm password"
-                            autoFocus
+                            type="password"
+
                         />
                     </FormControl>
-
-
-
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 2 }}
+                        loading={isLoading}
                     >
                         Save
-                    </Button>
+                    </LoadingButton>
 
 
                 </Box>
