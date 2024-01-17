@@ -169,10 +169,10 @@ class ReceiveGoogleTokenView(APIView):
 
 #         return Response(jwt_tokens)
     
-@permission_classes((AllowAny, ))
 class FacebookSocialAuthView(GenericAPIView):
 
     serializer_class = FacebookSocialAuthSerializer
+    permission_classes = AllowAny
 
     def post(self, request):
 
@@ -190,10 +190,11 @@ class UserEditView(generics.UpdateAPIView):
     def get_object(self):
         return self.request.user
     
-    def get_serializer(self, *args, **kwargs):
-        kwargs['partial'] = True
-        return super().get_serializer(*args, **kwargs)
+    # def get_serializer(self, *args, **kwargs):
+    #     kwargs['partial'] = True
+    #     return super().get_serializer(*args, **kwargs)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [IsAuthenticated]
@@ -216,7 +217,6 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
