@@ -198,7 +198,7 @@ class FacebookSocialAuthView(GenericAPIView):
         user_data = validate_facebook_auth_token(access_token)
         data = facebook_create_or_authenticate_user(user_data)
         return Response(data, status=status.HTTP_200_OK)
-    
+@method_decorator(csrf_exempt, name='dispatch')
 class UserEditView(generics.UpdateAPIView):
     serializer_class = UserEditSerializer
     permission_classes = [IsAuthenticated]

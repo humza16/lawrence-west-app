@@ -6,6 +6,7 @@ import theme from "theme";
 import { ThemeProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 import Loader from "components/Loader";
+import { Lazy } from "yup";
 const ProtectedRoute = lazy(() => import("shared/Auth/ProtectedRoute"));
 const Home = lazy(() => import("containers/Home"));
 const About = lazy(() => import("containers/About"));
@@ -17,8 +18,8 @@ const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword
 const Onboarding = lazy(() => import("containers/Onboarding"));
 const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
 const AuthLayout = lazy(() => import("components/Layout/AuthLayout"));
-
-
+const Profile = lazy(() => import("components/ProfileSetting/Profile"))
+const SetPassword = lazy(() => import("components/ProfileSetting/Password"))
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
@@ -61,6 +62,22 @@ function App(props) {
             element={
               <Suspense fallback={<Loader />}>
                 <LegalAgreement {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Suspense fallback={<Loader />}>
+                <Profile {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <Suspense fallback={<Loader />}>
+                <SetPassword {...props} />
               </Suspense>
             }
           />

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import Stepper from 'components/Stepper';
 import FormHeader from './FormHeader';
-import { useCreateUserProfileMutation } from 'apis/userProfile';
+import { useCreateUserProfileMutation } from 'apis/userProfile.api';
 import { onboardingForms } from './formSchema';
 import { loginSuccess } from 'slices/userSlice';
 

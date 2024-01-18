@@ -86,6 +86,26 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
+                <StyledLink to='/profile'>
+                    <ListItem disablePadding onClick={handleClose}>
+                        <ListItemButton>
+                            <ListItemIcon sx={iconColor}>
+                                <BorderColorOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="profile" />
+                        </ListItemButton>
+                    </ListItem>
+                </StyledLink>
+                <StyledLink to='/change-password'>
+                    <ListItem disablePadding onClick={handleClose}>
+                        <ListItemButton>
+                            <ListItemIcon sx={iconColor}>
+                                <BorderColorOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Change password" />
+                        </ListItemButton>
+                    </ListItem>
+                </StyledLink>
                 <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>

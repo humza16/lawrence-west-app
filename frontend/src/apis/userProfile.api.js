@@ -38,6 +38,24 @@ export const userProfileApi = createApi({
         };
       },
     }),
+    changePassword: build.mutation({
+      query(body) {
+        return {
+          url: `/api/v1/change-password/`,
+          method: "PUT",
+          body
+        }
+      }
+    }),
+    editProfile: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/edit-profile/`,
+          method: "PUT",
+          body
+        }
+      }
+    })
   }),
 });
 
@@ -46,4 +64,6 @@ export const {
   useGetCountriesQuery,
   useGetStatesQuery,
   useGetCitiesQuery,
+  useChangePasswordMutation,
+  useEditProfileMutation
 } = userProfileApi;
