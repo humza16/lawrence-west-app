@@ -23,7 +23,7 @@ urlpatterns = [
     # path("~redirect/", view=user_redirect_view, name="redirect"),
     # path("~update/", view=user_update_view, name="update"),
     # path("<str:username>/", view=user_detail_view, name="detail"),
-    path('user/info/', UserDetailView.as_view(), name='user-info'),
+    path('user-info/', UserDetailView.as_view(), name='user-info'),
     path('signup/', UserRegistrationView.as_view(), name='signup'),
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('logout/', LogoutView.as_view(), name='auth_logout'),

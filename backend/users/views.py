@@ -31,6 +31,7 @@ from .serializers import (
     UserEditSerializer,
     ChangePasswordSerializer
 )
+from lawrence_west_app_44469.settings import SENDGRID_CLIENT, LOGIN_REDIRECT_URL
 from users.utils import (
     validate_google_token,
     create_or_update_user,
@@ -38,6 +39,7 @@ from users.utils import (
     get_id_token_from_response,
     validate_facebook_auth_token,
     facebook_create_or_authenticate_user,
+    compose_email_body,
 )
 
 User = get_user_model()
@@ -102,24 +104,38 @@ class GoogleTokenObtainView(APIView):
             'access': str(refresh.access_token),
         })
     
-
+@method_decorator(csrf_exempt, name='dispatch')
 class PasswordResetView(APIView):
     def post(self, request):
         serializer = PasswordResetSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = User.objects.get(email=serializer.validated_data['email'])
+        
+        try:
+            serializer.is_valid(raise_exception=True)
+            user = User.objects.get(email=serializer.validated_data['email'])
+        except User.DoesNotExist:
+            return Response({"error": "Invalid email address."}, status=status.HTTP_400_BAD_REQUEST)
+        
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_link = f"{request.build_absolute_uri('/reset-password/')}?uid={uid}&token={token}"
-        send_mail(
-            'Password Reset Request',
-            f'Please use the following link to reset your password: {reset_link}',
-            'from@example.com',
-            [user.email],
-            fail_silently=False,
+        reset_link = f"{LOGIN_REDIRECT_URL}/reset-password?uid={uid}&token={token}"
+
+        subject = "Reset password with Reel Moment"
+        content = f'Please use the following link to reset your password: {reset_link}'
+
+        mail_json = compose_email_body(
+            to_email=user.email,
+            subject=subject,
+            content=content
         )
+
+        response = SENDGRID_CLIENT.client.mail.send.post(request_body=mail_json)
+
+        if response.status_code != 202:
+            return Response({"error": "Failed to send email."}, status=response.status_code)
+        
         return Response({"message": "Password reset email sent."}, status=status.HTTP_200_OK)
     
+@method_decorator(csrf_exempt, name='dispatch')
 class PasswordResetConfirmView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = PasswordResetConfirmSerializer(data=request.data)
@@ -169,10 +185,10 @@ class ReceiveGoogleTokenView(APIView):
 
 #         return Response(jwt_tokens)
     
-@permission_classes((AllowAny, ))
 class FacebookSocialAuthView(GenericAPIView):
 
     serializer_class = FacebookSocialAuthSerializer
+    permission_classes = AllowAny
 
     def post(self, request):
 
@@ -190,10 +206,11 @@ class UserEditView(generics.UpdateAPIView):
     def get_object(self):
         return self.request.user
     
-    def get_serializer(self, *args, **kwargs):
-        kwargs['partial'] = True
-        return super().get_serializer(*args, **kwargs)
+    # def get_serializer(self, *args, **kwargs):
+    #     kwargs['partial'] = True
+    #     return super().get_serializer(*args, **kwargs)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ChangePasswordView(generics.UpdateAPIView):
     serializer_class = ChangePasswordSerializer
     permission_classes = [IsAuthenticated]
@@ -216,7 +233,6 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@method_decorator(csrf_exempt, name='dispatch')
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 

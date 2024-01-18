@@ -34,6 +34,7 @@ urlpatterns = [
     # path("rest-auth/registration/", include("dj_rest_auth.registration.urls")),
     path("api/v1/", include("users.urls")),
     path('accounts/', include('allauth.urls')),
+    path("faq/", include("modules.faq.urls")),
 ]
 
 admin.site.site_header = "Lawrence West App"
