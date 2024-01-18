@@ -28,7 +28,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'password2', 'first_name', 'last_name']
+        fields = ['email', 'password', 'password2', 'first_name', 'last_name']
         extra_kwargs = {'password': {'write_only': True}}
 
     # def validate_email(self, value):
@@ -38,13 +38,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         email = data.get("email", "")
-        username = data.get("username", "")
         first_name = data.get("first_name", "")
         last_name = data.get("last_name", "")
         password = data.get("password")
         password2 = data.get("password2")
-        if not email or not username:
-            raise serializers.ValidationError("Both email and username are required.")
+        if not email:
+            raise serializers.ValidationError("Email is required.")
         if not (first_name and last_name):
             raise serializers.ValidationError("Both first name and last name are required.")
         if not (password and password2):
