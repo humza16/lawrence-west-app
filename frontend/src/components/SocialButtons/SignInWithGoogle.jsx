@@ -12,13 +12,15 @@ const SignInWithGoogle = () => {
     const onGoogleLoginSuccess = async (res) => {
         try {
             signInWithGoogle({ auth_code: res?.code }).unwrap().then(result => {
-                const { is_first_login = false, access } = result || {}
+                const { is_first_login = false, access, refresh } = result || {}
                 localstorageService.setToken(access);
-                if (is_first_login) {
-                    navigate("/onboarding")
-                } else {
-                    navigate("/");
-                }
+                localstorageService.setRefreshToken(refresh);
+                navigate("/");
+                // if (is_first_login) {
+                //     navigate("/onboarding")
+                // } else {
+                //     navigate("/");
+                // }
             }).catch(e => {
                 console.log(e);
             })

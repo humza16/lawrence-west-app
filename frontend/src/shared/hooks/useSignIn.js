@@ -4,18 +4,20 @@ import { useSigninMutation } from 'apis/auth.api';
 import useEffectAfterSuccess from './useEffectAfterSuccess';
 import { localstorageService } from 'utils/localStorageService';
 
-const useSignIn = (isSignup = false) => {
+const useSignIn = () => {
   const navigate = useNavigate();
   const [onSignIn, { data, isLoading, isSuccess }] = useSigninMutation();
 
   const handleLogin = useCallback(() => {
     localstorageService.setToken(data?.access);
-    if (isSignup) {
-      navigate("/onboarding");
-    } else {
-      navigate("/");
-    }
-  }, [data, navigate, isSignup]);
+    localstorageService.setRefreshToken(data.refresh);
+    navigate("/");
+    // if () {
+    //   navigate("/onboarding");
+    // } else {
+    //   navigate("/");
+    // }
+  }, [data, navigate]);
 
   useEffectAfterSuccess(handleLogin, isSuccess);
   return {

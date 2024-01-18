@@ -23,6 +23,7 @@ import Link from "components/Link";
 import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
+import SignInWithApple from "components/SocialButtons/SignInWithApple";
 
 const schema = yup.object().shape({
   email: yup
@@ -140,12 +141,13 @@ const Login = () => {
                 </LoadingButton>
                 <SingInWithGoogle />
                 <SignInWithFacebook />
-                <Button
+                {/* <SignInWithApple /> */}
+                {/* <Button
                   startIcon={<Apple />}
                   color="secondary"
                 >
                   Sign in with Apple
-                </Button>
+                </Button> */}
               </Stack>
               <Link to='/register' textAlign="center" onClick={goToSignup} sx={{ cursor: 'pointer' }}>
                 Create a New Account

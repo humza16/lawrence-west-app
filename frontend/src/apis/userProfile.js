@@ -1,8 +1,8 @@
-import { baseQuery } from "utils/baseQuery";
+import { baseQueryWithReauth } from "utils/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 export const userProfileApi = createApi({
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   reducerPath: "userProfileApi",
   endpoints: (build) => ({
     createUserProfile: build.mutation({

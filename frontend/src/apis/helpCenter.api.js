@@ -1,14 +1,14 @@
 import { baseQuery } from "utils/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-export const testApi = createApi({
+export const helpCenter = createApi({
   baseQuery: baseQuery,
-  reducerPath: "testApi",
+  reducerPath: "helpCenter",
   endpoints: (build) => ({
-    getData: build.query({
+    getFaqs: build.query({
       query() {
         return {
-          url: `/users`,
+          url: `/faq/?page=1&records=10`,
           method: "GET",
         };
       },
@@ -16,4 +16,4 @@ export const testApi = createApi({
   }),
 });
 
-export const { useGetDataQuery } = testApi;
+export const { useGetFaqsQuery } = helpCenter;

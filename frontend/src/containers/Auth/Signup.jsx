@@ -9,7 +9,7 @@ const Signup = () => {
       <Grid item xs={0} md={6} display={{ xs: "none", md: "block" }}>
         <CarouselLayout />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} paddingX={2}>
         <RegistrationForm />
       </Grid>
     </Grid>

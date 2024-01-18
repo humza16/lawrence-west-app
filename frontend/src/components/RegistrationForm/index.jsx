@@ -3,7 +3,7 @@ import {
   Box,
   Typography,
   FormControl,
-  Button,
+  Grid,
   Checkbox,
   Stack,
 } from "@mui/material";
@@ -15,11 +15,8 @@ import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from "components/Link";
 import Logo from "assets/logos/Logo";
-import Apple from "assets/logos/Apple"
 import InputField from "../InputField";
 import { useSignupMutation } from "apis/auth.api";
-import { localstorageService } from "utils/localStorageService";
-import { loginSuccess } from "slices/userSlice";
 import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
@@ -61,7 +58,7 @@ const RegistrationForm = () => {
     formState: { errors, isValid, isSubmitting },
   } = methods;
   const [onSignUp, { data: signUnResponse, isLoading: isSignUnLoading }] = useSignupMutation();
-  const { onSignIn, isSignInLoading } = useSignIn(true);
+  const { onSignIn, isSignInLoading } = useSignIn();
 
   const onSubmit = async (values) => {
     onSignUp({ ...values, password2: values.password }).unwrap()
@@ -79,9 +76,9 @@ const RegistrationForm = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <Box maxWidth="330px" display="flex" flexDirection="column">
+      <Box maxWidth="330px" display="flex" flexDirection="column" gap={1}>
         <Logo />
-        <Typography variant="h5" fontWeight={600} mt={2}>
+        <Typography variant="h5" fontWeight={600}>
           Create your account
         </Typography>
         <FormProvider {...methods}>
@@ -89,8 +86,40 @@ const RegistrationForm = () => {
             component="form"
             mb={2}
             onSubmit={methods.handleSubmit(onSubmit)}
+            gap={1}
+            display="flex"
+            flexDirection="column"
           >
-            <FormControl fullWidth margin="normal">
+            <Grid container spacing={1} mb={1}>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <Typography variant="body2" gutterBottom>
+                    First Name
+                  </Typography>
+                  <InputField
+                    name="first_name"
+                    type="text"
+                    placeholder="Enter first name"
+                  />
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <Typography variant="body2" gutterBottom>
+                    Last Name
+                  </Typography>
+                  <InputField
+                    name="last_name"
+                    type="text"
+                    placeholder="Enter last name"
+                  />
+                </FormControl>
+              </Grid>
+
+            </Grid>
+
+            <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
                 Email address
               </Typography>
@@ -100,7 +129,7 @@ const RegistrationForm = () => {
                 placeholder="Enter email address"
               />
             </FormControl>
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
                 Password
               </Typography>
@@ -110,7 +139,7 @@ const RegistrationForm = () => {
                 placeholder="Enter Password"
               />
             </FormControl>
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
                 Confirm Password
               </Typography>
@@ -144,7 +173,7 @@ const RegistrationForm = () => {
               fontSize={10}
               margin="auto"
               p={0}
-              mt={0.5}
+              // mt={0.5}
               display="contents"
             >
               {errors?.termsAgreement?.message}
@@ -159,20 +188,20 @@ const RegistrationForm = () => {
               />
               <Typography variant="caption">Remember me</Typography>
             </Box>
-            <LoadingButton type="submit" fullWidth variant="contained" sx={{ mt: 2 }} loading={isSignUnLoading || isSignInLoading}>
+            <LoadingButton type="submit" fullWidth variant="contained" loading={isSignUnLoading || isSignInLoading}>
               Sign Up
             </LoadingButton>
           </Box>
         </FormProvider>
-        <Stack spacing={1} mb={2}>
+        <Stack spacing={1}>
           <SingInWithGoogle />
           <SignInWithFacebook />
-          <Button
+          {/* <Button
             startIcon={<Apple />}
             color="secondary"
           >
             Sign in with Apple
-          </Button>
+          </Button> */}
         </Stack>
         <Link to="/login" textAlign="center">Already have an account?</Link>
       </Box>
