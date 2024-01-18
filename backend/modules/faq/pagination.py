@@ -10,12 +10,9 @@ class CustomPageNumberPagination(PageNumberPagination):
     on the basis of page-set and records.
     """
 
-    page_size = 5
+    page_size = 10
     page_query_param = "page"
     page_size_query_param = "records"
-    question = settings.FAQ_PREFIX_QUESTION
-    answer = settings.FAQ_PREFIX_ANSWER
-    visual = settings.FAQ_VISUAL_EXPANDED
 
     def get_next_page_number(self):
         """
