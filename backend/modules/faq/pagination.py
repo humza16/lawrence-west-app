@@ -39,9 +39,6 @@ class CustomPageNumberPagination(PageNumberPagination):
 
         return Response(
             {
-                "prefix_question": self.question,
-                "prefix_answer": self.answer,
-                "isExpanded": self.visual,
                 "next": self.get_next_page_number(),
                 "previous": self.get_previous_page_number(),
                 "count": self.page.paginator.count,
