@@ -188,7 +188,7 @@ class ReceiveGoogleTokenView(APIView):
 class FacebookSocialAuthView(GenericAPIView):
 
     serializer_class = FacebookSocialAuthSerializer
-    permission_classes = AllowAny
+    permission_classes = [AllowAny]
 
     def post(self, request):
 
