@@ -23,6 +23,7 @@ from google.oauth2 import service_account
 from google.cloud import secretmanager
 from google.auth.exceptions import DefaultCredentialsError
 from google.api_core.exceptions import PermissionDenied
+import sendgrid
 from modules.manifest import get_modules
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -207,7 +208,8 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_UNIQUE_EMAIL = True
-LOGIN_REDIRECT_URL = "users:redirect"
+# LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = env.str("LOGIN_REDIRECT_URL", "http://localhost:3000")
 
 ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
@@ -237,6 +239,11 @@ EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+SENDGRID_API_KEY = env.str("SENDGRID_API_KEY", "") # sendgrid API key
+DEFAULT_SENDER_EMAIL = env.str("SENDER_EMAIL", "muhammad.ibrahim@crowdbotics.com") # default "from" email when sending emails
+SENDGRID_CLIENT = None
+if SENDGRID_API_KEY:
+    SENDGRID_CLIENT = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
 
 # AWS S3 config
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
@@ -275,12 +282,11 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "v1",
 }
 
-if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
+if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD) or not SENDGRID_API_KEY:
     # output email to console instead of sending
     if not DEBUG:
         logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # GCP config 
 def google_service_account_config():
@@ -302,9 +308,7 @@ if GS_BUCKET_NAME:
     GS_DEFAULT_ACL = "publicRead"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-FAQ_PREFIX_QUESTION = env.str("FAQ_PREFIX_QUESTION", "Question")
-FAQ_PREFIX_ANSWER = env.str("FAQ_PREFIX_ANSWER", "Answer")
-FAQ_VISUAL_EXPANDED = env.str("FAQ_VISUAL_EXPANDED", "Explanation")
+
 CITIES_LIGHT_INCLUDE_COUNTRIES = env.list("CITIES_LIGHT_INCLUDE_COUNTRIES", default=["US", "CA", "GB"])
 CITIES_LIGHT_INCLUDE_CITY_TYPES = env.list("CITIES_LIGHT_INCLUDE_CITY_TYPES", default=["PPL","PPLA","PPLG","PPLL"])
 
