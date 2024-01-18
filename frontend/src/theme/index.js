@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor } from "./colors";
+import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor, appWhite } from "./colors";
 import { red } from "@mui/material/colors";
 let theme = createTheme({
   palette: {
@@ -8,6 +8,7 @@ let theme = createTheme({
     },
     text: {
       primary: appBlackcolor,
+      secondary: appWhite
     },
     primary: {
       main: appPrimaryColor,
@@ -66,6 +67,7 @@ let theme = createTheme({
         root: {
           fontSize: "0.875rem!important",
           borderRadius: "8px!important",
+          height: '3rem'
         },
       },
     },
@@ -81,6 +83,13 @@ let theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         color: `${appBlackcolor}!imporant`
+      }
+    },
+    MuiDivider: {
+      styleOverrides: {
+        height: 'auto!important',
+        borderWidth: '1px !important',
+        borderColor: '#E6F0FF !important'
       }
     },
   },

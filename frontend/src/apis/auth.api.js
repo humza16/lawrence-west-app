@@ -1,11 +1,11 @@
 import {
-  baseQuery
+  baseQueryWithReauth
 } from "utils/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 
 export const authApi = createApi({
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithReauth,
   reducerPath: "authApi",
   endpoints: (build) => ({
     signin: build.mutation({
@@ -29,7 +29,7 @@ export const authApi = createApi({
     getUser: build.query({
       query() {
         return {
-          url: '/api/v1/user/info/',
+          url: '/api/v1/user-info/',
           method: "GET"
           // method: "GET",
         };
@@ -71,7 +71,25 @@ export const authApi = createApi({
         };
       },
     }),
+    logout: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/logout/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
+    refreshTokens: build.mutation({
+      query(body) {
+        return {
+          url: `api/v1/refresh/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
   }),
 });
 
-export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation, useSignInwithFacbookMutation } = authApi;
+export const { useSigninMutation, useSignupMutation, useGetUserQuery, useSignInwithGoogleMutation, useResetPasswordMutation, useSendResetEmailMutation, useSignInwithFacbookMutation, useLogoutMutation, useRefreshTokensMutation } = authApi;

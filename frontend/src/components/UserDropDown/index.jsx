@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { appBlackcolor } from 'theme/colors';
 import { localstorageService } from 'utils/localStorageService';
 import { resetUser } from 'slices/userSlice';
+import LogoutModal from 'components/LogoutModal';
+import { useLogoutMutation } from 'apis/auth.api';
 
 
 
@@ -23,6 +25,8 @@ const UserDropDown = () => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
+    const [logout, { isLoading }] = useLogoutMutation();
     const user = useSelector((state) => state?.user?.userInfo)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -32,8 +36,25 @@ const UserDropDown = () => {
     };
 
     const handleLogout = () => {
-        dispatch(resetUser());
-        localstorageService.logout();
+        setOpenLogoutModal(true);
+        handleClose()
+        // dispatch(resetUser());
+        // localstorageService.logout();
+    }
+
+    const handleLogoutModalClose = () => {
+        setOpenLogoutModal(false);
+    }
+
+    const onClickLogout = () => {
+        const data = { refresh: localstorageService?.getRefreshToken() };
+        logout(data).unwrap().then(() => {
+            dispatch(resetUser());
+            setOpenLogoutModal(false);
+            localstorageService.logout();
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     const iconColor = { color: appBlackcolor, minWidth: '40px' }
@@ -114,6 +135,12 @@ const UserDropDown = () => {
                     </ListItemButton>
                 </ListItem>
             </Menu>
+            <LogoutModal
+                open={openLogoutModal}
+                handleClose={handleLogoutModalClose}
+                onClickLogout={onClickLogout}
+                isLoading={isLoading}
+            />
         </>
     )
 }

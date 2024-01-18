@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { localstorageService } from "utils/localStorageService";
 import { useGetUserQuery } from "apis/auth.api";
-import { loginSuccess } from "slices/userSlice";
+import { loginSuccess, resetUser } from "slices/userSlice";
 
 const useAuth = () => {
     const dispatch = useDispatch();
     const user = useSelector(state => state?.user?.userInfo)
     const { data, isSuccess, isError, error, isLoading } = useGetUserQuery(
         localstorageService.getToken(),
-        { skip: Boolean(user?.id) || !localstorageService.getToken() }
+        { skip: Boolean(user?.id) || !(localstorageService.getToken() || localstorageService.getRefreshToken()) }
     );
 
     useEffect(() => {
@@ -24,7 +24,8 @@ const useAuth = () => {
 
     if (isError) {
         console.log(error, "error")
-        localstorageService.removeToken();
+        dispatch(resetUser());
+        localstorageService.logout();
         return { isLoading, authenticated: false };
     }
 

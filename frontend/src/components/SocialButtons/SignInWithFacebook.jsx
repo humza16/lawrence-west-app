@@ -12,7 +12,8 @@ const SignInWithFacebook = (props) => {
   const [facebookSignin, { isLoading }] = useSignInwithFacbookMutation();
   const facebookResponse = (response) => {
     facebookSignin({ access_token: response?.accessToken }).unwrap().then(res => {
-      localstorageService.setToken(res?.access)
+      localstorageService.setToken(res?.access);
+      localstorageService.setRefreshToken(res.refresh);
       navigate("/")
     }).catch(e => {
       console.log(e);
