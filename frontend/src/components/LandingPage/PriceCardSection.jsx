@@ -42,7 +42,7 @@ const MuiSwitch = styled(Switch)(({ theme }) => ({
 
 const PriceCardSection = () => {
     return (
-        <Stack width="100%" mb={10}>
+        <Stack width="100%" mb={20}>
             <Typography textAlign="center" variant='h2' fontWeight={700} mb={6}>Our Pricing</Typography>
             <Stack direction="row" justifyContent="center" alignItems="center" gap={2} mb={4}>
                 <Typography fontSize={18} sx={{ opacity: "50%" }}>Billed Monthly</Typography>

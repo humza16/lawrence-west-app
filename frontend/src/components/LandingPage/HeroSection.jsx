@@ -2,19 +2,9 @@ import React from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import styled from '@emotion/styled';
 import HeroImage from "assets/images/heroSection.svg";
-
-const StyledButton = styled(Button)(({ theme }) => ({
-    border: `2px solid #1053D4`,
-    marginTop: "10px",
-    borderRadius: "30px!important",
-    minWidth: "219px",
-    fontWeight: "400 !important",
-    height: "42px",
-    color: '#FFFFFF',
-    backgroundColor: "#1053D4"
+import CreateBG from "assets/images/create-bg.svg";
 
 
-}));
 const HeroSection = () => {
     return (
         <Box
@@ -49,14 +39,23 @@ const HeroSection = () => {
                     }}
                 // marginTop={16}
                 >
-                    Every Experience Deserves a Reel Moment What will you create?
+                    Every Experience Deserves a <br /> Reel Moment What will you <Typography fontWeight={700}
+                        textAlign='center' sx={{
+                            minHeight: { xs: 38, md: 70, lg: 90 },
+                            display: "inline-block",
+                            fontSize: { xs: 24, md: 40, lg: 55 },
+                            backgroundImage: `url(${CreateBG})`,
+                            backgroundPosition: "100% 108%",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "contain",
+                            maxWidth: "fit-content"
+                        }}>create?</Typography>
                 </Typography>
-                
-                <StyledButton>
-                    Create Moment
-                </StyledButton>
+
+                <Button variant='contained' color='secondary' sx={{ borderRadius: '30px!important', paddingX: 4, paddingY: 1.5 }} >Creat Moment</Button>
+
             </Box>
-        </Box>
+        </Box >
     )
 }
 
