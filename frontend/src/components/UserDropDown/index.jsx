@@ -76,7 +76,7 @@ const UserDropDown = () => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <StyledLink to='/'>
+                {/* <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
@@ -85,18 +85,18 @@ const UserDropDown = () => {
                             <ListItemText primary="Settings" />
                         </ListItemButton>
                     </ListItem>
-                </StyledLink>
+                </StyledLink> */}
                 <StyledLink to='/profile'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
                                 <BorderColorOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="profile" />
+                            <ListItemText primary="Profile" />
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                <StyledLink to='/change-password'>
+                {/* <StyledLink to='/change-password'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
@@ -105,7 +105,7 @@ const UserDropDown = () => {
                             <ListItemText primary="Change password" />
                         </ListItemButton>
                     </ListItem>
-                </StyledLink>
+                </StyledLink> */}
                 <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
