@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FormControl, Typography, Select, MenuItem } from '@mui/material'
 
-const SelectInput = ({ name, options, label, placeholder }) => {
+const SelectInput = ({ name, options, label, placeholder, defaultValue }) => {
     const { control, formState: { errors } } = useFormContext();
     return (
         <FormControl fullWidth margin="normal">

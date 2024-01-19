@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import { styled } from '@mui/material/styles'
 import Logo from "assets/logos/Logo";
 import { appBlackcolor } from "theme/colors";
@@ -36,6 +37,8 @@ const StyledLink = styled(Link)(({ theme }) => ({
   }
 }));
 
+const roundBorder = { border: "#E1E1E6 solid 2px", borderRadius: "50%" };
+
 const Layout = ({ children }) => {
   const { pathname } = useLocation();
   const isMobile = useMediaQuery('(max-width:900px)');
@@ -45,21 +48,21 @@ const Layout = ({ children }) => {
       {pathname !== '/onboarding' ? isMobile ?
         <Sidebar />
 
-        : <Stack p={2} height='60px' border='1px solid #E6F0FF'>
+        : <Stack p={2} border='1px solid #E6F0FF'>
           <Stack direction='row' justifyContent='space-between' alignItems='center'>
-            <Stack direction='row' alignItems="center" spacing={3}>
-              <Link to='/'><Logo width="199" height="41" /></Link>
-              <StyledLink to="/">Moment Library</StyledLink>
+            {/* <Stack direction='row' alignItems="center" spacing={3}> */}
+            <Link to='/'><Logo width="199" height="41" /></Link>
+            {/* <StyledLink to="/">Moment Library</StyledLink>
               <StyledLink to="/">QR Library</StyledLink>
-              <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} />
-            </Stack>
-            <Stack direction='row' spacing={2} alignItems='center'>
-              <Button size="large" variant="contained" startIcon={<AddIcon />}>Create moment</Button>
-              <IconButton sx={{ color: appBlackcolor }}> <SettingsOutlinedIcon /> </IconButton>
-              <Badge badgeContent={4} color="primary">
-                <NotificationsNoneOutlinedIcon />
+              <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} /> */}
+            {/* </Stack> */}
+            <Stack direction='row' spacing={2} alignItems='flex-start'>
+              <Button size="large" sx={{ borderRadius: "100px!important" }} variant="contained" startIcon={<VideoCameraFrontIcon />} >Create moment</Button>
+              <IconButton sx={{ color: appBlackcolor, ...roundBorder }} > <SettingsOutlinedIcon /> </IconButton>
+              <Badge color="primary" >
+                <NotificationsNoneOutlinedIcon sx={{ ...roundBorder, padding: 1 }} />
               </Badge>
-              <IconButton sx={{ color: appBlackcolor }}> <HelpOutlineOutlinedIcon /> </IconButton>
+              <IconButton sx={{ color: appBlackcolor, ...roundBorder }}> <HelpOutlineOutlinedIcon /> </IconButton>
               <UserDropDown />
             </Stack>
           </Stack>

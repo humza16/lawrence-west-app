@@ -7,6 +7,7 @@ import { ThemeProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 import Loader from "components/Loader";
 import { Lazy } from "yup";
+import ProfileSettings from "components/ProfileSetting";
 const ProtectedRoute = lazy(() => import("shared/Auth/ProtectedRoute"));
 const Home = lazy(() => import("containers/Home"));
 const About = lazy(() => import("containers/About"));
@@ -70,7 +71,7 @@ function App(props) {
             path="/profile"
             element={
               <Suspense fallback={<Loader />}>
-                <Profile {...props} />
+                <ProfileSettings {...props} />
               </Suspense>
             }
           />

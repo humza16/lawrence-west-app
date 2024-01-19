@@ -11,7 +11,7 @@ from django.core.mail import send_mail
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse
 from django.views import View
-from rest_framework import generics, status
+from rest_framework import generics, status, serializers
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
@@ -32,6 +32,7 @@ from .serializers import (
     ChangePasswordSerializer
 )
 from lawrence_west_app_44469.settings import SENDGRID_CLIENT, LOGIN_REDIRECT_URL
+from utils import compose_email_body
 from users.utils import (
     validate_google_token,
     create_or_update_user,
@@ -39,7 +40,6 @@ from users.utils import (
     get_id_token_from_response,
     validate_facebook_auth_token,
     facebook_create_or_authenticate_user,
-    compose_email_body,
 )
 
 User = get_user_model()
@@ -112,7 +112,7 @@ class PasswordResetView(APIView):
         try:
             serializer.is_valid(raise_exception=True)
             user = User.objects.get(email=serializer.validated_data['email'])
-        except User.DoesNotExist:
+        except (User.DoesNotExist, serializers.ValidationError):
             return Response({"error": "Invalid email address."}, status=status.HTTP_400_BAD_REQUEST)
         
         token = default_token_generator.make_token(user)

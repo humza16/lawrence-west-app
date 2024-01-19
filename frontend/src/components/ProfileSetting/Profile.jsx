@@ -46,9 +46,9 @@ const Profile = () => {
 
 
   return (
-    <Box width="100%" display="flex" justifyContent="center" mt={5}>
+    <Box width="100%" display="flex" justifyContent="center" mt={2}>
       <Box width="100%" maxWidth="450px">
-        <Typography variant="h5" fontWeight={600} mt={2}>Profile</Typography>
+        <Typography variant="h5" fontWeight={600}>Profile</Typography>
         <FormProvider {...methods}>
           <Box
             component="form"
@@ -87,20 +87,17 @@ const Profile = () => {
             </FormControl>
             <LoadingButton
               type="submit"
-              fullWidth
+              // fullWidth
               variant="contained"
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, float: 'right' }}
               loading={isLoading}
-
             >
-              Save
+              Save Changes
             </LoadingButton>
-
-
           </Box>
         </FormProvider>
-      </Box>
-    </Box>
+      </Box >
+    </Box >
   )
 }
 

@@ -96,7 +96,7 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                <StyledLink to='/change-password'>
+                {/* <StyledLink to='/change-password'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
@@ -105,7 +105,7 @@ const UserDropDown = () => {
                             <ListItemText primary="Change password" />
                         </ListItemButton>
                     </ListItem>
-                </StyledLink>
+                </StyledLink> */}
                 <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
