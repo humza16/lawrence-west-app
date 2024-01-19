@@ -1,13 +1,11 @@
 from django.contrib.auth import get_user_model
 from google.oauth2 import id_token
 import facebook
-from sendgrid.helpers.mail import Mail, Email, To, Content
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.exceptions import AuthenticationFailed
 from lawrence_west_app_44469.settings import (
     GOOGLE_OAUTH2_CLIENT_ID,
     GOOGLE_OAUTH2_CLIENT_SECRET,
-    DEFAULT_SENDER_EMAIL
 )
 
 User = get_user_model()
@@ -133,19 +131,3 @@ def validate_facebook_auth_token(access_token):
         return profile
     except:
         return "The token is invalid or expired."
-
-
-def compose_email_body(
-    to_email : str,
-    subject : str,
-    content : str,
-    from_email=DEFAULT_SENDER_EMAIL
-):
-    from_email = Email(from_email)
-    to_email = To(to_email)
-    content = Content("text/plain", content)
-    mail = Mail(from_email, to_email, subject, content)
-
-    mail_json = mail.get()
-
-    return mail_json

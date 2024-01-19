@@ -240,7 +240,15 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 SENDGRID_API_KEY = env.str("SENDGRID_API_KEY", "") # sendgrid API key
-DEFAULT_SENDER_EMAIL = env.str("SENDER_EMAIL", "muhammad.ibrahim@crowdbotics.com") # default "from" email when sending emails
+
+# default "from" email when sending emails
+DEFAULT_SENDER_EMAIL = env.str("DEFAULT_SENDER_EMAIL", "muhammad.ibrahim@crowdbotics.com")
+
+# default email for incoming requests that receives client help requests
+DEFAULT_CONTACT_EMAIL = env.str("DEFAULT_CONTACT_EMAIL", "muhammad.ibrahaim@crowdbotics.com")
+
+# default email for sending email to users and for sending emails to requests email as well
+DEFAULT_SUPPORT_EMAIL =  env.str("DEFAULT_SUPPORT_EMAIL", "muhammad.ibrahaim@crowdbotics.com")
 SENDGRID_CLIENT = None
 if SENDGRID_API_KEY:
     SENDGRID_CLIENT = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
