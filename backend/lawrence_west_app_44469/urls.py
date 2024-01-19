@@ -35,6 +35,7 @@ urlpatterns = [
     path("api/v1/", include("users.urls")),
     path('accounts/', include('allauth.urls')),
     path("faq/", include("modules.faq.urls")),
+    path("help/", include("modules.django_contact_us.contact_us.urls"))
 ]
 
 admin.site.site_header = "Lawrence West App"

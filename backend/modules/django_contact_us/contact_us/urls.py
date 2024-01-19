@@ -1,8 +1,11 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
-from .viewsets import ContactUs
+from modules.django_contact_us.contact_us.viewsets import ContactRequestViewSet
 
+router = DefaultRouter()
+router.register("", ContactRequestViewSet)
 
 urlpatterns = [
-    path("contact_us/", ContactUs.as_view()),
+    path("", include(router.urls)),
 ]
