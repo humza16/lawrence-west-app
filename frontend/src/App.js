@@ -18,6 +18,7 @@ const ResetPassword = lazy(() => import("components/ForgetPassword/ResetPassword
 const Onboarding = lazy(() => import("containers/Onboarding"));
 const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
 const AuthLayout = lazy(() => import("components/Layout/AuthLayout"));
+const LandingPage = lazy(() => import("components/LandingPage"))
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
@@ -102,6 +103,14 @@ function App(props) {
             element={
               <Suspense fallback={<Loader />}>
                 <ResetPassword {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/landing-page"
+            element={
+              <Suspense fallback={<Loader />}>
+                <LandingPage {...props} />
               </Suspense>
             }
           />
