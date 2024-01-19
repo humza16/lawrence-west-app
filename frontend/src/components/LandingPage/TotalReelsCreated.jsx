@@ -37,7 +37,8 @@ const TotalReelsCreated = () => {
                 height: "100vh",
                 maxWidth: "100%"
             }}
-            mb={10}
+            mt={20}
+            mb={20}
         >
             <Box
                 display="flex"
