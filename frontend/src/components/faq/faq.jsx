@@ -27,7 +27,8 @@ const Faq = () => {
     const { data, isLoading } = useGetFaqsQuery();
     const { results = [] } = data || {};
     return (
-        <Stack width="100%" justifyContent="center" alignItems="center" mt={3}>
+        <Stack width="100%" justifyContent="center" alignItems="center" mt={3} direction="column" gap={5} py={4}>
+            <Typography variant="h5" fontWeight={600}>Frequently Asked Questions</Typography>
             <Stack maxWidth="880px" width="100%" gap={2} direction="column">
                 {isLoading ? (
                     <Loader />
