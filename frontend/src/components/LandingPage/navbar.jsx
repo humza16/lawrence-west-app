@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useNavigate } from "react-router-dom";
 import Logo from 'assets/logos/Logo';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
@@ -30,6 +31,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const LandingNavbar = () => {
+    const navigate = useNavigate();
+    const handleRedirection = (route) => () => {
+        navigate(route)
+    }
+
     return (
         <Toolbar sx={{ Width: "100%", maxHeight: "122px", display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "#EBFAFF" }}>
             <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} disableRipple>
@@ -40,8 +46,8 @@ const LandingNavbar = () => {
                 <StyledLink to="/">Project</StyledLink>
                 <StyledLink to="/">Photos</StyledLink>
                 <StyledLink to="/">Videos</StyledLink>
-                <StyledButton disableRipple>Sign Up</StyledButton>
-                <StyledButton disableRipple sx={{ backgroundColor: "#1053D4", color: "white" }}>Sign In</StyledButton>
+                <StyledButton disableRipple onClick={handleRedirection("/register")}>Sign Up</StyledButton>
+                <StyledButton disableRipple onClick={handleRedirection("/login")} variant='contained' color='secondary'>Sign In</StyledButton>
 
             </Stack>
         </Toolbar>

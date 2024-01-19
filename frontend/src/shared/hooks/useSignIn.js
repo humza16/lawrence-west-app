@@ -11,7 +11,7 @@ const useSignIn = () => {
   const handleLogin = useCallback(() => {
     localstorageService.setToken(data?.access);
     localstorageService.setRefreshToken(data.refresh);
-    navigate("/");
+    navigate("/home");
     // if () {
     //   navigate("/onboarding");
     // } else {

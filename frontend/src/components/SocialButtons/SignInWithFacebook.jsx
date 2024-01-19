@@ -14,7 +14,7 @@ const SignInWithFacebook = (props) => {
     facebookSignin({ access_token: response?.accessToken }).unwrap().then(res => {
       localstorageService.setToken(res?.access);
       localstorageService.setRefreshToken(res.refresh);
-      navigate("/")
+      navigate("/home")
     }).catch(e => {
       console.log(e);
     })

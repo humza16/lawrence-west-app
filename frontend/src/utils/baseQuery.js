@@ -26,11 +26,13 @@ export const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 401) {
     try {
-      const refreshResult = await refreshToken();
-      if (refreshResult?.access) {
-        const { access, refresh } = refreshResult || {};
-        localstorageService.setToken(access);
-        localstorageService.setRefreshToken(refresh);
+      if (localstorageService.getRefreshToken()) {
+        const refreshResult = await refreshToken();
+        if (refreshResult?.access) {
+          const { access, refresh } = refreshResult || {};
+          localstorageService.setToken(access);
+          localstorageService.setRefreshToken(refresh);
+        }
       }
     } catch (e) {
       console.log(e)

@@ -8,7 +8,7 @@ const AuthLayout = () => {
     return isLoading ? (
         <Loader />
     ) : authenticated ? (
-        <Navigate to="/" />
+        <Navigate to="/home" />
     ) : (
         <Outlet />
     );

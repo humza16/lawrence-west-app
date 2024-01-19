@@ -15,7 +15,7 @@ const SignInWithGoogle = () => {
                 const { is_first_login = false, access, refresh } = result || {}
                 localstorageService.setToken(access);
                 localstorageService.setRefreshToken(refresh);
-                navigate("/");
+                navigate("/home");
                 // if (is_first_login) {
                 //     navigate("/onboarding")
                 // } else {

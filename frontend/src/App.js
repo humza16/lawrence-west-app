@@ -25,7 +25,7 @@ function App(props) {
       <Routes>
         <Route element={<ProtectedRoute {...props} />}>
           <Route
-            path="/"
+            path="/home"
             element={
               <Suspense fallback={<Loader />}>
                 <Home {...props} />
@@ -107,7 +107,7 @@ function App(props) {
             }
           />
           <Route
-            path="/landing-page"
+            path="/"
             element={
               <Suspense fallback={<Loader />}>
                 <LandingPage {...props} />

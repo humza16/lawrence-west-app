@@ -51,7 +51,7 @@ const Layout = ({ children }) => {
         : <Stack p={2} border='1px solid #E6F0FF'>
           <Stack direction='row' justifyContent='space-between' alignItems='center'>
             {/* <Stack direction='row' alignItems="center" spacing={3}> */}
-            <Link to='/'><Logo width="199" height="41" /></Link>
+            <Link to='/home'><Logo width="199" height="41" /></Link>
             {/* <StyledLink to="/">Moment Library</StyledLink>
               <StyledLink to="/">QR Library</StyledLink>
               <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} /> */}
