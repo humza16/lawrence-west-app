@@ -13,7 +13,16 @@ export const helpCenter = createApi({
         };
       },
     }),
+    postQuery: build.mutation({
+      query(body) {
+        return {
+          url: `/help/`,
+          method: "POST",
+          body
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetFaqsQuery } = helpCenter;
+export const { useGetFaqsQuery, usePostQueryMutation } = helpCenter;

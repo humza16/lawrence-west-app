@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Typography } from "@mui/material";
+import Banner from 'containers/LegalAgreement/Banner';
 
 const PrivacyPolicy = () => {
   return (
@@ -8,9 +9,13 @@ const PrivacyPolicy = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
+      flexDirection="column"
     >
+      <Banner
+        title="Privacy Policy"
+        description="An amazing set of templates allowing everyone to generate content 3x-5x faster"
+      />
       <Box
-        maxWidth="708px"
         display="flex"
         flexDirection="column"
         sx={{ backgroundColor: "#FAFBFD" }}

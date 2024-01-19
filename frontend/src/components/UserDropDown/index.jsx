@@ -106,7 +106,7 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink> */}
-                <StyledLink to='/'>
+                <StyledLink to='/contact'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
