@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor, appWhite } from "./colors";
+import { FooterLinkPrimary, appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor, appWhite } from "./colors";
 import { red } from "@mui/material/colors";
 let theme = createTheme({
   palette: {
@@ -50,6 +50,13 @@ let theme = createTheme({
           style: {
             background: `inherit!important`,
             color: `${appBlackcolor}!important`,
+          },
+        },
+        {
+          props: { variant: "contained", color: 'secondary' },
+          style: {
+            background: `${FooterLinkPrimary}!important`,
+            color: `${appWhite}!important`,
           },
         },
       ],

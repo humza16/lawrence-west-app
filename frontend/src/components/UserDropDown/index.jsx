@@ -92,7 +92,7 @@ const UserDropDown = () => {
                             <ListItemIcon sx={iconColor}>
                                 <BorderColorOutlinedIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Profile" />
+                            <ListItemText primary="Profile Settings" />
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>

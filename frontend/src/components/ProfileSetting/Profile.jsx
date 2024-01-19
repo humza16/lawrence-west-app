@@ -17,9 +17,9 @@ import toast from 'react-hot-toast';
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email("Email format is not valid"),
-  first_name: yup.string(),
-  last_name: yup.string(),
+    .email("Email format is not valid").required(),
+  first_name: yup.string().required(),
+  last_name: yup.string().required(),
 });
 
 const Profile = () => {
@@ -91,14 +91,13 @@ const Profile = () => {
               variant="contained"
               sx={{ mt: 2, float: 'right' }}
               loading={isLoading}
-
             >
               Save Changes
             </LoadingButton>
           </Box>
         </FormProvider>
-      </Box>
-    </Box>
+      </Box >
+    </Box >
   )
 }
 
