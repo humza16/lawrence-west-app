@@ -13,13 +13,11 @@ const CreateCanvaSection = () => {
     return (
         <>
             <Box
-                // Width='100%'
                 display="flex"
                 justifyContent="start"
                 alignItems="start"
                 marginTop="35px"
                 marginBottom="35px"
-
             >
                 <Box
                     flexDirection="column"
@@ -44,27 +42,27 @@ const CreateCanvaSection = () => {
                     </Typography>
                 </Box>
             </Box >
-            <Grid container spacing={0.5}  gap={1} m={1}>
+            <Grid container spacing={0.5} gap={1} m={1}>
                 <Grid item xs={6} md={1.5}>
-                    <img src={party} style={{ borderRadius: "18px" }} />
+                    <img src={party} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid item xs={6} md={3}>
-                    <img src={mountains} style={{ borderRadius: "18px" }} />
+                    <img src={mountains} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid xs={6} md={3}>
-                    <img src={Birthday} style={{ borderRadius: "18px" }} />
+                    <img src={Birthday} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid xs={6} md={3}>
-                    <img src={flowers} style={{ borderRadius: "18px" }} />
+                    <img src={flowers} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid xs={6} md={2}>
-                    <img src={family} style={{ borderRadius: "18px" }} />
+                    <img src={family} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid xs={6} md={5}>
-                    <img src={anniversary} style={{ borderRadius: "18px" }} />
+                    <img src={anniversary} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
                 <Grid xs={6} md={3}>
-                    <img src={lady} style={{ borderRadius: "18px" }} />
+                    <img src={lady} style={{ borderRadius: "18px" }} alt='' loading='lazy' />
                 </Grid>
             </Grid>
         </>

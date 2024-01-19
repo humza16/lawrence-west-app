@@ -119,7 +119,7 @@ function App(props) {
           <Route
             path="/landing-page"
             element={
-              <Suspense fallback={Loader}>
+              <Suspense fallback={<Loader />}>
                 <LandingPage {...props} />
               </Suspense>
             }

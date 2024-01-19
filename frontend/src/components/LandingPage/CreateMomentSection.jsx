@@ -59,16 +59,10 @@ const CreateMomentSection = () => {
           With your loved ones
         </Typography>
         <Grid container spacing={2}>
-          {Images.map((item, index) => {
-            console.log("pics", item.Image);
-            return (
-              <Grid item>
-                <img key={item.id} src={item.Image} style={{ borderRadius: '30px' }} />
-              </Grid>
-            )
-          })}
-
-
+          {Images.map(item =>
+            <Grid key={item.id} item>
+              <img src={item.Image} style={{ borderRadius: '30px' }} alt='' loading='lazy' />
+            </Grid>)}
         </Grid>
       </Box>
 

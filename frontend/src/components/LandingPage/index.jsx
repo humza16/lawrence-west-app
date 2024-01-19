@@ -1,18 +1,28 @@
 import React from 'react'
-import LandingNavbar from './navbar'
-import CreateMomentSection from './CreateMomentSection'
-import HeroSection from './HeroSection'
-import CreateReelSection from './CreateReelSection'
-import CreateCanvaSection from './CreateCanvaSection'
+// import LandingNavbar from './navbar'
+// import CreateMomentSection from './CreateMomentSection'
+// import HeroSection from './HeroSection'
+// import CreateReelSection from './CreateReelSection'
+// import CreateCanvaSection from './CreateCanvaSection'
+import TotalReelsCreated from './TotalReelsCreated'
+import QuoteCard from 'components/QuoteCard'
+import PriceCardSection from './PriceCardSection'
+import Footer from 'components/Footer'
+import VideoEditorSection from './VideoEditorSection'
 const LandingPage = () => {
     return (
-        <div>
+        <>
             {/* <LandingNavbar /> */}
-            <HeroSection/>
-            <CreateMomentSection />
-            <CreateReelSection/>
-            <CreateCanvaSection/>
-        </div>
+            {/* <HeroSection /> */}
+            {/* <CreateMomentSection /> */}
+            {/* <CreateReelSection /> */}
+            {/* <CreateCanvaSection /> */}
+            <TotalReelsCreated />
+            <QuoteCard />
+            <PriceCardSection />
+            <VideoEditorSection />
+            <Footer />
+        </>
     )
 }
 
