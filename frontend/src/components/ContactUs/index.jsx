@@ -6,21 +6,24 @@ import Faq from 'components/faq/faq';
 
 const ContactUs = () => {
     return (
-        <Box
-            sx={{
-                backgroundImage: `url(${ContactBackground})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                height: "88vh",
-                maxWidth: "100%"
-            }}
-        >
-            <ContactUsForm />
+        <>
+            <Box
+                sx={{
+                    backgroundImage: `url(${ContactBackground})`,
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    minHeight: "80vh",
+                    maxWidth: "100%"
+                }}
+            >
+                <ContactUsForm />
+
+            </Box>
             <Box p={2}>
                 <Faq />
             </Box>
-        </Box>
+        </>
     )
 }
 

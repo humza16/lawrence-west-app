@@ -77,7 +77,7 @@ const ResetPassword = () => {
                                 id="confirmPassword"
                                 name="confirmPassword"
                                 type='password'
-                                placeholder="Enter email address or phone number"
+                                placeholder="Confirm Password"
 
 
                             />

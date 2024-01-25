@@ -40,8 +40,14 @@ const ContactUsForm = () => {
         console.log(values);
     };
 
+    const backgroundWhite = {
+        "& .MuiInputBase-root": {
+            backgroundColor: appWhite
+        }
+    };
+
     return (
-        <Box display="flex" justifyContent="flex-start" alignItems="center" height="88vh" px={10}>
+        <Box display="flex" justifyContent="flex-start" alignItems="center" minHeight="80vh" px={10}>
             <Box width="100%" maxWidth="450px">
                 <Typography variant="h4" fontWeight={500}>Get in Touch With us</Typography>
                 <FormProvider {...methods}>
@@ -57,7 +63,7 @@ const ContactUsForm = () => {
                             <InputField
                                 name="email"
                                 placeholder="Enter email"
-                                sx={{ backgroundColor: appWhite }}
+                                sx={backgroundWhite}
                             />
                         </FormControl>
                         <FormControl fullWidth margin="normal">
@@ -67,7 +73,7 @@ const ContactUsForm = () => {
                             <InputField
                                 name="subject"
                                 placeholder="Enter subject"
-                                sx={{ backgroundColor: appWhite }}
+                                sx={backgroundWhite}
                             />
                         </FormControl>
                         <FormControl fullWidth margin="normal">
@@ -76,7 +82,7 @@ const ContactUsForm = () => {
                             </Typography>
                             <InputField
                                 name="help_request"
-                                sx={{ backgroundColor: appWhite, '& .MuiInputBase-root': { height: "auto" } }}
+                                sx={{ '& .MuiInputBase-root': { height: "auto", backgroundColor: appWhite } }}
                                 type='text'
                                 placeholder="Write your note"
                                 multiline={true}
