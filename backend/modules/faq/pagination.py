@@ -10,12 +10,9 @@ class CustomPageNumberPagination(PageNumberPagination):
     on the basis of page-set and records.
     """
 
-    page_size = 5
+    page_size = 10
     page_query_param = "page"
     page_size_query_param = "records"
-    question = settings.FAQ_PREFIX_QUESTION
-    answer = settings.FAQ_PREFIX_ANSWER
-    visual = settings.FAQ_VISUAL_EXPANDED
 
     def get_next_page_number(self):
         """
@@ -42,9 +39,6 @@ class CustomPageNumberPagination(PageNumberPagination):
 
         return Response(
             {
-                "prefix_question": self.question,
-                "prefix_answer": self.answer,
-                "isExpanded": self.visual,
                 "next": self.get_next_page_number(),
                 "previous": self.get_previous_page_number(),
                 "count": self.page.paginator.count,
