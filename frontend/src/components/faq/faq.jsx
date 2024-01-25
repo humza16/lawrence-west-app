@@ -13,7 +13,7 @@ import Loader from 'components/Loader';
 const MuiAccordian = ({ question, answer }) => (
     <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon color='primary' />}>
-            <Typography fontWeight={600}>{question}</Typography>
+            <Typography fontWeight={500}>{question}</Typography>
         </AccordionSummary>
         <AccordionDetails>
             <Typography>
@@ -28,7 +28,7 @@ const Faq = () => {
     const { results = [] } = data || {};
     return (
         <Stack width="100%" justifyContent="center" alignItems="center" mt={3} direction="column" gap={5} py={4}>
-            <Typography variant="h5" fontWeight={600}>Frequently Asked Questions</Typography>
+            <Typography variant="h4" fontWeight={500}>Frequently Asked Questions</Typography>
             <Stack maxWidth="880px" width="100%" gap={2} direction="column">
                 {isLoading ? (
                     <Loader />

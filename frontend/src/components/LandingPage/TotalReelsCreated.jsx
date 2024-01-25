@@ -6,6 +6,17 @@ import { styled } from '@mui/material/styles'
 const CounterDigitContainer = styled(Typography)(({ theme }) => ({
     backgroundColor: "#4987FF",
     color: theme.palette.text.secondary,
+    fontSize: '5.9983rem',
+    flex: 1,
+    display: 'flex',
+    justifyContent: "center",
+    alignItems: 'center',
+    [theme.breakpoints.down('lg')]: {
+        fontSize: "3rem",
+    },
+    [theme.breakpoints.down('sm')]: {
+        fontSize: "2rem",
+    },
 }));
 
 const CounterContainer = styled(Box)(() => ({
@@ -50,13 +61,13 @@ const TotalReelsCreated = () => {
                 gap={2}
             >
                 <Typography textAlign='center' variant='h2' fontWeight={700}>Total Reels Created through ReelMoment</Typography>
-                <CounterContainer borderRadius="10px" gap={2} width="100%" p={2} display="flex" position='relative'>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">0</CounterDigitContainer>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">0</CounterDigitContainer>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">2</CounterDigitContainer>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">3</CounterDigitContainer>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">8</CounterDigitContainer>
-                    <CounterDigitContainer paddingX={3} variant='h1' fontWeight={700} borderRadius="6px">6</CounterDigitContainer>
+                <CounterContainer borderRadius="10px" gap={1} margin="0 auto" width="80%" p={2} display="flex" position='relative' justifyContent="center">
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">0</CounterDigitContainer>
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">0</CounterDigitContainer>
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">2</CounterDigitContainer>
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">3</CounterDigitContainer>
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">8</CounterDigitContainer>
+                    <CounterDigitContainer fontWeight={700} borderRadius="6px">6</CounterDigitContainer>
                     <StraightLine />
                 </CounterContainer>
             </Box>

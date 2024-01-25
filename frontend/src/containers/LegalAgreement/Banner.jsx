@@ -15,7 +15,7 @@ const Banner = ({ title, description }) => {
             }}
         >
             <Stack alignItems="center" justifyContent="center" height="100%" >
-                <Typography variant='h5' fontWeight={600} gutterBottom>{title}</Typography>
+                <Typography variant='h4' fontWeight={500} gutterBottom>{title}</Typography>
                 <Typography >{description}</Typography>
                 {/* <Typography>{description}</Typography> */}
             </Stack>

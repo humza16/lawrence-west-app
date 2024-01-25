@@ -48,7 +48,7 @@ const Profile = () => {
   return (
     <Box width="100%" display="flex" justifyContent="center" mt={2}>
       <Box width="100%" maxWidth="450px">
-        <Typography variant="h5" fontWeight={600}>Profile</Typography>
+        <Typography variant="h5" fontWeight={700}>Profile Settings</Typography>
         <FormProvider {...methods}>
           <Box
             component="form"

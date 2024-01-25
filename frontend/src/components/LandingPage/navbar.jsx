@@ -15,19 +15,28 @@ const StyledLink = styled(Link)(({ theme }) => ({
     color: theme.palette.text.primary,
     textAlign: "center",
     fontWeight: 400,
+    fontFamily: theme.typography.fontFamily,
     '&:hover': {
         color: theme.palette.primary.main
-    }
+    },
+    [theme.breakpoints.down('md')]: {
+        display: "none",
+    },
 }));
 const StyledButton = styled(Button)(({ theme }) => ({
-    // color: '#1053D4',
     border: `2px solid #1053D4`,
     borderRadius: "30px!important",
-    minWidth: "68px",
-    fontWeight: "400 !important",
-    height: "42px"
-
-
+    padding: '2px 32px',
+    fontSize: '1.125rem !important',
+    fontWeight: 700,
+    // [theme.breakpoints.up('sm')]: {
+    //     fontSize: theme.typography.body1.fontSize,
+    // },
+    [theme.breakpoints.down('md')]: {
+        fontSize: "0.6rem!important",
+        height: 'auto',
+        padding: '2px 16px',
+    },
 }));
 
 const LandingNavbar = () => {
@@ -37,20 +46,17 @@ const LandingNavbar = () => {
     }
 
     return (
-        <Toolbar sx={{ Width: "100%", maxHeight: "122px", display: "flex", alignItems: "center", justifyContent: "space-between", backgroundColor: "#EBFAFF" }}>
-            <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} disableRipple>
-                <MenuIcon />
-                <Link to='/'><Logo maxWidth="199" height="41" /></Link>
-            </IconButton>
-            <Stack direction='row' alignItems="right" spacing={3} sx={{ alignItems: "center" }}>
+        <Stack direction='row' justifyContent="space-between" p={2} sx={{ backgroundColor: "#EBFAFF" }} alignItems="center">
+            {/* <MenuIcon /> */}
+            <Link to='/'><Logo width="199" height="41" /></Link>
+            <Stack direction='row' alignItems="center" spacing={2}>
                 <StyledLink to="/">Project</StyledLink>
                 <StyledLink to="/">Photos</StyledLink>
                 <StyledLink to="/">Videos</StyledLink>
-                <StyledButton disableRipple onClick={handleRedirection("/register")}>Sign Up</StyledButton>
-                <StyledButton disableRipple onClick={handleRedirection("/login")} variant='contained' color='secondary'>Sign In</StyledButton>
-
+                <StyledButton size='large' onClick={handleRedirection("/register")}>Sign Up</StyledButton>
+                <StyledButton size='large' onClick={handleRedirection("/login")} variant='contained' color='secondary'>Sign In</StyledButton>
             </Stack>
-        </Toolbar>
+        </Stack>
     );
 }
 export default LandingNavbar;

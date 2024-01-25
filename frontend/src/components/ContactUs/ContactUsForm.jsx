@@ -43,7 +43,7 @@ const ContactUsForm = () => {
     return (
         <Box display="flex" justifyContent="flex-start" alignItems="center" height="88vh" px={10}>
             <Box width="100%" maxWidth="450px">
-                <Typography variant="h5" fontWeight={600}>Get in Touch With us</Typography>
+                <Typography variant="h4" fontWeight={500}>Get in Touch With us</Typography>
                 <FormProvider {...methods}>
                     <Box
                         component="form"
@@ -76,12 +76,12 @@ const ContactUsForm = () => {
                             </Typography>
                             <InputField
                                 name="help_request"
-                                sx={{ backgroundColor: appWhite }}
+                                sx={{ backgroundColor: appWhite, '& .MuiInputBase-root': { height: "auto" } }}
                                 type='text'
-                            // placeholder="Enter note"
-                            // multiline={true}
-                            // minRows={4}
-                            // maxRows={4}
+                                placeholder="Write your note"
+                                multiline={true}
+                                minRows={4}
+                                maxRows={4}
                             />
                         </FormControl>
                         <LoadingButton

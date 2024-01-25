@@ -11,7 +11,6 @@ const HeroSection = () => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-
             sx={{
                 backgroundImage: `url(${HeroImage})`,
                 backgroundSize: 'cover',
@@ -23,21 +22,17 @@ const HeroSection = () => {
             }}
         >
             <Box
-
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
                 flexDirection="column"
-
-
             >
                 <Typography
                     fontWeight={700}
                     textAlign='center'
                     sx={{
-                        fontSize: { xs: 24, md: 40, lg: 55 }
+                        fontSize: { xs: 24, md: 40, lg: 55 },
                     }}
-                // marginTop={16}
                 >
                     Every Experience Deserves a <br /> Reel Moment What will you <Typography fontWeight={700}
                         textAlign='center' sx={{
@@ -52,8 +47,7 @@ const HeroSection = () => {
                         }}>create?</Typography>
                 </Typography>
 
-                <Button variant='contained' color='secondary' sx={{ borderRadius: '30px!important', paddingX: 4, paddingY: 1.5 }} >Creat Moment</Button>
-
+                <Button variant='contained' color='secondary' sx={{ borderRadius: '30px!important', paddingX: 4, paddingY: 1.5 }} >Create Moment</Button>
             </Box>
         </Box >
     )

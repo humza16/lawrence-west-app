@@ -91,7 +91,7 @@ const ResetPassword = () => {
                                 Continue
                             </LoadingButton>
                             {/* <Button variant='contained' type='submit'>Continue</Button> */}
-                            <Button color="secondary" >Back</Button>
+                            {/* <Button color="secondary" >Back</Button> */}
                         </Stack>
                     </Box>
                 </FormProvider>

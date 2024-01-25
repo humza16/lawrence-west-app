@@ -26,14 +26,14 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Inter", "sans-serif"].join(","),
+    fontFamily: ["Inter", "Bricolage Grotesque", "sans-serif"].join(","),
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: "8px!important",
-          fontSize: "1rem !important",
+          fontSize: "0.875rem !important",
           textTransform: "none!important",
         },
       },

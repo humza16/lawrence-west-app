@@ -21,7 +21,7 @@ const TermAndConditions = () => {
                 sx={{ backgroundColor: "#FAFBFD" }}
                 p={2.5}
             >
-                <Typography fontWeight={600} fontSize={17} mb={2}>
+                <Typography fontWeight={700} fontSize={17} mb={1}>
                     Terms & Conditions of Reel Moment
                 </Typography>
                 <Typography color='#686363'>

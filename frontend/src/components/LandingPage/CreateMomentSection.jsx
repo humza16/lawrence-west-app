@@ -35,10 +35,11 @@ const CreateMomentSection = () => {
       alignItems="center"
       marginTop="35px"
       marginBottom="35px"
-
     >
       <Box
-      // maxWidth="1200px"
+      // sx={{
+      //   height: { xs: '400px', md: '500px', } // Adjust height values as needed
+      // }}
       >
         <Typography
           fontWeight={700}
@@ -53,14 +54,20 @@ const CreateMomentSection = () => {
           fontWeight={700}
           textAlign='center'
           sx={{
-            fontSize: { xs: 24, md: 40, lg: 55 }
+            fontSize: { xs: 24, md: 40, lg: 55 },
           }}
         >
           With your loved ones
         </Typography>
         <Grid container spacing={2}>
           {Images.map(item =>
-            <Grid key={item.id} item>
+            <Grid
+              key={item.id}
+              item
+            // sx={{
+            //   height: { xs: 400, md: 'auto' }
+            // }}
+            >
               <img src={item.Image} style={{ borderRadius: '30px' }} alt='' loading='lazy' />
             </Grid>)}
         </Grid>

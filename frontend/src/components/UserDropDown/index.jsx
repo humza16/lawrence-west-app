@@ -65,7 +65,7 @@ const UserDropDown = () => {
                 <Avatar alt="avatar" onClick={handleClick} sx={{ cursor: 'pointer' }}>
                     {user.username && user?.username?.charAt(0)}
                 </Avatar>
-                <Typography>{user?.username}</Typography>
+                <Typography>{user?.firstName}</Typography>
             </Stack>
             <Menu
                 id="basic-menu"
@@ -75,6 +75,7 @@ const UserDropDown = () => {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
+                disableScrollLock
             >
                 {/* <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>

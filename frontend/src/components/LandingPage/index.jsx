@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Stack from '@mui/material/Stack'
 import TotalReelsCreated from './TotalReelsCreated'
 import QuoteCard from 'components/QuoteCard'
 import PriceCardSection from './PriceCardSection'
@@ -10,9 +10,23 @@ import CreateMomentSection from './CreateMomentSection'
 import HeroSection from './HeroSection'
 import CreateReelSection from './CreateReelSection'
 import CreateCanvaSection from './CreateCanvaSection'
+
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@emotion/react";
+import theme from 'theme';
+
+// Create a custom theme
+const landingPageTheme = createTheme({
+    ...theme,
+    typography: {
+        fontFamily: ["Bricolage Grotesque", "sans-serif"].join(","), // Choose the font-family here
+    },
+});
+
+
 const LandingPage = () => {
     return (
-        <>
+        <ThemeProvider theme={landingPageTheme}>
             <LandingNavbar />
             <HeroSection />
             <CreateMomentSection />
@@ -23,7 +37,7 @@ const LandingPage = () => {
             <PriceCardSection />
             <VideoEditorSection />
             <Footer />
-        </>
+        </ThemeProvider>
     )
 }
 

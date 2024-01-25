@@ -22,10 +22,10 @@ const PrivacyPolicy = () => {
         padding={2.5}
 
       >
-        <Typography fontWeight={600} fontSize={17} mb={2}>
+        <Typography fontWeight={700} fontSize={17} mb={1}>
           Privacy Policy
         </Typography>
-        <Typography fontWeight={400} fontSize={16} color='#686363'>
+        <Typography color='#686363'>
           Information Collection and Use
           <br />
           We collect certain information when you use Reel Moment:

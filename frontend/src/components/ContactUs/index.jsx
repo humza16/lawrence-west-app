@@ -17,7 +17,9 @@ const ContactUs = () => {
             }}
         >
             <ContactUsForm />
-            <Faq />
+            <Box p={2}>
+                <Faq />
+            </Box>
         </Box>
     )
 }

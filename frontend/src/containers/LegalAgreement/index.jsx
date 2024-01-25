@@ -23,8 +23,8 @@ const LegalAgreement = () => {
                 value={tabValue}
             >
                 <ProfileSidebar options={options} handleChange={handleChange} />
-                <TabPanel value='terms'>{<TermAndConditions />}</TabPanel>
-                <TabPanel value="privacy"><PrivacyPolicy /></TabPanel>
+                <TabPanel sx={{ width: '100%' }} value='terms'>{<TermAndConditions />}</TabPanel>
+                <TabPanel sx={{ width: '100%' }} value="privacy"><PrivacyPolicy /></TabPanel>
             </TabContext>
         </Stack>
     )
