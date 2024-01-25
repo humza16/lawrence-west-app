@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor } from "./colors";
+import { FooterLinkPrimary, appBlackcolor, appGreyColor, appPrimaryColor, appSecondaryColor, appWhite } from "./colors";
 import { red } from "@mui/material/colors";
 let theme = createTheme({
   palette: {
@@ -8,6 +8,7 @@ let theme = createTheme({
     },
     text: {
       primary: appBlackcolor,
+      secondary: appWhite
     },
     primary: {
       main: appPrimaryColor,
@@ -25,16 +26,15 @@ let theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Inter", "sans-serif"].join(","),
+    fontFamily: ["Inter", "Bricolage Grotesque", "sans-serif"].join(","),
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: "8px!important",
-          fontSize: "1rem !important",
+          fontSize: "0.875rem !important",
           textTransform: "none!important",
-          height: "48px!important"
         },
       },
       variants: [
@@ -52,6 +52,13 @@ let theme = createTheme({
             color: `${appBlackcolor}!important`,
           },
         },
+        {
+          props: { variant: "contained", color: 'secondary' },
+          style: {
+            background: `${FooterLinkPrimary}!important`,
+            color: `${appWhite}!important`,
+          },
+        },
       ],
     },
     MuiCheckbox: {
@@ -67,6 +74,7 @@ let theme = createTheme({
         root: {
           fontSize: "0.875rem!important",
           borderRadius: "8px!important",
+          height: '3rem'
         },
       },
     },
@@ -82,6 +90,13 @@ let theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         color: `${appBlackcolor}!imporant`
+      }
+    },
+    MuiDivider: {
+      styleOverrides: {
+        height: 'auto!important',
+        borderWidth: '1px !important',
+        borderColor: '#E6F0FF !important'
       }
     },
   },

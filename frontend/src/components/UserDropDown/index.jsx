@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
+import { Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
@@ -7,8 +7,12 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles'
+import { useDispatch } from 'react-redux';
 import { appBlackcolor } from 'theme/colors';
 import { localstorageService } from 'utils/localStorageService';
+import { resetUser } from 'slices/userSlice';
+import LogoutModal from 'components/LogoutModal';
+import { useLogoutMutation } from 'apis/auth.api';
 
 
 
@@ -18,8 +22,11 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 const UserDropDown = () => {
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
+    const [logout, { isLoading }] = useLogoutMutation();
     const user = useSelector((state) => state?.user?.userInfo)
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -29,7 +36,25 @@ const UserDropDown = () => {
     };
 
     const handleLogout = () => {
-        localstorageService.logout("/login")
+        setOpenLogoutModal(true);
+        handleClose()
+        // dispatch(resetUser());
+        // localstorageService.logout();
+    }
+
+    const handleLogoutModalClose = () => {
+        setOpenLogoutModal(false);
+    }
+
+    const onClickLogout = () => {
+        const data = { refresh: localstorageService?.getRefreshToken() };
+        logout(data).unwrap().then(() => {
+            dispatch(resetUser());
+            setOpenLogoutModal(false);
+            localstorageService.logout();
+        }).catch(e => {
+            console.log(e)
+        })
     }
 
     const iconColor = { color: appBlackcolor, minWidth: '40px' }
@@ -40,7 +65,7 @@ const UserDropDown = () => {
                 <Avatar alt="avatar" onClick={handleClick} sx={{ cursor: 'pointer' }}>
                     {user.username && user?.username?.charAt(0)}
                 </Avatar>
-                <Typography>{user?.username}</Typography>
+                <Typography>{user?.firstName}</Typography>
             </Stack>
             <Menu
                 id="basic-menu"
@@ -50,8 +75,9 @@ const UserDropDown = () => {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
+                disableScrollLock
             >
-                <StyledLink to='/'>
+                {/* <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
@@ -60,8 +86,28 @@ const UserDropDown = () => {
                             <ListItemText primary="Settings" />
                         </ListItemButton>
                     </ListItem>
+                </StyledLink> */}
+                <StyledLink to='/profile'>
+                    <ListItem disablePadding onClick={handleClose}>
+                        <ListItemButton>
+                            <ListItemIcon sx={iconColor}>
+                                <BorderColorOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Profile Settings" />
+                        </ListItemButton>
+                    </ListItem>
                 </StyledLink>
-                <StyledLink to='/'>
+                {/* <StyledLink to='/change-password'>
+                    <ListItem disablePadding onClick={handleClose}>
+                        <ListItemButton>
+                            <ListItemIcon sx={iconColor}>
+                                <BorderColorOutlinedIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Change password" />
+                        </ListItemButton>
+                    </ListItem>
+                </StyledLink> */}
+                <StyledLink to='/contact'>
                     <ListItem disablePadding onClick={handleClose}>
                         <ListItemButton>
                             <ListItemIcon sx={iconColor}>
@@ -81,7 +127,6 @@ const UserDropDown = () => {
                         </ListItemButton>
                     </ListItem>
                 </StyledLink>
-                {/* <StyledLink to='/login'> */}
                 <ListItem disablePadding>
                     <ListItemButton onClick={handleLogout}>
                         <ListItemIcon sx={iconColor}>
@@ -90,8 +135,13 @@ const UserDropDown = () => {
                         <ListItemText primary="Sign Out" />
                     </ListItemButton>
                 </ListItem>
-                {/* </StyledLink> */}
             </Menu>
+            <LogoutModal
+                open={openLogoutModal}
+                handleClose={handleLogoutModalClose}
+                onClickLogout={onClickLogout}
+                isLoading={isLoading}
+            />
         </>
     )
 }

@@ -4,18 +4,18 @@ import { styled } from '@mui/material/styles'
 import { Controller, useFormContext } from 'react-hook-form'
 import { appToggleButtonBorder } from 'theme/colors';
 
-
 const MiuToggleButton = styled(ToggleButton)(({ theme }) => ({
     border: `1px solid ${appToggleButtonBorder}!important`,
     marginBottom: '12px',
-    borderRadius: '8px !important'
+    borderRadius: '8px !important',
+    textTransform: 'none',
 }));
 
 const OnboardingGenderForm = () => {
     const { control } = useFormContext();
     const genders = [
-        "Female",
         "Male",
+        "Female",
         "Rather Not say"
     ]
 

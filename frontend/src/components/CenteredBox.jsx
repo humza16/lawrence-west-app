@@ -1,17 +1,18 @@
 import React from 'react'
-import {  Box } from "@mui/material";
+import { Box } from "@mui/material";
 
-const CenteredBox = ({ children }) => {
+const CenteredBox = ({ children, maxWidth = "380px", height = "100vh", ...props }) => {
     return (
         <Box
             width="100%"
-            height="100vh" // Set the height of the container
+            height={height} // Set the height of the container
             display="flex"
             justifyContent="center"
             alignItems="center"
+            {...props}
         >
             <Box
-                maxWidth="380px"
+                maxWidth={maxWidth}
                 display="flex"
                 flexDirection="column"
             >

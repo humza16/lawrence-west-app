@@ -17,11 +17,13 @@ import logging
 import json
 import base64
 import binascii
+import datetime
 import google.auth
 from google.oauth2 import service_account
 from google.cloud import secretmanager
 from google.auth.exceptions import DefaultCredentialsError
 from google.api_core.exceptions import PermissionDenied
+import sendgrid
 from modules.manifest import get_modules
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -88,6 +90,10 @@ THIRD_PARTY_APPS = [
     'drf_spectacular',
     'storages',
     'import_export',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    'cities_light',
+    'corsheaders',
 ]
 MODULES_APPS = get_modules()
 
@@ -101,6 +107,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'lawrence_west_app_44469.urls'
@@ -177,8 +189,9 @@ STATIC_URL = '/static/'
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    # 'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'users.backends.EmailOrUsernameModelBackend'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -195,22 +208,26 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_UNIQUE_EMAIL = True
-LOGIN_REDIRECT_URL = "users:redirect"
+# LOGIN_REDIRECT_URL = "users:redirect"
+LOGIN_REDIRECT_URL = env.str("LOGIN_REDIRECT_URL", "http://localhost:3000")
 
 ACCOUNT_ADAPTER = "users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "users.adapters.SocialAccountAdapter"
 ACCOUNT_ALLOW_REGISTRATION = env.bool("ACCOUNT_ALLOW_REGISTRATION", True)
 SOCIALACCOUNT_ALLOW_REGISTRATION = env.bool("SOCIALACCOUNT_ALLOW_REGISTRATION", True)
 
-REST_AUTH = {
-    # Replace password reset serializer to fix 500 error
-    "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
-    # Use custom serializer that has no username and matches web signup
-    "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
-}
+# REST_AUTH = {
+#     # Replace password reset serializer to fix 500 error
+#     "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
+#     # Use custom serializer that has no username and matches web signup
+#     "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 # Custom user model
@@ -222,6 +239,19 @@ EMAIL_HOST_PASSWORD = env.str("SENDGRID_PASSWORD", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
+SENDGRID_API_KEY = env.str("SENDGRID_API_KEY", "") # sendgrid API key
+
+# default "from" email when sending emails
+DEFAULT_SENDER_EMAIL = env.str("DEFAULT_SENDER_EMAIL", "muhammad.ibrahim@crowdbotics.com")
+
+# default email for incoming requests that receives client help requests
+DEFAULT_CONTACT_EMAIL = env.str("DEFAULT_CONTACT_EMAIL", "muhammad.ibrahaim@crowdbotics.com")
+
+# default email for sending email to users and for sending emails to requests email as well
+DEFAULT_SUPPORT_EMAIL =  env.str("DEFAULT_SUPPORT_EMAIL", "muhammad.ibrahaim@crowdbotics.com")
+SENDGRID_CLIENT = None
+if SENDGRID_API_KEY:
+    SENDGRID_CLIENT = sendgrid.SendGridAPIClient(api_key=SENDGRID_API_KEY)
 
 # AWS S3 config
 AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", "")
@@ -260,12 +290,11 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "v1",
 }
 
-if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD):
+if DEBUG or not (EMAIL_HOST_USER and EMAIL_HOST_PASSWORD) or not SENDGRID_API_KEY:
     # output email to console instead of sending
     if not DEBUG:
         logging.warning("You should setup `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` env vars to send emails.")
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
 
 # GCP config 
 def google_service_account_config():
@@ -287,6 +316,22 @@ if GS_BUCKET_NAME:
     GS_DEFAULT_ACL = "publicRead"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-FAQ_PREFIX_QUESTION = 'test'
-FAQ_PREFIX_ANSWER ='test'
-FAQ_VISUAL_EXPANDED = 'test'
+
+CITIES_LIGHT_INCLUDE_COUNTRIES = env.list("CITIES_LIGHT_INCLUDE_COUNTRIES", default=["US", "CA", "GB"])
+CITIES_LIGHT_INCLUDE_CITY_TYPES = env.list("CITIES_LIGHT_INCLUDE_CITY_TYPES", default=["PPL","PPLA","PPLG","PPLL"])
+
+GOOGLE_OAUTH2_CLIENT_ID = env.str(
+    "GOOGLE_OAUTH2_CLIENT_ID",
+    "210605343891-1krcn2138uumh8cogr6fl52cttafavlu.apps.googleusercontent.com"
+)
+GOOGLE_OAUTH2_CLIENT_SECRET = env.str(
+    "GOOGLE_OAUTH2_CLIENT_SECRET",
+    "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"
+)
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=7),
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ROTATE_REFRESH_TOKENS': True,
+}

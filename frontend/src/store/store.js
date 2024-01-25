@@ -4,12 +4,11 @@ import {
   isRejectedWithValue,
 } from "@reduxjs/toolkit";
 import CounterReducer from "slices/counterSlice";
-import { testApi } from "apis/test.api";
-import { userProfileApi } from "apis/userProfile";
+import { helpCenter } from "apis/helpCenter.api";
+import { userProfileApi } from "apis/userProfile.api";
 import { authApi } from "apis/auth.api";
 import UserReducer from 'slices/userSlice';
 import toast from 'react-hot-toast';
-import { localstorageService } from "utils/localStorageService";
 
 export const ErrorLoggerMiddleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
@@ -18,7 +17,8 @@ export const ErrorLoggerMiddleware = () => (next) => (action) => {
       status: 200,
     };
     if (status === 401) {
-      localstorageService.logout();
+      // const data = refreshToken();
+      // localstorageService.logout();
     }
     toast.error(data?.message || action?.payload?.error);
   }
@@ -27,7 +27,7 @@ export const ErrorLoggerMiddleware = () => (next) => (action) => {
 
 const combinedReducer = combineReducers({
   counter: CounterReducer,
-  testApi: testApi.reducer,
+  helpCenter: helpCenter.reducer,
   userProfileApi: userProfileApi.reducer,
   authApi: authApi.reducer,
   user: UserReducer
@@ -41,10 +41,10 @@ const store = configureStore({
   reducer: combinedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat([
-      testApi.middleware,
+      helpCenter.middleware,
       userProfileApi.middleware,
       authApi.middleware,
-      ErrorLoggerMiddleware,
+      // ErrorLoggerMiddleware,
     ]),
 });
 export default store;

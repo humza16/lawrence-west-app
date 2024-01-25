@@ -1,11 +1,15 @@
 import React from 'react'
 import PrivacyPolicy from 'components/LegalAgreement/PrivacyPolicy'
-import StyledTabs from 'components/StyledTabs'
-import { Box, Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 import TabContext from '@mui/lab/TabContext';
-import { MuiTabPanel } from 'components/StyledTabs';
-// import TabPanel from '@mui/lab/TabPanel';
+// import { MuiTabPanel } from 'components/StyledTabs';
 import TermAndConditions from 'components/LegalAgreement/TermAndConditions';
+
+// import { Stack } from '@mui/material';
+import ProfileSidebar from 'components/ProfileSidebar';
+import TabPanel from '@mui/lab/TabPanel';
+// import TabContext from '@mui/lab/TabContext';
+
 
 const LegalAgreement = () => {
     const [tabValue, setTabValue] = React.useState('terms');
@@ -14,17 +18,15 @@ const LegalAgreement = () => {
         setTabValue(value);
     }
     return (
-        <Grid>
-            <Grid item xs={12}>
-                <TabContext value={tabValue}>
-                    <Box px={2} py={1} borderBottom='1px solid #E6F0FF'>
-                        <StyledTabs options={options} handleChange={handleChange} />
-                    </Box>
-                    <MuiTabPanel value='terms'>{<TermAndConditions />}</MuiTabPanel>
-                    <MuiTabPanel value="privacy"><PrivacyPolicy /></MuiTabPanel>
-                </TabContext>
-            </Grid>
-        </Grid>
+        <Stack direction="row" py={2}>
+            <TabContext
+                value={tabValue}
+            >
+                <ProfileSidebar options={options} handleChange={handleChange} />
+                <TabPanel sx={{ width: '100%' }} value='terms'>{<TermAndConditions />}</TabPanel>
+                <TabPanel sx={{ width: '100%' }} value="privacy"><PrivacyPolicy /></TabPanel>
+            </TabContext>
+        </Stack>
     )
 }
 

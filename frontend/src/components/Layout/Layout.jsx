@@ -1,19 +1,18 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { TextField, Stack, Button, IconButton, Badge } from '@mui/material';
+import { Link, useLocation } from "react-router-dom";
+import { TextField, Stack, Button, IconButton, Badge, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
 import { styled } from '@mui/material/styles'
-import { useSelector, useDispatch } from 'react-redux';
 import Logo from "assets/logos/Logo";
 import { appBlackcolor } from "theme/colors";
 import UserDropDown from "components/UserDropDown";
-import { useGetUserQuery } from "apis/userProfile";
-import { localstorageService } from "utils/localStorageService";
-import { loginSuccess } from "slices/userSlice";
+import Sidebar from "./Sidebar";
+
 
 const SearchInput = styled(TextField)(() => ({
   "& .MuiInput-root": {
@@ -38,36 +37,36 @@ const StyledLink = styled(Link)(({ theme }) => ({
   }
 }));
 
+const roundBorder = { border: "#E1E1E6 solid 2px", borderRadius: "50%" };
+
 const Layout = ({ children }) => {
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const user = useSelector(state => state?.user?.userInfo)
   const { pathname } = useLocation();
-  // const { data, isSuccess, isError, isLoading } = useGetUserQuery(localstorageService.getToken(), {
-  //   skip: Boolean(user?.id) || !localstorageService.getToken()
-  // })
+  const isMobile = useMediaQuery('(max-width:900px)');
 
   return (
     <>
-      {pathname !== '/onboarding' ? <Stack p={2} height='60px' border='1px solid #E6F0FF'>
-        <Stack direction='row' justifyContent='space-between' alignItems='center'>
-          <Stack direction='row' alignItems="center" spacing={3}>
-            <Link to='/'><Logo width="199" height="41" /></Link>
-            <StyledLink to="/">Moment Library</StyledLink>
-            <StyledLink to="/">QR Library</StyledLink>
-            <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} />
+      {pathname !== '/onboarding' ? isMobile ?
+        <Sidebar />
+
+        : <Stack p={2} border='1px solid #E6F0FF'>
+          <Stack direction='row' justifyContent='space-between' alignItems='center'>
+            {/* <Stack direction='row' alignItems="center" spacing={3}> */}
+            <Link to='/home'><Logo width="199" height="41" /></Link>
+            {/* <StyledLink to="/">Moment Library</StyledLink>
+              <StyledLink to="/">QR Library</StyledLink>
+              <SearchInput variant="standard" name="search" type="text" InputProps={{ startAdornment: (<SearchIcon sx={{ rotate: '90deg' }} />) }} /> */}
+            {/* </Stack> */}
+            <Stack direction='row' spacing={2} alignItems='flex-start'>
+              <Button size="large" sx={{ borderRadius: "100px!important" }} variant="contained" startIcon={<VideoCameraFrontIcon />} >Create moment</Button>
+              <IconButton sx={{ color: appBlackcolor, ...roundBorder }} > <SettingsOutlinedIcon /> </IconButton>
+              <Badge color="primary" >
+                <NotificationsNoneOutlinedIcon sx={{ ...roundBorder, padding: 1 }} />
+              </Badge>
+              <IconButton sx={{ color: appBlackcolor, ...roundBorder }}> <HelpOutlineOutlinedIcon /> </IconButton>
+              <UserDropDown />
+            </Stack>
           </Stack>
-          <Stack direction='row' spacing={2} alignItems='center'>
-            <Button size="large" variant="contained" startIcon={<AddIcon />}>Create moment</Button>
-            <IconButton sx={{ color: appBlackcolor }}> <SettingsOutlinedIcon /> </IconButton>
-            <Badge badgeContent={4} color="primary">
-              <NotificationsNoneOutlinedIcon />
-            </Badge>
-            <IconButton sx={{ color: appBlackcolor }}> <HelpOutlineOutlinedIcon /> </IconButton>
-            <UserDropDown />
-          </Stack>
-        </Stack>
-      </Stack> : null}
+        </Stack> : null}
       <>
         {children}
       </>

@@ -1,14 +1,16 @@
 import React from 'react'
 import ForgetPasswordHeader from "./ForgetPasswordHeader";
-import { Typography, Box, Button, Stack, Card, FormControl } from "@mui/material";
-import { styled } from "@mui/material/styles";
-
+import { Typography, Box, Button, Stack, FormControl } from "@mui/material";
+import LoadingButton from '@mui/lab/LoadingButton';
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import InputField from 'components/InputField';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, FormProvider, } from "react-hook-form";
+import toast from 'react-hot-toast';
 import CenteredBox from 'components/CenteredBox';
 import StyledCard from 'components/StyledCard';
+import { useResetPasswordMutation } from 'apis/auth.api';
 const schema = yup.object().shape({
     password: yup
         .string()
@@ -28,6 +30,11 @@ const schema = yup.object().shape({
         .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 const ResetPassword = () => {
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const uid = searchParams.get("uid");
+    const token = searchParams.get("token")
+    const [resetPassword, { isLoading }] = useResetPasswordMutation()
     const methods = useForm({
         resolver: yupResolver(schema),
     });
@@ -36,7 +43,12 @@ const ResetPassword = () => {
     } = methods;
 
     const onSubmit = async (values) => {
-        console.log(values);
+        resetPassword({ uid, token, new_password: values.password }).unwrap().then(() => {
+            toast.success("Password Reset Successfully");
+            navigate("/login");
+        }).catch(e => {
+            console.log(e);
+        })
     };
     return (
         <CenteredBox>
@@ -71,8 +83,15 @@ const ResetPassword = () => {
                             />
                         </FormControl>
                         <Stack spacing={2} mt={2} mb={2} >
-                            <Button variant='contained' type='submit'>Continue</Button>
-                            <Button color="secondary" >Back</Button>
+                            <LoadingButton
+                                variant='contained'
+                                type='submit'
+                                loading={isLoading}
+                            >
+                                Continue
+                            </LoadingButton>
+                            {/* <Button variant='contained' type='submit'>Continue</Button> */}
+                            {/* <Button color="secondary" >Back</Button> */}
                         </Stack>
                     </Box>
                 </FormProvider>
