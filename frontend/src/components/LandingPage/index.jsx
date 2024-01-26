@@ -1,5 +1,4 @@
 import React from 'react'
-import Stack from '@mui/material/Stack'
 import TotalReelsCreated from './TotalReelsCreated'
 import QuoteCard from 'components/QuoteCard'
 import PriceCardSection from './PriceCardSection'

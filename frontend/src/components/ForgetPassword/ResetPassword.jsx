@@ -1,6 +1,6 @@
 import React from 'react'
 import ForgetPasswordHeader from "./ForgetPasswordHeader";
-import { Typography, Box, Button, Stack, FormControl } from "@mui/material";
+import { Typography, Box, Stack, FormControl } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import InputField from 'components/InputField';
@@ -38,9 +38,6 @@ const ResetPassword = () => {
     const methods = useForm({
         resolver: yupResolver(schema),
     });
-    const {
-        formState: { errors },
-    } = methods;
 
     const onSubmit = async (values) => {
         resetPassword({ uid, token, new_password: values.password }).unwrap().then(() => {
@@ -91,8 +88,6 @@ const ResetPassword = () => {
                             >
                                 Continue
                             </LoadingButton>
-                            {/* <Button variant='contained' type='submit'>Continue</Button> */}
-                            {/* <Button color="secondary" >Back</Button> */}
                         </Stack>
                     </Box>
                 </FormProvider>

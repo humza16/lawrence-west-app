@@ -10,8 +10,6 @@ import {
 import { useForm, FormProvider, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Link from "components/Link";
 import Logo from "assets/logos/Logo";
@@ -49,16 +47,13 @@ const schema = yup.object().shape({
 
 
 const RegistrationForm = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const methods = useForm({
     resolver: yupResolver(schema),
   });
   const {
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors },
   } = methods;
-  const [onSignUp, { data: signUnResponse, isLoading: isSignUnLoading }] = useSignupMutation();
+  const [onSignUp, { isLoading: isSignUnLoading }] = useSignupMutation();
   const { onSignIn, isSignInLoading } = useSignIn();
 
   const onSubmit = async (values) => {

@@ -12,7 +12,7 @@ const SignInWithGoogle = () => {
     const onGoogleLoginSuccess = async (res) => {
         try {
             signInWithGoogle({ auth_code: res?.code }).unwrap().then(result => {
-                const { is_first_login = false, access, refresh } = result || {}
+                const { access, refresh } = result || {}
                 localstorageService.setToken(access);
                 localstorageService.setRefreshToken(refresh);
                 navigate("/home");

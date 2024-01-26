@@ -1,11 +1,9 @@
 import React from "react";
 import {
   Box,
-  Button,
   Checkbox,
   FormControl,
   IconButton,
-  InputAdornment,
   Stack,
   Typography,
 } from "@mui/material";
@@ -18,12 +16,12 @@ import * as yup from "yup";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import LoadingButton from '@mui/lab/LoadingButton';
-import Apple from "assets/logos/Apple"
+// import Apple from "assets/logos/Apple"
 import Link from "components/Link";
 import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
-import SignInWithApple from "components/SocialButtons/SignInWithApple";
+// import SignInWithApple from "components/SocialButtons/SignInWithApple";
 
 const schema = yup.object().shape({
   email: yup
@@ -43,9 +41,6 @@ const Login = () => {
   const methods = useForm({
     resolver: yupResolver(schema),
   });
-  const {
-    formState: { isValid },
-  } = methods;
 
   const onSubmit = async (values) => {
     onSignIn({ ...values, username: values.email });

@@ -4,8 +4,6 @@ import Quote from './Quote';
 import CrownSvg from 'assets/logos/CrownSvg';
 import YellowBrushMark from "assets/images/YellowBrushMark.svg";
 
-
-
 const QuoteCard = () => {
     return (
         <>

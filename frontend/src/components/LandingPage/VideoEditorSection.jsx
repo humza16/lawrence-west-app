@@ -1,10 +1,7 @@
 import React from 'react';
 import { Stack, Typography, Button } from '@mui/material';
 import styled from '@emotion/styled';
-import EditorBg from 'assets/images/EditorBg.svg'
-import { FooterLinkPrimary } from 'theme/colors';
-
-
+import EditorBg from 'assets/images/EditorBg.png'
 
 const MuiTypography = styled(Typography)(({ theme }) => ({
     fontSize: "60px",

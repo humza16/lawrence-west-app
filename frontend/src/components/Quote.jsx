@@ -12,8 +12,6 @@ const CircleContainer = styled(Stack)(({ isActive }) => ({
   padding: 3
 }));
 
-
-
 const Quote = ({ userImage, description, name, designation }) => {
   return (
     <Stack direction='column' spacing={2} >

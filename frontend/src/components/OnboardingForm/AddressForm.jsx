@@ -1,19 +1,19 @@
 import React from 'react'
 import { FormControl, Typography, Stack } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+// import { useFormContext } from 'react-hook-form';
 import InputField from 'components/InputField'
 import SelectInput from 'components/SelectInput'
-import { useGetCountriesQuery, useGetCitiesQuery, useGetStatesQuery } from 'apis/userProfile.api'
+// import { useGetCountriesQuery, useGetCitiesQuery, useGetStatesQuery } from 'apis/userProfile.api'
 
 const AddressForm = () => {
-    const { getValues } = useFormContext();
-    const { data: countries, isLoading: countriesLoading } = useGetCountriesQuery();
-    const { data: states, isLoading: statesLoading } = useGetStatesQuery(getValues("country"), {
-        skip: !getValues("country")
-    });
-    const { data: cities, isLoading: citiesLoading } = useGetCitiesQuery(getValues("state"), {
-        skip: !getValues("state")
-    });
+    // const { getValues } = useFormContext();
+    // const { data: countries, isLoading: countriesLoading } = useGetCountriesQuery();
+    // const { data: states, isLoading: statesLoading } = useGetStatesQuery(getValues("country"), {
+    //     skip: !getValues("country")
+    // });
+    // const { data: cities, isLoading: citiesLoading } = useGetCitiesQuery(getValues("state"), {
+    //     skip: !getValues("state")
+    // });
     return (
         <Stack direction='column' spacing={3} mb={2}>
             <FormControl fullWidth margin="normal">

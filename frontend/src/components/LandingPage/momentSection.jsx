@@ -1,9 +1,7 @@
 import React from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import styled from '@emotion/styled';
-
 import moment from "assets/images/moment.svg";
-
 
 const StyledButton = styled(Button)(({ theme }) => ({
     border: `2px solid #1053D4`,
@@ -14,9 +12,10 @@ const StyledButton = styled(Button)(({ theme }) => ({
     height: "42px",
     color: '#FFFFFF',
     backgroundColor: "#1053D4"
-
-
 }));
+
+const typographyStyle = { fontSize: { xs: 24, md: 40, lg: 55 } };
+
 const MomentSection = () => {
     return (
         <Box
@@ -36,42 +35,29 @@ const MomentSection = () => {
         >
             <Box
 
-                textAlign= 'left'
+                textAlign='left'
                 color="white"
                 mt="50px"
                 ml="20px"
-
-              
-                
-
             >
                 <Typography
                     fontWeight={700}
                     textAlign='left'
-                    sx={{
-                        fontSize: { xs: 24, md: 40, lg: 55 }
-                    }}
-
+                    sx={typographyStyle}
                 >
                     All you need is Reel
                 </Typography>
                 <Typography
                     fontWeight={700}
                     textAlign='center'
-                    sx={{
-                        fontSize: { xs: 24, md: 40, lg: 55 }
-                    }}
-                // marginTop={16}
+                    sx={typographyStyle}
                 >
                     moment for every
                 </Typography>
                 <Typography
                     fontWeight={700}
                     textAlign='center'
-                    sx={{
-                        fontSize: { xs: 24, md: 40, lg: 55 }
-                    }}
-                // marginTop={16}
+                    sx={typographyStyle}
                 >
                     Special Occasion
                 </Typography>

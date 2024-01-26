@@ -32,24 +32,21 @@ const Profile = () => {
     resolver: yupResolver(schema),
     defaultValues: {
       email: user?.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-    }
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+    },
   });
 
   const onSubmit = async (values) => {
     onEditProfile(values).unwrap().then((response) => {
       toast.success("Profile updated Successfully")
       dispatch(loginSuccess(response));
-
     }).catch(e => {
       toast.error("Something went wrong")
-
       console.log(e);
     })
     console.log(values);
   };
-
 
   return (
     <Box width="100%" display="flex" justifyContent="center" mt={2}>

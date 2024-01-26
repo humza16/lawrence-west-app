@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography, Stack } from '@mui/material';
+import { Avatar, Menu, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack } from '@mui/material';
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
@@ -38,8 +38,6 @@ const UserDropDown = () => {
     const handleLogout = () => {
         setOpenLogoutModal(true);
         handleClose()
-        // dispatch(resetUser());
-        // localstorageService.logout();
     }
 
     const handleLogoutModalClose = () => {
@@ -76,6 +74,7 @@ const UserDropDown = () => {
                     'aria-labelledby': 'basic-button',
                 }}
                 disableScrollLock
+            // sx={{ right: "24px" }}
             >
                 {/* <StyledLink to='/'>
                     <ListItem disablePadding onClick={handleClose}>

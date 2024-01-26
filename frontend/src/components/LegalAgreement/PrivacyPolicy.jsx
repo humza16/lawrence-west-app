@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography } from "@mui/material";
-import Banner from 'containers/LegalAgreement/Banner';
+import Banner from 'components/LegalAgreement/Banner';
 
 const PrivacyPolicy = () => {
   return (

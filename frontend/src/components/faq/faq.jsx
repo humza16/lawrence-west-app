@@ -4,7 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
-// import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useGetFaqsQuery } from 'apis/helpCenter.api';
 import Loader from 'components/Loader';

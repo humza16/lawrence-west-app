@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-// import { History } from "../index";
 export const localstorageService = (() => {
   const _setToken = (value) => {
     Cookies.set("token", value);
@@ -15,10 +14,9 @@ export const localstorageService = (() => {
   const _getRefreshToken = () =>
     typeof window !== "undefined" ? Cookies.get("refreshToken") : false;
 
-  const _logout = (url) => {
+  const _logout = () => {
     Cookies.remove("token");
     Cookies.remove("refreshToken");
-    // History.navigate(url || "/login");
   };
 
   const _removeToken = () => {

@@ -8,7 +8,6 @@ import {
     Typography,
     Stack,
 } from "@mui/material";
-import { useSelector } from 'react-redux'
 import { useEditProfileMutation } from 'apis/userProfile.api';
 import { LoadingButton } from '@mui/lab';
 import toast from 'react-hot-toast';

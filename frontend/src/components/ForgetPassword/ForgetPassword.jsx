@@ -24,9 +24,6 @@ const ForgetPassword = () => {
     const methods = useForm({
         resolver: yupResolver(schema),
     });
-    const {
-        formState: { errors },
-    } = methods;
 
     const onSubmit = async (values) => {
         sendResetEmail(values).unwrap().then(() => {

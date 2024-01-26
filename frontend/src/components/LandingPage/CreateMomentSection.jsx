@@ -1,9 +1,10 @@
-import { Box, Typography, Grid } from '@mui/material'
 import React from 'react'
-import Balloon from "assets/images/Balloon.svg";
-import Mug from "assets/images/Mug.svg";
-import WomenAndKid from "assets/images/WomenAndKid.svg";
-import ChrismisTree from "assets/images/ChrismisTree.svg";
+import { Box, Typography, Grid } from '@mui/material'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Balloon from "assets/images/Balloon.png";
+import Tree from "assets/images/Tree.png";
+import Bottle from "assets/images/Bottle.png";
+import Kid from "assets/images/Kid.png";
 
 
 const Images = [
@@ -13,19 +14,19 @@ const Images = [
   },
   {
     id: 2,
-    Image: ChrismisTree
+    Image: Tree
   },
   {
     id: 3,
-    Image: Mug
+    Image: Bottle
   },
   {
     id: 4,
-    Image: WomenAndKid
+    Image: Kid
   }
 ]
 
-
+const typographyStyle = { fontSize: { xs: 24, md: 40, lg: 55 } };
 const CreateMomentSection = () => {
   return (
     <Box
@@ -37,25 +38,18 @@ const CreateMomentSection = () => {
       marginBottom="35px"
     >
       <Box
-      // sx={{
-      //   height: { xs: '400px', md: '500px', } // Adjust height values as needed
-      // }}
       >
         <Typography
           fontWeight={700}
           textAlign='center'
-          sx={{
-            fontSize: { xs: 24, md: 40, lg: 55 }
-          }}
+          sx={typographyStyle}
         >
           Create Moments to Share
         </Typography>
         <Typography
           fontWeight={700}
           textAlign='center'
-          sx={{
-            fontSize: { xs: 24, md: 40, lg: 55 },
-          }}
+          sx={typographyStyle}
         >
           With your loved ones
         </Typography>
@@ -64,11 +58,8 @@ const CreateMomentSection = () => {
             <Grid
               key={item.id}
               item
-            // sx={{
-            //   height: { xs: 400, md: 'auto' }
-            // }}
             >
-              <img src={item.Image} style={{ borderRadius: '30px' }} alt='' loading='lazy' />
+              <LazyLoadImage src={item.Image} style={{ borderRadius: '30px' }} alt='' effect='blur' />
             </Grid>)}
         </Grid>
       </Box>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Box, Typography, Button } from '@mui/material'
-import styled from '@emotion/styled';
-import HeroImage from "assets/images/heroSection.svg";
+import HeroImage from "assets/images/HeroBg.png";
 import CreateBG from "assets/images/create-bg.svg";
 
 
@@ -18,7 +17,6 @@ const HeroSection = () => {
                 backgroundPosition: 'center',
                 height: "100vh",
                 maxWidth: "100%"
-                // width: "100%"
             }}
         >
             <Box
@@ -46,8 +44,13 @@ const HeroSection = () => {
                             maxWidth: "fit-content"
                         }}>create?</Typography>
                 </Typography>
-
-                <Button variant='contained' color='secondary' sx={{ borderRadius: '30px!important', paddingX: 4, paddingY: 1.5 }} >Create Moment</Button>
+                <Button
+                    variant='contained'
+                    color='secondary'
+                    sx={{ borderRadius: '30px!important', paddingX: 4, paddingY: 1.5 }}
+                >
+                    Create Moment
+                </Button>
             </Box>
         </Box >
     )

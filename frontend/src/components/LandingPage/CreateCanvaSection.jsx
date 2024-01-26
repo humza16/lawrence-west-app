@@ -1,20 +1,25 @@
-import react from 'react'
-import { Box, Typography, Grid } from '@mui/material'
-import lady from "assets/images/lady.svg";
-import family from "assets/images/family.svg";
-import Birthday from "assets/images/Birthday.svg";
-import mountains from "assets/images/mountains-svg.svg";
-import flowers from "assets/images/Flowers.svg";
-import party from "assets/images/party.svg";
-import anniversary from "assets/images/anniversary.svg";
+import { Box, Typography } from '@mui/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import lady from "assets/images/lady.png";
+import family from "assets/images/family.png";
+import Birthday from "assets/images/birthday.png";
+import mountains from "assets/images/mountains.png";
+import flowers from "assets/images/flowers.png";
+import party from "assets/images/party.png";
+import anniversary from "assets/images/anniversary.png";
 import template from "assets/images/templates.svg"
+
+
+
+const imageProps = {
+    style: { borderRadius: "18px", maxWidth: "100%", height: "auto" },
+    effect: 'blur'
+}
 
 const CreateCanvaSection = () => {
     return (
         <>
             <Box
-
-
                 display="flex"
                 justifyContent="start"
                 alignItems="start"
@@ -70,10 +75,10 @@ const CreateCanvaSection = () => {
 
 
             }}>
-                <img src={party} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
-                <img src={mountains} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
-                <img src={Birthday} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
-                <img src={flowers} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
+                <LazyLoadImage src={party} {...imageProps} />
+                <LazyLoadImage src={mountains} {...imageProps} />
+                <LazyLoadImage src={Birthday} {...imageProps} />
+                <LazyLoadImage src={flowers} {...imageProps} />
             </Box>
             <Box sx={{
                 display: "flex",
@@ -83,14 +88,12 @@ const CreateCanvaSection = () => {
                 flexWrap: "wrap",
                 marginTop: "10px",
                 marginBottom: "35px"
-
             }}>
 
-                <img src={family} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
-                <img src={anniversary} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
-                <img src={lady} style={{ borderRadius: "18px", maxWidth: "100%", height: "auto" }} />
+                <LazyLoadImage src={family} {...imageProps} />
+                <LazyLoadImage src={anniversary} {...imageProps} />
+                <LazyLoadImage src={lady} {...imageProps} />
             </Box >
-
         </>
     )
 }
