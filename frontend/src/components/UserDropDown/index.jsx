@@ -63,9 +63,9 @@ const UserDropDown = () => {
         <>
             <Stack direction='column' alignItems='center' spacing={1}>
                 <Avatar alt="avatar" onClick={handleClick} sx={{ cursor: 'pointer' }}>
-                    {user.username && user?.username?.charAt(0)}
+                    {user?.first_name && user?.first_name?.charAt(0)}
                 </Avatar>
-                <Typography>{user?.firstName}</Typography>
+                {/* <Typography>{user?.first_name}</Typography> */}
             </Stack>
             <Menu
                 id="basic-menu"
