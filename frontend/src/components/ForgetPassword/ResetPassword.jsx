@@ -47,6 +47,7 @@ const ResetPassword = () => {
             toast.success("Password Reset Successfully");
             navigate("/login");
         }).catch(e => {
+            toast.error("Something went wrong")
             console.log(e);
         })
     };

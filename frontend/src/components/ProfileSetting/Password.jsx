@@ -52,6 +52,7 @@ const Password = () => {
                 new_password2: ""
             })
         }).catch(e => {
+            toast.error("Something went wrong")
             console.log(e);
         })
         console.log(values);

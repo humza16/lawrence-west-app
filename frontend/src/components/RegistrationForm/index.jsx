@@ -20,6 +20,7 @@ import { useSignupMutation } from "apis/auth.api";
 import SingInWithGoogle from "components/SocialButtons/SignInWithGoogle";
 import SignInWithFacebook from "components/SocialButtons/SignInWithFacebook";
 import useSignIn from "shared/hooks/useSignIn";
+import toast from "react-hot-toast";
 
 const schema = yup.object().shape({
   email: yup
@@ -65,7 +66,8 @@ const RegistrationForm = () => {
       .then(() => {
         onSignIn({ ...values, username: values.email })
       })
-      .catch(error => console.log(error));
+      .catch(() => toast.error("Something went wrong")
+      );
   };
 
   return (

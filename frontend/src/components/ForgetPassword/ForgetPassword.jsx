@@ -32,6 +32,7 @@ const ForgetPassword = () => {
         sendResetEmail(values).unwrap().then(() => {
             toast.success("Reset email sent")
         }).catch(e => {
+            toast.error("Something went wrong")
             console.log(e);
         })
         console.log(values);

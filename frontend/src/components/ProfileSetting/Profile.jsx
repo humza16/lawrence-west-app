@@ -39,6 +39,8 @@ const Profile = () => {
     onEditProfile(values).unwrap().then(() => {
       toast.success("Profile updated Successfully")
     }).catch(e => {
+      toast.error("Something went wrong")
+
       console.log(e);
     })
     console.log(values);

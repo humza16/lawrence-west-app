@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     email: yup
         .string()
         .email("Email format is not valid"),
-    subject: yup.string().required(),
+    subject: yup.string().required,
     help_request: yup.string().required(),
 });
 
@@ -35,6 +35,8 @@ const ContactUsForm = () => {
         onPostQuery(values).unwrap().then(() => {
             toast.success("Your Query Posted Successfully")
         }).catch(e => {
+            toast.error("Something went wrong")
+            
             console.log(e);
         })
         console.log(values);

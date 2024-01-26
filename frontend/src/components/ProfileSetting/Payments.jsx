@@ -1,5 +1,4 @@
 import React from 'react'
-import InputField from "components/InputField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
@@ -27,7 +26,6 @@ const schema = yup.object().shape({
 });
 
 const Payments = () => {
-    // const user = useSelector(state => state?.user?.userInfo)
 
     const [onEditProfile, { isLoading }] = useEditProfileMutation()
     const methods = useForm({
@@ -38,6 +36,7 @@ const Payments = () => {
         onEditProfile(values).unwrap().then(() => {
             toast.success("Profile updated Successfully")
         }).catch(e => {
+            toast.error("Something went wrong")
             console.log(e);
         })
         console.log(values);
@@ -71,12 +70,7 @@ const Payments = () => {
                             </Typography>
                             <ChipSelect />
                         </FormControl>
-                        {/* <SelectInput
-                            name="allowedCurrencies"
-                            options={[{ label: "USD", value: 'usd' }, { label: "EURO", value: "euro" }]}
-                            label="Allowed Currencies"
-                            placeholder="Allowed Currency"
-                        /> */}
+
                         <SelectInput
                             name="defaultCurrencies"
                             options={[{ label: "USD", value: 'usd' }, { label: "EURO", value: "euro" }]}
