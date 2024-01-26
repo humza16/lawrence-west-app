@@ -8,10 +8,11 @@ import {
   FormControl,
   Typography,
 } from "@mui/material";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEditProfileMutation } from 'apis/userProfile.api';
 import { LoadingButton } from '@mui/lab';
 import toast from 'react-hot-toast';
+import { loginSuccess } from 'slices/userSlice';
 
 
 const schema = yup.object().shape({
@@ -23,6 +24,7 @@ const schema = yup.object().shape({
 });
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const user = useSelector(state => state?.user?.userInfo)
 
   const [onEditProfile, { isLoading }] = useEditProfileMutation()
@@ -36,8 +38,10 @@ const Profile = () => {
   });
 
   const onSubmit = async (values) => {
-    onEditProfile(values).unwrap().then(() => {
+    onEditProfile(values).unwrap().then((response) => {
       toast.success("Profile updated Successfully")
+      dispatch(loginSuccess(response));
+
     }).catch(e => {
       console.log(e);
     })
