@@ -1,6 +1,6 @@
 import "styles/global.scss";
 
-import { lazy, Suspense } from "react";
+import {  Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 import theme from "theme";
 import { ThemeProvider } from "@emotion/react";
@@ -19,6 +19,7 @@ const Onboarding = lazy(() => import("containers/Onboarding"));
 const LegalAgreement = lazy(() => import("containers/LegalAgreement"));
 const AuthLayout = lazy(() => import("components/Layout/AuthLayout"));
 const LandingPage = lazy(() => import("components/LandingPage"))
+const MediaTrack = lazy(() => import("components/MediaTrack/MediaTrack"))
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
@@ -111,6 +112,14 @@ function App(props) {
             element={
               <Suspense fallback={<Loader />}>
                 <LandingPage {...props} />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/media-track"
+            element={
+              <Suspense fallback={<Loader />}>
+                <MediaTrack {...props} />
               </Suspense>
             }
           />
